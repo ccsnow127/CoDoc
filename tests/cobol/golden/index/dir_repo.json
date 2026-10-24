@@ -1,0 +1,842 @@
+{
+ "copybooks": {
+  "ACCTREC": {
+   "kind": "data",
+   "loc": 3,
+   "name": "ACCTREC",
+   "path": "cpy/ACCTREC.cpy",
+   "top_items": [
+    "ACCT-RECORD"
+   ],
+   "used_by": [
+    "BILL01",
+    "BILL02",
+    "SOLO01"
+   ]
+  },
+  "COMMAREA": {
+   "kind": "data",
+   "loc": 3,
+   "name": "COMMAREA",
+   "path": "cpy/COMMAREA.cpy",
+   "top_items": [
+    "CARD-COMMAREA"
+   ],
+   "used_by": [
+    "CARD01",
+    "CARD02",
+    "USER01",
+    "USER02"
+   ]
+  }
+ },
+ "datastores": {
+  "ACCTDAT": {
+   "aliases": [
+    "ACCTDAT"
+   ],
+   "jobs": [],
+   "kind": "cics-file",
+   "name": "ACCTDAT",
+   "organization": "",
+   "readers": [
+    "CARD01",
+    "CARD02",
+    "USER01",
+    "USER02"
+   ],
+   "writers": []
+  }
+ },
+ "edge_counts": {
+  "call": 2,
+  "cics-xctl": 2,
+  "copy": 7,
+  "reads": 4
+ },
+ "edges": [
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:BILL01",
+   "target": "copy:ACCTREC"
+  },
+  {
+   "count": 1,
+   "kind": "call",
+   "kinds": [
+    "call"
+   ],
+   "source": "prog:BILL01",
+   "target": "prog:BILL02"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:BILL02",
+   "target": "copy:ACCTREC"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:CARD01",
+   "target": "copy:COMMAREA"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:CARD01",
+   "target": "data:ACCTDAT"
+  },
+  {
+   "count": 1,
+   "kind": "cics-xctl",
+   "kinds": [
+    "cics-xctl"
+   ],
+   "source": "prog:CARD01",
+   "target": "prog:CARD02"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:CARD02",
+   "target": "copy:COMMAREA"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:CARD02",
+   "target": "data:ACCTDAT"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:SOLO01",
+   "target": "copy:ACCTREC"
+  },
+  {
+   "count": 1,
+   "kind": "call",
+   "kinds": [
+    "call"
+   ],
+   "source": "prog:SOLO01",
+   "target": "prog:BILL01"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:USER01",
+   "target": "copy:COMMAREA"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:USER01",
+   "target": "data:ACCTDAT"
+  },
+  {
+   "count": 1,
+   "kind": "cics-xctl",
+   "kinds": [
+    "cics-xctl"
+   ],
+   "source": "prog:USER01",
+   "target": "prog:USER02"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:USER02",
+   "target": "copy:COMMAREA"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:USER02",
+   "target": "data:ACCTDAT"
+  }
+ ],
+ "entrypoints": {
+  "cics": [
+   "CARD01",
+   "USER01"
+  ],
+  "jcl": [],
+  "standalone": [
+   "SOLO01"
+  ]
+ },
+ "files": [
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 10,
+   "path": "billing/BILL01.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 9,
+   "path": "billing/BILL02.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 11,
+   "path": "cards/CARD01.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 10,
+   "path": "cards/CARD02.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "copybook",
+   "loc": 2,
+   "path": "cpy/ACCTREC.cpy"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "copybook",
+   "loc": 2,
+   "path": "cpy/COMMAREA.cpy"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 10,
+   "path": "lonely/SOLO01.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 11,
+   "path": "users/USER01.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 10,
+   "path": "users/USER02.cbl"
+  }
+ ],
+ "groups": {
+  "BILL01": "billing",
+  "BILL02": "billing",
+  "CARD01": "cards",
+  "CARD02": "cards",
+  "SOLO01": "lonely",
+  "USER01": "users",
+  "USER02": "users"
+ },
+ "jobs": {},
+ "mapsets": {},
+ "name": "repo",
+ "programs": {
+  "BILL01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "call",
+     "line": 9,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "BILL02",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [],
+   "copybooks": [
+    "ACCTREC"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 ACCT-ID PIC 9(9)"
+     ],
+     "copybook": "ACCTREC",
+     "level": 1,
+     "name": "ACCT-RECORD",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : create bills",
+   "is_batch_main": true,
+   "loc": 10,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 8,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "billing/BILL01.cbl",
+   "program_id": "BILL01",
+   "returning": "",
+   "sloc": 9,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "BILL02": {
+   "author": "",
+   "calls": [],
+   "cics": [],
+   "copybooks": [
+    "ACCTREC"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 ACCT-ID PIC 9(9)"
+     ],
+     "copybook": "ACCTREC",
+     "level": 1,
+     "name": "ACCT-RECORD",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : price bills",
+   "is_batch_main": true,
+   "loc": 9,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 8,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "billing/BILL02.cbl",
+   "program_id": "BILL02",
+   "returning": "",
+   "sloc": 8,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "CARD01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "cics-xctl",
+     "line": 10,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "CARD02",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [
+    {
+     "args": {
+      "FILE": "'ACCTDAT'",
+      "INTO": "X",
+      "RIDFLD": "K"
+     },
+     "command": "READ",
+     "line": 9,
+     "resolved": {
+      "FILE": [
+       "ACCTDAT"
+      ]
+     }
+    }
+   ],
+   "copybooks": [
+    "COMMAREA"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 CA-USER PIC X(8)"
+     ],
+     "copybook": "COMMAREA",
+     "level": 1,
+     "name": "CARD-COMMAREA",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "",
+     "fd_record": "",
+     "modes": [
+      "READ"
+     ],
+     "name": "ACCTDAT",
+     "organization": "",
+     "record_key": "",
+     "via": "cics"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : list cards",
+   "is_batch_main": false,
+   "loc": 11,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 8,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "cards/CARD01.cbl",
+   "program_id": "CARD01",
+   "returning": "",
+   "sloc": 10,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "CARD02": {
+   "author": "",
+   "calls": [],
+   "cics": [
+    {
+     "args": {
+      "FILE": "'ACCTDAT'",
+      "INTO": "X",
+      "RIDFLD": "K"
+     },
+     "command": "READ",
+     "line": 9,
+     "resolved": {
+      "FILE": [
+       "ACCTDAT"
+      ]
+     }
+    }
+   ],
+   "copybooks": [
+    "COMMAREA"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 CA-USER PIC X(8)"
+     ],
+     "copybook": "COMMAREA",
+     "level": 1,
+     "name": "CARD-COMMAREA",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "",
+     "fd_record": "",
+     "modes": [
+      "READ"
+     ],
+     "name": "ACCTDAT",
+     "organization": "",
+     "record_key": "",
+     "via": "cics"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : show a card",
+   "is_batch_main": false,
+   "loc": 10,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 8,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "cards/CARD02.cbl",
+   "program_id": "CARD02",
+   "returning": "",
+   "sloc": 9,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "SOLO01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "call",
+     "line": 9,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "BILL01",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [],
+   "copybooks": [
+    "ACCTREC"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 ACCT-ID PIC 9(9)"
+     ],
+     "copybook": "ACCTREC",
+     "level": 1,
+     "name": "ACCT-RECORD",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : one-off utility",
+   "is_batch_main": true,
+   "loc": 10,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 8,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "lonely/SOLO01.cbl",
+   "program_id": "SOLO01",
+   "returning": "",
+   "sloc": 9,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "USER01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "cics-xctl",
+     "line": 10,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "USER02",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [
+    {
+     "args": {
+      "FILE": "'ACCTDAT'",
+      "INTO": "X",
+      "RIDFLD": "K"
+     },
+     "command": "READ",
+     "line": 9,
+     "resolved": {
+      "FILE": [
+       "ACCTDAT"
+      ]
+     }
+    }
+   ],
+   "copybooks": [
+    "COMMAREA"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 CA-USER PIC X(8)"
+     ],
+     "copybook": "COMMAREA",
+     "level": 1,
+     "name": "CARD-COMMAREA",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "",
+     "fd_record": "",
+     "modes": [
+      "READ"
+     ],
+     "name": "ACCTDAT",
+     "organization": "",
+     "record_key": "",
+     "via": "cics"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : list users",
+   "is_batch_main": false,
+   "loc": 11,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 8,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "users/USER01.cbl",
+   "program_id": "USER01",
+   "returning": "",
+   "sloc": 10,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "USER02": {
+   "author": "",
+   "calls": [],
+   "cics": [
+    {
+     "args": {
+      "FILE": "'ACCTDAT'",
+      "INTO": "X",
+      "RIDFLD": "K"
+     },
+     "command": "READ",
+     "line": 9,
+     "resolved": {
+      "FILE": [
+       "ACCTDAT"
+      ]
+     }
+    }
+   ],
+   "copybooks": [
+    "COMMAREA"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 CA-USER PIC X(8)"
+     ],
+     "copybook": "COMMAREA",
+     "level": 1,
+     "name": "CARD-COMMAREA",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "",
+     "fd_record": "",
+     "modes": [
+      "READ"
+     ],
+     "name": "ACCTDAT",
+     "organization": "",
+     "record_key": "",
+     "via": "cics"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : add a user",
+   "is_batch_main": false,
+   "loc": 10,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 8,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "users/USER02.cbl",
+   "program_id": "USER02",
+   "returning": "",
+   "sloc": 9,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  }
+ },
+ "ranking": [
+  [
+   "BILL02",
+   0.231288
+  ],
+  [
+   "BILL01",
+   0.16633
+  ],
+  [
+   "CARD02",
+   0.16633
+  ],
+  [
+   "USER02",
+   0.16633
+  ],
+  [
+   "CARD01",
+   0.089908
+  ],
+  [
+   "SOLO01",
+   0.089908
+  ],
+  [
+   "USER01",
+   0.089908
+  ]
+ ],
+ "root": "<ROOT>",
+ "summary": {
+  "bms_mapsets": 0,
+  "call_edges": 4,
+  "cobol_loc": 75,
+  "copybooks": 2,
+  "jcl_jobs": 0,
+  "missing_copybooks": [],
+  "name": "repo",
+  "programs": 7,
+  "root": "<ROOT>",
+  "unresolved_calls": [],
+  "unresolved_dynamic": [],
+  "warnings": []
+ },
+ "transactions": {}
+}

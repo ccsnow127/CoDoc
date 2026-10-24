@@ -1,0 +1,57 @@
+=== LANG ===
+C++
+=== FENCE ===
+cpp
+=== FILE_NOUN ===
+C++ source file
+=== GENERATOR_INPUTS ===
+the file's include preamble (inserted verbatim), the list of allowed headers, and the declarations of the repository headers the file includes plus the prototypes of the unit's other files
+=== DOC_HEADER ===
+# <file path>
+
+**Unit**: `<directory name>` (C++)
+=== SECTION_KINDS ===
+- `## VariableDef <Name>` for every file-scope variable (`static` ones included; `extern` declarations excluded) and every `#define` macro (object-like and function-like; include guards excluded).
+- `## ClassDef <Name>` for every class, struct, union and enum definition with a body, every `typedef` and every `using X = ...` alias (names unqualified: namespaces are not part of the name).
+- `## FunctionDef <Name>` for every free function definition, `static` functions and `main` included. Function prototypes are not sections.
+- `## MethodDef <Class>.<Name>` for every member function defined in a class body or out of class (`R Cls::m(...)`), constructors `Cls.Cls`, operators `Cls.operator==`; nested classes `Outer.Inner.m`. One section covers all overloads of a name.
+- `constexpr` constants and file-scope variables are `VariableDef` sections too.
+- The first line under every header is `**<Name>**: <one-sentence summary>.` This line is used as the symbol summary in a wiki, so make it a real summary.
+=== TYPE_RULE ===
+Types: give the exact definition in a fenced `cpp` block: the enclosing namespace, the class header with base classes, access sections, every data member with its exact type and default initializer, every member function declaration (exact signature, `const`, `static`, `virtual`, `override`, `= default`/`= delete`) WITHOUT bodies, nested types and enumerators with explicit values. Comments may be dropped. Then explain invariants and ownership in prose.
+=== VALUE_RULE ===
+Variables and macros: give the exact definition in a fenced `cpp` block, including storage class (`static`, `const`), type, array size and initializer, and for macros the exact `#define` line with its parameters and replacement text. If an initializer is longer than about 20 lines (large tables), describe its content precisely in prose instead.
+=== FUNC_RULE ===
+   - the exact signature including the namespace, the class qualifier for methods, `const`/`noexcept` qualifiers, references and pointers, default arguments and template parameters;
+   - exceptions: which exception types are thrown when, with their exact `what()` messages;
+   - error reporting: return codes, `errno`, out-parameters (when they are written and when they are left untouched), NULL returns;
+   - memory ownership: who allocates and who frees each pointer argument and return value, buffer sizes and termination (`'\0'`), truncation rules;
+   - side effects: file-scope and global variables read or mutated, output written with `printf`/`fprintf` (exact format strings), files, signals, `exit`/`abort` calls;
+=== CONTEXT_RULE ===
+Declarations listed in the context come from the repository headers this file includes or from OTHER source files of the same directory unit: do not document them as sections of this file, but name them when this file uses them; name the struct members and macros of such declarations that this file uses exactly, in backticks.
+=== CODEGEN_RULES ===
+- The include preamble of the original file is inserted verbatim before your code: do not write it again. Add other `#include` lines only for standard headers you need.
+- Keep the documented namespaces and qualified names exactly; define out-of-class members as documented.
+- Write EVERY documented definition, in the documented order, with exactly the documented names, signatures, storage classes and `const` qualifiers, matching the declarations of the included headers exactly.
+- Reproduce every documented macro, type definition, file-scope variable and initializer exactly.
+- Do not redefine anything declared in the context headers or defined in the unit's other files.
+- If you need an extra helper, make it `static` and prefix its name with `cdg_` (for example `cdg_trim`).
+- Write complete, working implementations: no placeholders, no TODOs, no omitted bodies.
+- Do not write tests, and no `main` function unless the documentation describes one.
+- Allocate and free memory exactly as documented; reproduce documented behaviour literally: exact strings, format strings, return codes and boundary comparisons.
+=== TEST_INTRO ===
+ONE complete, self-contained C++ test suite (one translation unit, built on the embedded `codocs_test.h` assertion header) for the target C++ source file
+=== TEST_RULES ===
+- The file starts with exactly these two lines: `#include "codocs_test.h"` and `#include CODOCS_TARGET`. The second line includes the target source file itself, so its `static` functions and variables are reachable and may be called directly. Do not include the target file any other way.
+- Test cases are `CODOCS_TEST(name) { ... }` (name: a C identifier, unique in the file) using only `CHECK(cond)`, `CHECK_EQ_INT(a, b)`, `CHECK_EQ_UINT(a, b)`, `CHECK_EQ_DBL(a, b, eps)`, `CHECK_EQ_STR(a, b)`, `CHECK_EQ_MEM(a, b, n)`, `CHECK_NULL(p)`, `CHECK_NOT_NULL(p)`, `REQUIRE(cond)` and `SKIP(msg)`. No other test framework.
+- No `main` function (the runner provides it; a `main` of the target is renamed). The suite is linked with the unit's other source files; other existing test programs are not part of it.
+- Include only standard headers and the repository headers the target or its unit already include.
+- Prefix every helper function, type and file-scope variable you declare with `cdx_` and make it `static`; do not redeclare any name listed as taken.
+- Deterministic: no network, no sleeps, no dependence on time, randomness or the environment; create files only under `getenv("TMPDIR")`.
+- Free all memory you allocate. EVERY case must pass against the code as given: compute expected values by reading the source.
+- Use strong, exact-value assertions on return values, out-parameters, members and containers, spread across ALL functions and methods of the target file, executing every branch.
+- C++: refer to names with their namespaces exactly; the STL is allowed; test documented exceptions with `try`/`catch` inside the case and `CHECK(threw)`; pass `std::string` values to `CHECK_EQ_STR` with `.c_str()`.
+=== TEST_SHAPE ===
+CODOCS_TEST(vec_norm) { CHECK_EQ_DBL(geom::Vec2(3, 4).norm(), 5.0, 1e-9); }
+=== MARK ===
+//

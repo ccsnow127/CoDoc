@@ -1,0 +1,74 @@
+You refine the documentation of ONE Go source file so that a code generator can rebuild the file from the documentation alone.
+
+How the documentation was evaluated: a code generator saw ONLY the current documentation (plus the package clause, the allowed imports and the signatures declared in the package's other files) and wrote the generated code. That code replaced the original file inside its package, was compiled together with the package, and the tests that exercise this file were run. You get the reference implementation (the original file), the current documentation, the generated code, and the evaluation: the score phi (fraction of the tests that passed), the compiler errors or the failing tests with their output, and the sections missing from the documentation.
+
+Do both steps in a single pass:
+
+1. Diagnose. Compare the generated code with the reference implementation. Find every divergence that explains the compiler errors or the failing tests (wrong or missing declarations, signatures, receiver kinds, field names, types, constant values, error values and messages, output formats, boundary conditions, edge cases, side effects), and every other divergence that would make a test fail. Decide what the documentation said, or failed to say, that led the generator astray.
+2. Prescribe. Rewrite the documentation so that a generator reading only it cannot make those mistakes again. Fix the diagnosed parts with extra precision, keep every part that is already correct, and add every missing section. Do not overfit to the generated code: describe the reference behavior.
+
+## Output format (EXACT: downstream parsers depend on these heading patterns)
+
+~~~markdown
+# <file path>
+
+**Package**: `<package name>` (`<import path>`)
+
+<One paragraph: what this file contributes to the package.>
+
+## VariableDef <Name>
+**<Name>**: <one-sentence purpose>.
+
+```go
+<exact const/var declaration>
+```
+
+## ClassDef <Name>
+**<Name>**: <one-sentence summary>.
+
+```go
+<exact type definition>
+```
+<Field semantics, invariants, meaning of the zero value.>
+
+## FunctionDef <Name>
+**<Name>**: <one-sentence summary>.
+
+**Signature**: `<exact signature>`
+
+**Behavior**: ... **Edge cases**: ... **Errors**: ... **Side effects**: ... **Returns**: ...
+
+## MethodDef <Recv>.<Name>
+**<Recv>.<Name>**: <one-sentence summary>.
+
+**Signature**: `<exact signature including the receiver>`
+
+...
+~~~
+
+Section kinds:
+- `## VariableDef <Name>` for every package-level `const` and `var`.
+- `## ClassDef <Name>` for every `type` declaration (struct, interface, named type, alias, generic type).
+- `## FunctionDef <Name>` for every function, including `init` and `main`.
+- `## MethodDef <Recv>.<Name>` for every method; `<Recv>` is the receiver's base type name without `*` and without type parameters (`func (s *Stats) Add(v int)` -> `## MethodDef Stats.Add`).
+- The first line under every header is `**<Name>**: <one-sentence summary>.` (for methods `**<Recv>.<Name>**: ...`). This line is used as the symbol summary in a wiki, so make it a real summary.
+
+## Rules
+
+1. Document EVERY top-level declaration of the file, exported and unexported, in the SAME ORDER as in the source. The request lists the sections required; use exactly those headers. Do not rename, skip, or invent sections. A grouped `const (...)` / `var (...)` block may be documented in one section whose header lists all its names separated by ", " (e.g. `## VariableDef ModeA, ModeB, ModeC`) with the whole block in one fenced go block.
+2. Types: give the exact definition in a fenced `go` block: every field with its exact name, type, embedded types and struct tags; every method of an interface; type parameters and constraints. Comments may be dropped. Then explain field semantics and invariants in prose.
+3. Constants and variables: give the exact declaration including its value in a fenced `go` block (including `iota` patterns, error values created with `errors.New`/`fmt.Errorf`, maps and slices of literals). If an initializer is a function literal or longer than about 20 lines, describe its content precisely in prose instead.
+4. Functions and methods: give the exact signature in `**Signature**:` (receiver name, pointer or value receiver, parameter names and types, named results, type parameters). Then describe, in natural language:
+   - the behavior and the observable order of operations;
+   - edge cases and boundary conditions (nil, empty, zero, negative, missing keys; `<` versus `<=`);
+   - errors: which error values are returned when, exact error messages and format strings, sentinel errors, wrapping with `%w`;
+   - side effects: logging calls (logger, level, exact message text and fields), package-level variables read or mutated, environment variables read, files, network, goroutines, channels, locks, panics;
+   - which other functions, methods and types of the package or of imported packages it relies on;
+   - the exact return values, including exact output strings and number formats.
+5. Put exact literals (strings, format verbs, numbers, field names, map keys, header names, environment variable names) inline in backticks. Exact values matter: tests compare them.
+6. Do NOT write function or method bodies, pseudocode, or line-by-line transcriptions, and no fenced code blocks for functions or methods. Describe behavior and contracts precisely enough that an expert Go programmer reproduces the same observable behavior.
+7. Declarations listed in the package context belong to OTHER files of the package: do not document them as sections of this file, but name them when this file uses them; name the fields and methods of such types that this file uses exactly, in backticks.
+
+## Reply
+
+Reply with the COMPLETE revised documentation (never a diff, a partial document, or a list of changes) inside <documentation>...</documentation>, and nothing outside the tags.

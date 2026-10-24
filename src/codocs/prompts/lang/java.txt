@@ -1,0 +1,55 @@
+=== LANG ===
+Java
+=== FENCE ===
+java
+=== FILE_NOUN ===
+Java source file
+=== GENERATOR_INPUTS ===
+the package declaration, the list of allowed imports, and the outlines (fields and member signatures) of the other types of the package and of the project types the file imports
+=== DOC_HEADER ===
+# <file path>
+
+**Package**: `<package name>` (module `<module name>`)
+=== SECTION_KINDS ===
+- `## ClassDef <Name>` for every class, interface, enum, record and annotation type, including nested ones (`## ClassDef Outer.Inner`).
+- `## MethodDef <Type>.<name>` for every method and constructor with a body; `<Type>` is the declaring type's name with `.` for nesting (`## MethodDef Calc.clamp`, `## MethodDef Outer.Inner.run`); a constructor is `## MethodDef <Type>.<Type>`. Overloads share one section that describes every overload.
+- Java has no top-level functions or variables: there are no FunctionDef or VariableDef sections. Fields, enum constants, record components and abstract or interface method signatures belong to the ClassDef section of their type.
+- The first line under every header is `**<Name>**: <one-sentence summary>.` (for methods `**<Type>.<name>**: ...`). This line is used as the symbol summary in a wiki, so make it a real summary.
+=== TYPE_RULE ===
+Types: give the exact declaration header in a fenced `java` block: annotations, modifiers, the keyword, type parameters with bounds, `extends` and `implements` clauses, record components, every field with its exact modifiers, type, name and initializer, every enum constant with its arguments, and every abstract, interface or annotation method signature. Do not include method bodies. Comments may be dropped. Then explain the meaning of the fields and the invariants in prose.
+=== VALUE_RULE ===
+Constants: `static final` fields are part of their type's ClassDef block and must appear there with their exact initializer value. If an initializer is a lambda, an anonymous class or longer than about 20 lines, describe its content precisely in prose instead.
+=== FUNC_RULE ===
+   - exceptions: which exception types are thrown when (checked and unchecked), with their exact messages; which exceptions are caught and how they are handled; the `throws` clause;
+   - nulls: which parameters may be null, what is returned for null or empty input, `Optional` results;
+   - side effects: fields read or mutated (static and instance), logging calls (logger, level, exact message), files, network, threads, locks and `synchronized` blocks;
+   - overloads: describe each overload's parameters and behaviour separately, and which overload delegates to which;
+   - annotations on the method (`@Override`, framework annotations) and its exact modifiers and visibility;
+=== CONTEXT_RULE ===
+Types listed in the package context belong to OTHER files of the package or of the project: do not document them as sections of this file, but name them when this file uses them; name their fields, constructors and methods that this file uses exactly, in backticks.
+=== CODEGEN_RULES ===
+- Start the file with the given package declaration (it is inserted verbatim; do not write it again), then the imports.
+- Write one complete compilation unit; the public top-level type's name equals the file name.
+- Import only from the allowed imports (and `java.lang`, which needs no import). Leave out imports you do not use.
+- Implement EVERY type, field, constructor and method described in the documentation, in the documented order, with exactly the documented names, modifiers, annotations, generics, parameter and return types, `throws` clauses, field initializers, enum constants and the documented set of constructors.
+- Do not redeclare any type listed in the package context: those types already exist in other files of the package. Use them exactly as they are declared there.
+- If you need an extra helper, make it a `private static` method whose name starts with `cdg` (for example `cdgSplit`); never add public members the documentation does not describe.
+- Write complete, working implementations: no placeholders, no TODOs, no `throw new UnsupportedOperationException()` stubs, no omitted bodies.
+- Do not write tests or a `main` method unless the documentation describes one.
+- Reproduce documented behavior literally: exact strings, exception types and messages, boundary comparisons, number formats, logging calls and side effects.
+=== TEST_INTRO ===
+ONE complete, self-contained JUnit 5 (Jupiter) test class for the target Java source file
+=== TEST_RULES ===
+- The file starts with the package declaration given in the request (the target's package, so package-private members are reachable), then its imports, then exactly one top-level class with the class name given in the request.
+- Use JUnit 5 Jupiter only: `org.junit.jupiter.api.*` (`@Test`, `@BeforeEach`, `@AfterEach`, `@Nested`, `@TempDir`, `Assertions.*`) and, for parameterized tests, `@ParameterizedTest` with `@ValueSource` or `@CsvSource`. No JUnit 4, no other test framework, and no Mockito unless it is listed as allowed.
+- Import only the JDK, this project's classes and the third-party libraries listed as allowed in the request. Every import must be used.
+- The project's existing test classes are NOT compiled or run together with your class: do not rely on their helpers, fixtures or base classes - define everything you need inside your class. When excerpts of them are shown as reference, reuse their setup patterns by copying them into your class.
+- Do not declare top-level types other than the test class. Helpers are `private` methods or `static` nested classes whose names start with `cdx` / `Cdx` (for example `cdxStats()`, `CdxFakeClock`).
+- Deterministic: no network, no `Thread.sleep`, no dependence on wall-clock time, randomness, hash iteration order or the environment; write files only under a `@TempDir` directory; never call `System.exit`.
+- EVERY test must pass against the code as given. Compute expected values yourself by reading the source; when a behaviour is unclear, assert only what the source guarantees.
+- Use strong, exact-value assertions: `assertEquals` on whole return values and fields, `assertThrows` with the exact exception type and `assertEquals` on its message - not merely `assertNotNull` or "no exception".
+- Prefer a few parameterized or grouped tests over many tiny ones, spread across ALL methods and constructors of the target file, executing every branch.
+=== TEST_SHAPE ===
+Tests are package-private `@Test void name()` methods (or `@ParameterizedTest` methods) of the test class, with no parameters other than those supplied by the parameter source.
+=== MARK ===
+//

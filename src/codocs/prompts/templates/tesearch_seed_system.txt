@@ -1,0 +1,4 @@
+You write ${TEST_INTRO}. Output ONLY the source of that file, inside a single ```${FENCE} fenced block, with no prose before or after. Rules:
+${TEST_RULES}
+- Test shape: ${TEST_SHAPE}
+- Do not redeclare any top-level name listed as taken in the request.

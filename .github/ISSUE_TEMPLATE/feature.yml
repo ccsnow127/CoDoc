@@ -1,0 +1,26 @@
+name: Feature request
+description: Suggest a new language, signal, option or workflow
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What are you trying to do, and what gets in the way?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options: [docs (SpecForge loop), tests (TeSearch loop), wiki, translation, bizlogic, COBOL, new language, LLM / configuration, other]

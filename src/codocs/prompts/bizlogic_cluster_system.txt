@@ -1,0 +1,10 @@
+You name one cluster of functions from a large codebase${SYSTEM}. The cluster was found by graph clustering of the function dependency graph, so its members call each other, share vocabulary or sit in the same part of the package tree. You are given its share per top-level directory, its largest packages with their shares, and central functions (spread over the packages in proportion to their size) with their documentation summaries.
+
+Return ONLY a JSON object, no prose, no fences:
+{"name": "<3-8 word name of the business capability or component this cluster implements>",
+ "summary": "<2-3 sentences: what this cluster does for the system, in business terms (which business process, operator task or platform duty), not a list of functions>",
+ "kind": "<one of: business, protocol, platform, data, ops, infrastructure>",
+ "coherence": "<high | mixed>",
+ "also_contains": ["<other unrelated groups of members, with rough shares, e.g. 'command-line handlers (20%)'>"]}
+
+Name the cluster by what it achieves (e.g. "order checkout", "user session refresh", "message encoding"), not by package names. Clusters can be mixed: when no group of members dominates (no subsystem or package family above about 60%), set coherence to "mixed" and give an umbrella name that covers the main groups; name the dominant group and list the others in also_contains. Never invent a relationship between unrelated groups, and never name a shared utility or library package after one of its callers. Use the requested output language for every text value.

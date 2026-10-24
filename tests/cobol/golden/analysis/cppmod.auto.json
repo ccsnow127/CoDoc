@@ -1,0 +1,146 @@
+{
+ "languages": [
+  "cpp"
+ ],
+ "module": "cppmod",
+ "notes": [],
+ "packages": [
+  {
+   "error": "",
+   "files": 4,
+   "import_path": "",
+   "lang": "cpp",
+   "name": "geom",
+   "rel": "geom",
+   "targets": {
+    "header": 2,
+    "ok": 2
+   },
+   "test_files": 2
+  },
+  {
+   "error": "",
+   "files": 2,
+   "import_path": "",
+   "lang": "cpp",
+   "name": "util",
+   "rel": "util",
+   "targets": {
+    "header": 1,
+    "ok": 1
+   },
+   "test_files": 0
+  }
+ ],
+ "selection": {
+  "files": null,
+  "max_files": null,
+  "packages": null,
+  "subtree": null
+ },
+ "skipped": [
+  {
+   "file": "geom/poly.hpp",
+   "lang": "cpp",
+   "lines": 24,
+   "pkg": "geom",
+   "status": "header",
+   "stem": "poly.hpp"
+  },
+  {
+   "file": "geom/vec.hpp",
+   "lang": "cpp",
+   "lines": 24,
+   "pkg": "geom",
+   "status": "header",
+   "stem": "vec.hpp"
+  },
+  {
+   "file": "util/strutil.hpp",
+   "lang": "cpp",
+   "lines": 15,
+   "pkg": "util",
+   "status": "header",
+   "stem": "strutil.hpp"
+  }
+ ],
+ "targets": [
+  {
+   "file": "geom/poly.cpp",
+   "lang": "cpp",
+   "lines": 35,
+   "pkg": "geom",
+   "status": "ok",
+   "stem": "poly.cpp"
+  },
+  {
+   "file": "geom/poly.hpp",
+   "lang": "cpp",
+   "lines": 24,
+   "pkg": "geom",
+   "status": "header",
+   "stem": "poly.hpp"
+  },
+  {
+   "file": "geom/vec.cpp",
+   "lang": "cpp",
+   "lines": 29,
+   "pkg": "geom",
+   "status": "ok",
+   "stem": "vec.cpp"
+  },
+  {
+   "file": "geom/vec.hpp",
+   "lang": "cpp",
+   "lines": 24,
+   "pkg": "geom",
+   "status": "header",
+   "stem": "vec.hpp"
+  },
+  {
+   "file": "util/strutil.cpp",
+   "lang": "cpp",
+   "lines": 45,
+   "pkg": "util",
+   "status": "ok",
+   "stem": "strutil.cpp"
+  },
+  {
+   "file": "util/strutil.hpp",
+   "lang": "cpp",
+   "lines": 15,
+   "pkg": "util",
+   "status": "header",
+   "stem": "strutil.hpp"
+  }
+ ],
+ "totals": {
+  "docgen_targets": 3,
+  "files": 6,
+  "lines": 172,
+  "packages": 2,
+  "packages_with_tests": 1,
+  "statuses": {
+   "header": 3,
+   "ok": 3
+  },
+  "test_files": 2,
+  "testgen_targets": 3
+ },
+ "totals_by_language": {
+  "cpp": {
+   "docgen_targets": 3,
+   "files": 6,
+   "lines": 172,
+   "packages": 2,
+   "packages_with_tests": 1,
+   "statuses": {
+    "header": 3,
+    "ok": 3
+   },
+   "test_files": 2,
+   "testgen_targets": 3
+  }
+ },
+ "unavailable": {}
+}

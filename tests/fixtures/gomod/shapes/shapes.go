@@ -1,0 +1,48 @@
+// Package shapes computes simple geometric properties.
+package shapes
+
+import "fmt"
+
+// Shape is anything with an area and a printable name.
+type Shape interface {
+	Area() float64
+	Name() string
+}
+
+// Rect is an axis-aligned rectangle.
+type Rect struct{ W, H float64 }
+
+// Area returns W*H, or 0 when either side is negative.
+func (r Rect) Area() float64 {
+	if r.W < 0 || r.H < 0 {
+		return 0
+	}
+	return r.W * r.H
+}
+
+// Name returns "rect WxH" with one decimal.
+func (r Rect) Name() string { return fmt.Sprintf("rect %.1fx%.1f", r.W, r.H) }
+
+// Classify buckets an area: "empty" (<=0), "small" (<10), "large" otherwise.
+func Classify(s Shape) string {
+	a := s.Area()
+	switch {
+	case a <= 0:
+		return "empty"
+	case a < 10:
+		return "small"
+	default:
+		return "large"
+	}
+}
+
+// Largest returns the shape with the biggest area, or nil for an empty slice.
+func Largest(shapes []Shape) Shape {
+	var best Shape
+	for _, s := range shapes {
+		if best == nil || s.Area() > best.Area() {
+			best = s
+		}
+	}
+	return best
+}

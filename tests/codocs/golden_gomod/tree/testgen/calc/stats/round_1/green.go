@@ -1,0 +1,24 @@
+package calc
+
+import "testing"
+
+func TestCodocsStats(t *testing.T) {
+	var s Stats
+	s.Add(2)
+	s.Add(9)
+	s.Add(4)
+	if s.Count != 3 || s.Total != 15 || s.Max != 9 {
+		t.Fatalf("Stats = %+v", s)
+	}
+	if got := s.Mean(); got != 50 {
+		t.Fatalf("Mean = %d, want 50", got)
+	}
+	if got := (Stats{}).Mean(); got != 0 {
+		t.Fatalf("empty Mean = %d", got)
+	}
+	var n Stats
+	n.Add(-3)
+	if n.Max != -3 {
+		t.Fatalf("Max = %d, want -3", n.Max)
+	}
+}

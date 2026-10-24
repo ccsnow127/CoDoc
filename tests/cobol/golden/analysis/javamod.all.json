@@ -1,0 +1,101 @@
+{
+ "languages": [
+  "java"
+ ],
+ "module": "javamod",
+ "notes": [],
+ "packages": [
+  {
+   "error": "",
+   "files": 2,
+   "import_path": "com.example.calc",
+   "lang": "java",
+   "name": "com.example.calc",
+   "rel": "src/main/java/com/example/calc",
+   "targets": {
+    "ok": 2
+   },
+   "test_files": 2
+  },
+  {
+   "error": "",
+   "files": 2,
+   "import_path": "com.example.shapes",
+   "lang": "java",
+   "name": "com.example.shapes",
+   "rel": "src/main/java/com/example/shapes",
+   "targets": {
+    "ok": 2
+   },
+   "test_files": 0
+  }
+ ],
+ "selection": {
+  "files": null,
+  "max_files": null,
+  "packages": null,
+  "subtree": null
+ },
+ "skipped": [],
+ "targets": [
+  {
+   "file": "src/main/java/com/example/calc/Calc.java",
+   "lang": "java",
+   "lines": 42,
+   "pkg": "src/main/java/com/example/calc",
+   "status": "ok",
+   "stem": "Calc.java"
+  },
+  {
+   "file": "src/main/java/com/example/calc/Stats.java",
+   "lang": "java",
+   "lines": 34,
+   "pkg": "src/main/java/com/example/calc",
+   "status": "ok",
+   "stem": "Stats.java"
+  },
+  {
+   "file": "src/main/java/com/example/shapes/Rect.java",
+   "lang": "java",
+   "lines": 18,
+   "pkg": "src/main/java/com/example/shapes",
+   "status": "ok",
+   "stem": "Rect.java"
+  },
+  {
+   "file": "src/main/java/com/example/shapes/Shapes.java",
+   "lang": "java",
+   "lines": 32,
+   "pkg": "src/main/java/com/example/shapes",
+   "status": "ok",
+   "stem": "Shapes.java"
+  }
+ ],
+ "totals": {
+  "docgen_targets": 4,
+  "files": 4,
+  "lines": 126,
+  "packages": 2,
+  "packages_with_tests": 1,
+  "statuses": {
+   "ok": 4
+  },
+  "test_files": 2,
+  "testgen_targets": 4
+ },
+ "totals_by_language": {
+  "java": {
+   "docgen_targets": 4,
+   "files": 4,
+   "lines": 126,
+   "packages": 2,
+   "packages_with_tests": 1,
+   "statuses": {
+    "ok": 4
+   },
+   "test_files": 2,
+   "testgen_targets": 4
+  }
+ },
+ "unavailable": {}
+}

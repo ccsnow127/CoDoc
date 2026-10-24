@@ -1,0 +1,70 @@
+name: Bug report
+description: codocs crashed or produced wrong output
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Please remove API keys, endpoints you do not want to share and
+        proprietary source code from everything you paste below.
+        Security vulnerabilities go through private reporting instead (see SECURITY.md).
+  - type: input
+    id: version
+    attributes:
+      label: codocs version
+      description: Output of `codocs --version`
+    validations:
+      required: true
+  - type: dropdown
+    id: language
+    attributes:
+      label: Source language(s) of the analysed repository
+      multiple: true
+      options: [Go, Python, Java, C, C++, COBOL]
+    validations:
+      required: true
+  - type: dropdown
+    id: command
+    attributes:
+      label: Command
+      options: [analyze, baseline, testgen, docgen, wiki, run, bizlogic, bizlogic-render, judge, translate, testrun, report]
+    validations:
+      required: true
+  - type: textarea
+    id: command-line
+    attributes:
+      label: Command line
+      description: The exact command you ran
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened, and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log output
+      description: The end of `OUT/logs/` or the terminal output; for one file, its `result.json` and the last round's `eval.json` / `measure.json` help
+      render: text
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: OS, Python version, model and endpoint type, and the toolchain versions shown by `codocs analyze` (go, java/mvn, cc/gcov, cobc)
+      render: text
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched the existing issues
+          required: true
+        - label: The report contains no API keys or proprietary code
+          required: true

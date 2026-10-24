@@ -1,0 +1,44 @@
+{
+ "pkg": "calc",
+ "file": "calc/stats.go",
+ "stem": "stats",
+ "status": "ok",
+ "rounds": [
+  {
+   "round": 1,
+   "suite": "package calc\n\nimport \"testing\"\n\nfunc TestCodocsStats(t *testing.T) {\n\tvar s Stats\n\ts.Add(2)\n\ts.Add(9)\n\ts.Add(4)\n\tif s.Count != 3 || s.Total != 15 || s.Max != 9 {\n\t\tt.Fatalf(\"Stats = %+v\", s)\n\t}\n\tif got := s.Mean(); got != 50 {\n\t\tt.Fatalf(\"Mean = %d, want 50\", got)\n\t}\n\tif got := (Stats{}).Mean(); got != 0 {\n\t\tt.Fatalf(\"empty Mean = %d\", got)\n\t}\n\tvar n Stats\n\tn.Add(-3)\n\tif n.Max != -3 {\n\t\tt.Fatalf(\"Max = %d, want -3\", n.Max)\n\t}\n}\n",
+   "measurement": {
+    "build_ok": true,
+    "build_errors": [],
+    "size": 1,
+    "passing": [
+     "TestCodocsStats"
+    ],
+    "failing": {},
+    "green_src": "package calc\n\nimport \"testing\"\n\nfunc TestCodocsStats(t *testing.T) {\n\tvar s Stats\n\ts.Add(2)\n\ts.Add(9)\n\ts.Add(4)\n\tif s.Count != 3 || s.Total != 15 || s.Max != 9 {\n\t\tt.Fatalf(\"Stats = %+v\", s)\n\t}\n\tif got := s.Mean(); got != 50 {\n\t\tt.Fatalf(\"Mean = %d, want 50\", got)\n\t}\n\tif got := (Stats{}).Mean(); got != 0 {\n\t\tt.Fatalf(\"empty Mean = %d\", got)\n\t}\n\tvar n Stats\n\tn.Add(-3)\n\tif n.Max != -3 {\n\t\tt.Fatalf(\"Max = %d, want -3\", n.Max)\n\t}\n}\n",
+    "green_size": 1,
+    "cov": 1.0,
+    "uncovered": [],
+    "mut": 1.0,
+    "mutants_total": 4,
+    "mutants_valid": 4,
+    "killed": 4,
+    "survivors": [],
+    "suite_src": "package calc\n\nimport \"testing\"\n\nfunc TestCodocsStats(t *testing.T) {\n\tvar s Stats\n\ts.Add(2)\n\ts.Add(9)\n\ts.Add(4)\n\tif s.Count != 3 || s.Total != 15 || s.Max != 9 {\n\t\tt.Fatalf(\"Stats = %+v\", s)\n\t}\n\tif got := s.Mean(); got != 50 {\n\t\tt.Fatalf(\"Mean = %d, want 50\", got)\n\t}\n\tif got := (Stats{}).Mean(); got != 0 {\n\t\tt.Fatalf(\"empty Mean = %d\", got)\n\t}\n\tvar n Stats\n\tn.Add(-3)\n\tif n.Max != -3 {\n\t\tt.Fatalf(\"Max = %d, want -3\", n.Max)\n\t}\n}\n",
+    "score": 1.0
+   }
+  }
+ ],
+ "best_round": 1,
+ "best_score": 1.0,
+ "best_cov": 1.0,
+ "best_mut": 1.0,
+ "best_size": 1,
+ "early_stop": true,
+ "threshold": 0.85,
+ "max_rounds": 2,
+ "error": "",
+ "score_trajectory": [
+  1.0
+ ]
+}

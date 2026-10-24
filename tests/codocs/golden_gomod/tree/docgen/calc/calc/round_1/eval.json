@@ -1,0 +1,18 @@
+{
+ "signal": "tests",
+ "build_ok": true,
+ "phi": 1.0,
+ "relevant": [
+  "TestClamp",
+  "TestNormalize",
+  "TestSum"
+ ],
+ "passed": [
+  "TestClamp",
+  "TestNormalize",
+  "TestSum"
+ ],
+ "failing": {},
+ "build_errors": [],
+ "import_fixes": 0
+}

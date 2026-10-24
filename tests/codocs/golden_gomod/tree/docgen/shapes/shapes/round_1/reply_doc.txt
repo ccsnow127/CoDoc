@@ -1,0 +1,35 @@
+<documentation>
+# shapes/shapes.go
+
+Fixture file.
+
+## ClassDef Shape
+**Shape**: documented.
+
+**Signature**: `type Shape interface`
+
+## ClassDef Rect
+**Rect**: documented.
+
+**Signature**: `type Rect struct{ W, H float64 }`
+
+## MethodDef Rect.Area
+**Rect.Area**: documented.
+
+**Signature**: `func (r Rect) Area() float64`
+
+## MethodDef Rect.Name
+**Rect.Name**: documented.
+
+**Signature**: `func (r Rect) Name() string`
+
+## FunctionDef Classify
+**Classify**: documented.
+
+**Signature**: `func Classify(s Shape) string`
+
+## FunctionDef Largest
+**Largest**: documented.
+
+**Signature**: `func Largest(shapes []Shape) Shape`
+</documentation>

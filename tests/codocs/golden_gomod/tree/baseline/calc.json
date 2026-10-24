@@ -1,0 +1,18 @@
+{
+ "pkg": "calc",
+ "build_ok": true,
+ "passing": [
+  "TestClamp",
+  "TestNormalize",
+  "TestStatsAdd",
+  "TestStatsMean",
+  "TestSum"
+ ],
+ "failing": [
+  "TestKnownBroken"
+ ],
+ "build_errors": [],
+ "timed_out": false,
+ "incomplete": false,
+ "runs": 1
+}

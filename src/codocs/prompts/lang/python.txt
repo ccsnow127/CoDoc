@@ -1,0 +1,55 @@
+=== LANG ===
+Python
+=== FENCE ===
+python
+=== FILE_NOUN ===
+Python module
+=== GENERATOR_INPUTS ===
+the module path, the list of allowed imports, and the signatures (functions, classes with their bases, fields and method signatures) of the project modules it imports and of the other modules of its package
+=== DOC_HEADER ===
+# <file path>
+
+**Module**: `<dotted module name>`
+=== SECTION_KINDS ===
+- `## VariableDef <Name>` for every module-level assignment to a plain name (constants, module-level variables, `__all__`); a tuple assignment `a, b = ...` gets one section per name.
+- `## ClassDef <Name>` for every class, including nested classes (`## ClassDef Outer.Inner`).
+- `## FunctionDef <Name>` for every module-level function (`def` and `async def`, decorated ones included). Functions nested inside other functions are described in their enclosing function's section, not as sections of their own.
+- `## MethodDef <Class>.<name>` for every function defined directly in a class body, including `__init__`, dunder methods, `@staticmethod`, `@classmethod` and `@property` methods (`## MethodDef Stats.add`, `## MethodDef Outer.Inner.run`). A property with a setter shares one section.
+- The first line under every header is `**<Name>**: <one-sentence summary>.` (for methods `**<Class>.<name>**: ...`). This line is used as the symbol summary in a wiki, so make it a real summary.
+=== TYPE_RULE ===
+Classes: give the exact class header in a fenced `python` block: decorators (with their arguments, e.g. `@dataclass(frozen=True)`), the class name, the base classes and keyword arguments such as `metaclass=`, every class attribute and dataclass/attrs field with its exact annotation and default value, and `__slots__`. Do not include method bodies. Comments may be dropped. Then explain the meaning of the attributes, the instance attributes set in `__init__`, and the invariants in prose.
+=== VALUE_RULE ===
+Module-level values: give the exact assignment including its value in a fenced `python` block (annotations, literal dicts, lists, tuples, sets, compiled regular expressions, `TypeVar`s, `namedtuple`/`Enum` calls). If a value is a lambda, a comprehension over runtime data or longer than about 20 lines, describe its content precisely in prose instead.
+=== FUNC_RULE ===
+   - exceptions: which exception types are raised when, with their exact messages; which exceptions are caught and how they are handled (re-raised, wrapped, logged, swallowed);
+   - `None` and empty inputs: what is returned or raised for `None`, empty strings, empty containers, zero and negative numbers;
+   - parameters: positional-only, keyword-only, `*args`/`**kwargs`, defaults (exact values; note mutable defaults), and type annotations;
+   - side effects: attributes of `self` or module-level names read or mutated, logging calls (logger name, level, exact message and format arguments), `print` output, files, environment variables, subprocesses, network, threads and async behaviour (`await`, generators and what they yield);
+   - decorators applied to the function and their effect;
+=== CONTEXT_RULE ===
+Signatures listed in the package context belong to OTHER modules of the project: do not document them as sections of this module, but name them when this module uses them, together with the import that brings them in; name their functions, classes, attributes and methods that this module uses exactly, in backticks.
+=== CODEGEN_RULES ===
+- The shebang line, the encoding cookie and the `from __future__ import ...` lines, if the original has them, are inserted verbatim: do not write them.
+- Write one complete module: the module docstring (if documented), the imports, then every documented definition in the documented order.
+- Import only from the allowed imports and the Python standard library. Leave out imports you do not use. Import project modules by their absolute dotted names as listed.
+- Implement EVERY function, class, method and module-level value described in the documentation with exactly the documented names, signatures (positional-only and keyword-only parameters, defaults, `*args`/`**kwargs`, annotations), decorators, base classes, dataclass fields, class attributes, module constants, exception types and messages.
+- Do not redefine any name listed in the package context: those already exist in other modules. Import and use them exactly as they are declared there.
+- If you need an extra helper, make it a module-level function or a method whose name starts with `_cdg` (for example `_cdg_split`); never add public names the documentation does not describe.
+- Write complete, working implementations: no placeholders, no TODOs, no `pass` or `...` bodies, no `raise NotImplementedError` stubs unless the documentation says so.
+- Do not write tests, and no `if __name__ == "__main__":` block unless the documentation describes one.
+- Reproduce documented behavior literally: exact strings, exception types and messages, boundary comparisons, number formats, logging calls and side effects.
+=== TEST_INTRO ===
+ONE complete, self-contained pytest module for the target Python module
+=== TEST_RULES ===
+- Write plain pytest tests: bare `assert` statements, `pytest.raises(ExcType, match=...)` for exceptions, `pytest.mark.parametrize` for tables of cases, and the built-in fixtures `tmp_path`, `monkeypatch` and `capsys` / `caplog` when needed.
+- Import the target by its absolute dotted module name as given in the request (for example `from pymod.calc import clamp`), never with a relative import. Import only the standard library, `pytest`, this project's modules and the third-party packages listed as allowed in the request. Every import must be used.
+- The project's existing test files and conftest.py fixtures are NOT available when your module runs: do not rely on their fixtures or helpers - define everything you need inside your module. When excerpts of them are shown as reference, reuse their setup patterns by copying them into your module.
+- Helpers are module-level functions or classes whose names start with `_cdx` / `_Cdx` (for example `_cdx_make_stats()`); fixtures you define are named `cdx_...`.
+- Deterministic: no network, no `time.sleep`, no dependence on the wall clock, unseeded randomness, set or dict iteration order of unordered data, or the environment; write files only under `tmp_path`; never call `sys.exit` or `os._exit`.
+- EVERY test must pass against the code as given. Compute expected values yourself by reading the source; when a behaviour is unclear, assert only what the source guarantees.
+- Use strong, exact-value assertions: compare whole return values, attributes and exact exception messages - not merely `is not None` or "no exception".
+- Prefer a few parameterized or grouped tests over many tiny ones, spread across ALL functions, classes and methods of the target module, executing every branch.
+=== TEST_SHAPE ===
+Tests are module-level `def test_<name>():` functions (optionally `@pytest.mark.parametrize`d), or `def test_<name>(self):` methods of a class named `Test<Name>` that has no `__init__`.
+=== MARK ===
+#

@@ -1,0 +1,73 @@
+=== SYSTEM ===
+You write ONE complete, self-contained Go test file (standard `testing` package) for the target Go source file. Output ONLY the Go source of that file - no prose, no fences. Rules:
+- The file starts with the package clause given in the request (`package <name>`, the same package as the target: an internal test, so unexported identifiers are reachable), then its imports.
+- Import only the Go standard library, this module's own packages, and the third-party modules listed as allowed in the request. Every import must be used.
+- The package's existing _test.go files are NOT compiled together with your file: do not rely on any helper, fixture or TestMain from them - define everything you need yourself, in this file. When excerpts of them are shown as reference, reuse their stubbing and setup patterns (function-variable stubs restored with defer, logger/memory initialisation) by copying them into your file under `cdx`-prefixed names; setup that lived in a TestMain goes into a `cdx` helper called at the start of each test.
+- Do not redeclare any package-level identifier listed as taken in the request. Prefix every function, type, variable and constant you declare at package level, other than the tests, with `cdx` (for example `cdxNewStore`).
+- Tests are `func TestXxx(t *testing.T)`, where the name starts with `Test` followed by an upper-case letter. No benchmarks, examples, fuzz tests or TestMain (they are removed before the suite runs).
+- Deterministic: no network, no sleeps, no dependence on wall-clock time, randomness, map iteration order or the environment; write files only under t.TempDir(); t.Setenv is allowed.
+- EVERY test must pass against the code as given. Compute expected values yourself by reading the source; when a behaviour is unclear, assert only what the source guarantees.
+- Use strong, exact-value assertions: compare whole return values, struct fields, error identities (errors.Is) or exact messages - not merely "no error" or "not nil".
+- Prefer a few table-driven tests (t.Run subtests) over many tiny ones, spread across ALL functions and methods of the target file, executing every branch.
+
+=== USER ===
+[TARGET FILE] shapes/shapes.go
+
+[PACKAGE] `package shapes` (example.com/fixture/shapes); the suite is compiled as shapes/shapes_codocs_test.go with no other _test.go file of the package
+
+[ALLOWED IMPORTS] the Go standard library; the packages of this module (`example.com/fixture/...`); no third-party modules
+
+[TAKEN NAMES - package-level identifiers starting with `cdx` or `Test` that the suite must not redeclare]
+(none)
+
+[TARGET SOURCE]
+// Package shapes computes simple geometric properties.
+package shapes
+
+import "fmt"
+
+// Shape is anything with an area and a printable name.
+type Shape interface {
+	Area() float64
+	Name() string
+}
+
+// Rect is an axis-aligned rectangle.
+type Rect struct{ W, H float64 }
+
+// Area returns W*H, or 0 when either side is negative.
+func (r Rect) Area() float64 {
+	if r.W < 0 || r.H < 0 {
+		return 0
+	}
+	return r.W * r.H
+}
+
+// Name returns "rect WxH" with one decimal.
+func (r Rect) Name() string { return fmt.Sprintf("rect %.1fx%.1f", r.W, r.H) }
+
+// Classify buckets an area: "empty" (<=0), "small" (<10), "large" otherwise.
+func Classify(s Shape) string {
+	a := s.Area()
+	switch {
+	case a <= 0:
+		return "empty"
+	case a < 10:
+		return "small"
+	default:
+		return "large"
+	}
+}
+
+// Largest returns the shape with the biggest area, or nil for an empty slice.
+func Largest(shapes []Shape) Shape {
+	var best Shape
+	for _, s := range shapes {
+		if best == nil || s.Area() > best.Area() {
+			best = s
+		}
+	}
+	return best
+}
+
+Write the complete test file now, starting with `package shapes`. Complete file, no prose, no fences.

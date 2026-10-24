@@ -1,0 +1,95 @@
+{
+ "pkg": "calc",
+ "file": "calc/calc.go",
+ "stem": "calc",
+ "status": "ok",
+ "rounds": [
+  {
+   "round": 1,
+   "suite": "package calc\n\nimport \"testing\"\n\nfunc TestCodocsClamp(t *testing.T) {\n\tcases := []struct{ v, lo, hi, want int }{\n\t\t{5, 0, 10, 5}, {-1, 0, 10, 0}, {11, 0, 10, 10}, {0, 0, 10, 0}, {10, 0, 10, 10},\n\t}\n\tfor _, c := range cases {\n\t\tif got := Clamp(c.v, c.lo, c.hi); got != c.want {\n\t\t\tt.Errorf(\"Clamp(%d,%d,%d) = %d, want %d\", c.v, c.lo, c.hi, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCodocsSum(t *testing.T) {\n\tif got, err := Sum([]int{4, 5, 6}); err != nil || got != 15 {\n\t\tt.Fatalf(\"Sum = %d, %v\", got, err)\n\t}\n\tif got, err := Sum(nil); err != ErrEmpty || got != 0 {\n\t\tt.Fatalf(\"Sum(nil) = %d, %v\", got, err)\n\t}\n}\n\nfunc TestCodocsNormalize(t *testing.T) {\n\tif got := Normalize(\"  Go Is Fun \"); got != \"go-is-fun\" {\n\t\tt.Fatalf(\"Normalize = %q\", got)\n\t}\n}\n",
+   "measurement": {
+    "build_ok": true,
+    "build_errors": [],
+    "size": 3,
+    "passing": [
+     "TestCodocsClamp",
+     "TestCodocsNormalize",
+     "TestCodocsSum"
+    ],
+    "failing": {},
+    "green_src": "package calc\n\nimport \"testing\"\n\nfunc TestCodocsClamp(t *testing.T) {\n\tcases := []struct{ v, lo, hi, want int }{\n\t\t{5, 0, 10, 5}, {-1, 0, 10, 0}, {11, 0, 10, 10}, {0, 0, 10, 0}, {10, 0, 10, 10},\n\t}\n\tfor _, c := range cases {\n\t\tif got := Clamp(c.v, c.lo, c.hi); got != c.want {\n\t\t\tt.Errorf(\"Clamp(%d,%d,%d) = %d, want %d\", c.v, c.lo, c.hi, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCodocsSum(t *testing.T) {\n\tif got, err := Sum([]int{4, 5, 6}); err != nil || got != 15 {\n\t\tt.Fatalf(\"Sum = %d, %v\", got, err)\n\t}\n\tif got, err := Sum(nil); err != ErrEmpty || got != 0 {\n\t\tt.Fatalf(\"Sum(nil) = %d, %v\", got, err)\n\t}\n}\n\nfunc TestCodocsNormalize(t *testing.T) {\n\tif got := Normalize(\"  Go Is Fun \"); got != \"go-is-fun\" {\n\t\tt.Fatalf(\"Normalize = %q\", got)\n\t}\n}\n",
+    "green_size": 3,
+    "cov": 1.0,
+    "uncovered": [],
+    "mut": 0.5,
+    "mutants_total": 4,
+    "mutants_valid": 4,
+    "killed": 2,
+    "survivors": [
+     {
+      "id": "m303",
+      "line": 16,
+      "operator": "cmp: < -> <="
+     },
+     {
+      "id": "m331",
+      "line": 19,
+      "operator": "cmp: > -> >="
+     }
+    ],
+    "suite_src": "package calc\n\nimport \"testing\"\n\nfunc TestCodocsClamp(t *testing.T) {\n\tcases := []struct{ v, lo, hi, want int }{\n\t\t{5, 0, 10, 5}, {-1, 0, 10, 0}, {11, 0, 10, 10}, {0, 0, 10, 0}, {10, 0, 10, 10},\n\t}\n\tfor _, c := range cases {\n\t\tif got := Clamp(c.v, c.lo, c.hi); got != c.want {\n\t\t\tt.Errorf(\"Clamp(%d,%d,%d) = %d, want %d\", c.v, c.lo, c.hi, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCodocsSum(t *testing.T) {\n\tif got, err := Sum([]int{4, 5, 6}); err != nil || got != 15 {\n\t\tt.Fatalf(\"Sum = %d, %v\", got, err)\n\t}\n\tif got, err := Sum(nil); err != ErrEmpty || got != 0 {\n\t\tt.Fatalf(\"Sum(nil) = %d, %v\", got, err)\n\t}\n}\n\nfunc TestCodocsNormalize(t *testing.T) {\n\tif got := Normalize(\"  Go Is Fun \"); got != \"go-is-fun\" {\n\t\tt.Fatalf(\"Normalize = %q\", got)\n\t}\n}\n",
+    "score": 0.5
+   }
+  },
+  {
+   "round": 2,
+   "suite": "package calc\n\nimport \"testing\"\n\nfunc TestCodocsClamp(t *testing.T) {\n\tcases := []struct{ v, lo, hi, want int }{\n\t\t{5, 0, 10, 5}, {-1, 0, 10, 0}, {11, 0, 10, 10}, {0, 0, 10, 0}, {10, 0, 10, 10},\n\t}\n\tfor _, c := range cases {\n\t\tif got := Clamp(c.v, c.lo, c.hi); got != c.want {\n\t\t\tt.Errorf(\"Clamp(%d,%d,%d) = %d, want %d\", c.v, c.lo, c.hi, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCodocsSum(t *testing.T) {\n\tif got, err := Sum([]int{4, 5, 6}); err != nil || got != 15 {\n\t\tt.Fatalf(\"Sum = %d, %v\", got, err)\n\t}\n\tif got, err := Sum(nil); err != ErrEmpty || got != 0 {\n\t\tt.Fatalf(\"Sum(nil) = %d, %v\", got, err)\n\t}\n}\n\nfunc TestCodocsNormalize(t *testing.T) {\n\tif got := Normalize(\"  Go Is Fun \"); got != \"go-is-fun\" {\n\t\tt.Fatalf(\"Normalize = %q\", got)\n\t}\n}\n",
+   "measurement": {
+    "build_ok": true,
+    "build_errors": [],
+    "size": 3,
+    "passing": [
+     "TestCodocsClamp",
+     "TestCodocsNormalize",
+     "TestCodocsSum"
+    ],
+    "failing": {},
+    "green_src": "package calc\n\nimport \"testing\"\n\nfunc TestCodocsClamp(t *testing.T) {\n\tcases := []struct{ v, lo, hi, want int }{\n\t\t{5, 0, 10, 5}, {-1, 0, 10, 0}, {11, 0, 10, 10}, {0, 0, 10, 0}, {10, 0, 10, 10},\n\t}\n\tfor _, c := range cases {\n\t\tif got := Clamp(c.v, c.lo, c.hi); got != c.want {\n\t\t\tt.Errorf(\"Clamp(%d,%d,%d) = %d, want %d\", c.v, c.lo, c.hi, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCodocsSum(t *testing.T) {\n\tif got, err := Sum([]int{4, 5, 6}); err != nil || got != 15 {\n\t\tt.Fatalf(\"Sum = %d, %v\", got, err)\n\t}\n\tif got, err := Sum(nil); err != ErrEmpty || got != 0 {\n\t\tt.Fatalf(\"Sum(nil) = %d, %v\", got, err)\n\t}\n}\n\nfunc TestCodocsNormalize(t *testing.T) {\n\tif got := Normalize(\"  Go Is Fun \"); got != \"go-is-fun\" {\n\t\tt.Fatalf(\"Normalize = %q\", got)\n\t}\n}\n",
+    "green_size": 3,
+    "cov": 1.0,
+    "uncovered": [],
+    "mut": 0.5,
+    "mutants_total": 4,
+    "mutants_valid": 4,
+    "killed": 2,
+    "survivors": [
+     {
+      "id": "m303",
+      "line": 16,
+      "operator": "cmp: < -> <="
+     },
+     {
+      "id": "m331",
+      "line": 19,
+      "operator": "cmp: > -> >="
+     }
+    ],
+    "suite_src": "package calc\n\nimport \"testing\"\n\nfunc TestCodocsClamp(t *testing.T) {\n\tcases := []struct{ v, lo, hi, want int }{\n\t\t{5, 0, 10, 5}, {-1, 0, 10, 0}, {11, 0, 10, 10}, {0, 0, 10, 0}, {10, 0, 10, 10},\n\t}\n\tfor _, c := range cases {\n\t\tif got := Clamp(c.v, c.lo, c.hi); got != c.want {\n\t\t\tt.Errorf(\"Clamp(%d,%d,%d) = %d, want %d\", c.v, c.lo, c.hi, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCodocsSum(t *testing.T) {\n\tif got, err := Sum([]int{4, 5, 6}); err != nil || got != 15 {\n\t\tt.Fatalf(\"Sum = %d, %v\", got, err)\n\t}\n\tif got, err := Sum(nil); err != ErrEmpty || got != 0 {\n\t\tt.Fatalf(\"Sum(nil) = %d, %v\", got, err)\n\t}\n}\n\nfunc TestCodocsNormalize(t *testing.T) {\n\tif got := Normalize(\"  Go Is Fun \"); got != \"go-is-fun\" {\n\t\tt.Fatalf(\"Normalize = %q\", got)\n\t}\n}\n",
+    "score": 0.5
+   }
+  }
+ ],
+ "best_round": 1,
+ "best_score": 0.5,
+ "best_cov": 1.0,
+ "best_mut": 0.5,
+ "best_size": 3,
+ "early_stop": false,
+ "threshold": 0.85,
+ "max_rounds": 2,
+ "error": "",
+ "score_trajectory": [
+  0.5,
+  0.5
+ ]
+}

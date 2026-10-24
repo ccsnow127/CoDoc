@@ -1,0 +1,79 @@
+{
+ "stats": {
+  "files": 3,
+  "functions": 2,
+  "methods": 4,
+  "edges": 2,
+  "call_edges": 2,
+  "ref_edges": 0,
+  "table_edges": 0,
+  "handler_tables": 0,
+  "function_aliases": 0,
+  "utilities": 0,
+  "utility_fanin": 40,
+  "infra_packages": [],
+  "documented": 6,
+  "excluded_test_functions": 0,
+  "test_only_functions": 3,
+  "vendored_dirs": []
+ },
+ "base_communities": 2,
+ "params": {
+  "clusters": [
+   2
+  ],
+  "resolution": 1.0,
+  "alpha": 0.6,
+  "pkg_weight": 0.5,
+  "utility_fanin": 40,
+  "infra_callers": 40,
+  "fold_accessors": true,
+  "max_roots": 300,
+  "min_reach": 3,
+  "group_depth": 1,
+  "exclude": [
+   "*/ut/*",
+   "ut/*",
+   "*/stub/*",
+   "stub/*",
+   "*/stubs/*",
+   "*/mock/*",
+   "*/mocks/*",
+   "*/test/*",
+   "test/*",
+   "*/tests/*",
+   "*/testtool/*",
+   "*/testutil/*",
+   "*/test_*.go",
+   "test_*.go"
+  ],
+  "walks_per_root": 20,
+  "walk_length": 12,
+  "prefix_subsume": true,
+  "min_share": 0.02,
+  "max_trajectories": null,
+  "seed": 0
+ },
+ "candidate_roots": 0,
+ "walks": 0,
+ "visited_business_functions": 0,
+ "coverage": [
+  {
+   "subsystem": "shapes",
+   "functions": 4,
+   "candidate_roots": 0,
+   "roots": 0,
+   "visited": 0,
+   "trajectories": 0
+  },
+  {
+   "subsystem": "calc",
+   "functions": 2,
+   "candidate_roots": 0,
+   "roots": 0,
+   "visited": 0,
+   "trajectories": 0
+  }
+ ],
+ "roots": []
+}

@@ -1,0 +1,18 @@
+# calc/stats.go
+
+Fixture file.
+
+## ClassDef Stats
+**Stats**: documented.
+
+**Signature**: `type Stats struct`
+
+## MethodDef Stats.Add
+**Stats.Add**: documented.
+
+**Signature**: `func (s *Stats) Add(v int)`
+
+## MethodDef Stats.Mean
+**Stats.Mean**: documented.
+
+**Signature**: `func (s Stats) Mean() int`

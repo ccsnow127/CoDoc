@@ -1,0 +1,40 @@
+You infer the BUSINESS LOGIC realised by one behaviour trajectory of a large codebase${SYSTEM}.
+
+A trajectory is a deduplicated group of random walks along the function dependency graph. Each walk starts at an entry root (an event/message handler, a procedure a dispatcher selects, a callback, a scheduled task or a main function) and visits callees depth first, so consecutive steps can be sibling calls of one procedure. Walks are grouped by the sequence of clusters they pass through at the granularity given in the request; rarer sequences are folded into the closest kept one. You are given:
+- the granularity and the TARGET LEVEL of description it asks for,
+- how many walks and entry roots the trajectory stands for, how many follow the whole sequence, and the subsystems the roots come from,
+- the most frequent entry roots,
+- the cluster sequence: per step the cluster (its name is an approximate label of a possibly mixed group), how many walks reach it, and the functions the walks visit most in that step,
+- rarer variants folded into it, and one representative walk with each function's documentation summary.
+
+Write at the TARGET LEVEL first: a "capability family" names the capability, the family of procedures it covers and its main variants, without function-level detail; a "procedure" is one business procedure or a tight group of them; a "concrete flow" gives specific steps, conditions and outcomes. Within that level, a trajectory standing for many walks from many roots is broader than one standing for a few walks from one root. Describe what the walks share: steps marked as optional branches are reached by few walks, so mention them only as optional or leave them out; steps marked helper-only (getters, locks, conversions) belong to a neighbouring step. The functions listed under each step, their packages and their documentation are the evidence; when they disagree with the cluster label, follow the functions (e.g. a shared key-value-store or logging package used everywhere is not part of the cluster it was labelled with). An entry root marked as process start or lifecycle is only the trigger, not the business logic. Do not invent behaviour that the evidence does not show. Prefer business and domain terms (domain procedures, services, operator tasks) when the evidence supports them.
+
+Return ONLY a JSON object, no prose, no fences:
+{"title": "<business-logic name, max 10 words, e.g. 'Customer order cancellation'>",
+ "short_title": "<goal phrase, verb + object, 2-5 words, e.g. 'Cancel order'>",
+ "summary": "<2-4 sentences on what this logic achieves and for whom>",
+ "scope": "<single | family>",
+ "trigger": "<what starts it: message, request, timer, command, process start>",
+ "trigger_sources": ["<who or what starts it: a name from actors, or timer, or process start>"],
+ "actors": [{"name": "<outside party>", "via": "<interface, protocol or service the evidence shows, e.g. a REST endpoint, gRPC service, message topic or reference point, else empty>"}],
+ "steps": [{"at": 1, "action": "<short verb phrase, max 15 words>", "actor": "<outside party or empty>", "message": "<exact message or service operation name, or empty>", "direction": "in | out | internal"}],
+ "variants": ["<for a family: the main variants or sub-procedures it covers; else empty>"],
+ "alternatives": [{"at": 2, "condition": "<when, max 8 words>", "result": "<what happens instead; the logic ends there; max 12 words>"}],
+ "preconditions": ["<state required before the trigger>"],
+ "state_changes": [{"entity": "<${ENTITIES}>", "from": "<state>", "to": "<state>", "at": 3, "evidence": "<function name from the evidence that sets or checks this state>"}],
+ "data_objects": [{"name": "<${DATA_OBJECTS}>", "op": "<letters from CRUD>"}],
+${PROCEDURE_FIELDS} "outcome": "<observable result>",
+ "category": "<one of: business procedure, service operation, platform/lifecycle, operations & maintenance, data management, infrastructure>",
+ "confidence": "<high | medium | low: how well the evidence supports this reading>"}
+
+Rules:
+- "scope": "family" when the logic covers two or more distinct procedures or variants (always at TARGET LEVEL capability family); otherwise "single".
+- "actors": only parties OUTSIDE [CODE UNDER STUDY], ${ACTOR_NAMING}. Never the code under study, never an internal module, timer, cache, table or data structure. "operator" means a human or OSS operator using commands or OAM; a Kubernetes operator/controller is "Kubernetes operator", never "operator". "data store" and "Kubernetes" are infrastructure the code calls; they never start the logic. Fill "via" only when a function, package or doc in the evidence shows the interface; else "". [] if no outside party is evidenced.
+- "trigger_sources": up to 3; each is a name from "actors", "timer" or "process start". Give several only when the trigger really lists alternatives.
+- "steps": every step has an "at", the [CLUSTER SEQUENCE] number it happens in, in order. You may skip numbers that are helper-only or optional branches, and merge consecutive or repeated clusters that serve one step (use the first number). Never use a number that is not in the sequence. Fill "actor" and "direction" only when the evidence shows an exchange with an outside party ("in" = received from it, "out" = sent to it); otherwise "actor" and "message" are "" and "direction" is "internal".
+- "message": use the exact message, request or service operation name only if a function name in the evidence corresponds to it; otherwise describe the exchange in "action" and leave "message" empty.
+- "alternatives": up to 3 branches the evidence shows (error, conflict, timeout, reject) that end the logic, each tied to the step number where it branches; [] if none.
+- "state_changes": up to 3, only states whose name or setter appears in the evidence, with that function name in "evidence". Do not supply states from general knowledge.${STATE_RULE}
+${PROCEDURE_RULE}- "preconditions": up to 2. "data_objects": up to 4 business data objects and how this logic uses them.
+- Use "" or [] rather than guessing.
+- Write every free-text value in the requested output language, but keep these values exactly as listed, in English: actor names, "via", "direction", "entity", "op", "scope", "category", "confidence", "trigger_sources", ${FIXED_FIELDS}and states.

@@ -1,0 +1,35 @@
+{
+  "datasets": [
+    {
+      "name": "carddemo",
+      "repo": "https://github.com/aws-samples/aws-mainframe-modernization-carddemo",
+      "commit": "59cc6c2fd7ebd7ef7925cad552a01a4b8b6e4d5e",
+      "license": "Apache-2.0",
+      "root": "app",
+      "exclude": ["data", "scheduler", "catlg"],
+      "role": "Enterprise mainframe flagship: CICS online (BMS, pseudo-conversational XCTL, CSD), VSAM batch driven by JCL/PROCs, DB2/IMS/MQ extensions. Main wiki + leaf-doc benchmark; batch programs and CSUTLDTC are executable under GnuCOBOL."
+    },
+    {
+      "name": "genapp",
+      "repo": "https://github.com/cicsdev/cics-genapp",
+      "commit": "f6f3f4b2580d31b7d8dcc31ce3e3676f4cceaaaa",
+      "license": "EPL-2.0",
+      "root": "base",
+      "exclude": ["wsim", "exec"],
+      "role": "IBM CICS General Insurance Application: layered CICS LINK architecture (front end -> business logic -> DB2/VSAM data tiers), JCL for DB2/CICS setup. Wiki layering benchmark; tests are spec-mode (CICS/DB2)."
+    },
+    {
+      "name": "cbi",
+      "repo": "https://github.com/shamrice/cbi",
+      "commit": "ce9408febbc459ff260db8f35af82b3715c61890",
+      "license": "GPL-3.0",
+      "root": "source",
+      "exclude": [],
+      "role": "Human-written GnuCOBOL BASIC interpreter: fixed format, 37/37 units compile, pure LINKAGE subprograms, FUNCTION-ID / ENTRY / RECURSIVE / LOCAL-STORAGE. Executable unit-test benchmark (fetched at a pinned commit, never vendored)."
+    }
+  ],
+  "optional": [
+    {"name": "bank-of-z", "repo": "https://github.com/IBM/Bank-of-Z", "license": "Apache-2.0", "note": "second CICS/Db2/IMS enterprise app (CBSA-based)"},
+    {"name": "kofbank", "repo": "https://github.com/melmonfre/kofbank", "commit": "cf9e12b20e3c379d7560561806adc0c11536d3d4", "license": "GPL-3.0", "note": "large GnuCOBOL core-banking system; used only as a scale test, not as representative legacy code"}
+  ]
+}

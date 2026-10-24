@@ -1,0 +1,129 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  # rich wraps CLI messages at 80 columns when stdout is not a TTY, and some CLI tests
+  # match substrings of those messages
+  COLUMNS: "200"
+  PIP_DISABLE_PIP_VERSION_CHECK: "1"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+      - name: Install linters
+        run: python -m pip install pre-commit cffconvert
+      # the same pinned hooks contributors run: ruff, validate-pyproject and file hygiene
+      - name: pre-commit
+        run: pre-commit run --all-files --show-diff-on-failure
+      - name: validate CITATION.cff
+        run: cffconvert --validate -i CITATION.cff
+
+  test:
+    name: test (${{ matrix.os }}, py${{ matrix.python }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        # ubuntu-26.04: GCC 15 (implicit declarations are errors, as with clang) and
+        # Maven 3.9; ubuntu-24.04's default GCC 13 is not
+        os: [ubuntu-26.04, macos-latest]
+        python: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      # go is on PATH on the Ubuntu images but not on the macOS image
+      - uses: actions/setup-go@v7
+        with:
+          go-version: stable
+          cache: false
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+      # JUnit / JaCoCo / Maven plugins that the Java tests resolve from Maven Central
+      - uses: actions/cache@v6
+        with:
+          path: ~/.m2/repository
+          key: m2-${{ runner.os }}-${{ hashFiles('tests/fixtures/**/pom.xml', 'src/codocs/lang/javarun.py') }}
+          restore-keys: m2-${{ runner.os }}-
+      - name: Install
+        run: python -m pip install -e ".[test]"
+      - name: CLI smoke test
+        run: |
+          codocs --version
+          codocs --help
+      # GnuCOBOL is not on the runner images, so the cobc tests skip here (the toolchains
+      # job runs them). No LLM and no API key are involved.
+      - name: pytest (not slow)
+        run: python -m pytest -m "not slow" -q --timeout 900 -ra
+
+  toolchains:
+    name: full suite (Go, Java/Maven, GCC, GnuCOBOL 3.2)
+    # GnuCOBOL 3.2 is packaged from Ubuntu 26.04 on; 24.04's gnucobol is 3.1.2, whose cobc
+    # has no -fformat= (47 COBOL tests fail with it)
+    runs-on: ubuntu-26.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+      - uses: actions/setup-go@v7
+        with:
+          go-version: stable
+          cache: false
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: actions/cache@v6
+        with:
+          path: ~/.m2/repository
+          key: m2-${{ runner.os }}-${{ hashFiles('tests/fixtures/**/pom.xml', 'src/codocs/lang/javarun.py') }}
+          restore-keys: m2-${{ runner.os }}-
+      # Maven, GCC/G++ and gcov are preinstalled on the image
+      - name: GnuCOBOL 3.2
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends gnucobol3 libcob4-dev
+      - name: Toolchain versions
+        run: |
+          go version
+          java -version
+          mvn -v | head -1
+          cobc --version | head -1
+          cc --version | head -1
+          gcov --version | head -1
+      - name: Install
+        run: python -m pip install -e ".[test]"
+      - name: pytest (full suite)
+        run: python -m pytest -q --timeout 900 -ra

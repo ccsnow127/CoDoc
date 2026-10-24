@@ -1,0 +1,42 @@
+{
+ "pkg": "shapes",
+ "file": "shapes/shapes.go",
+ "stem": "shapes",
+ "status": "ok",
+ "signal": "generated-tests",
+ "rounds": [
+  {
+   "round": 1,
+   "doc": "# shapes/shapes.go\n\nFixture file.\n\n## ClassDef Shape\n**Shape**: documented.\n\n**Signature**: `type Shape interface`\n\n## ClassDef Rect\n**Rect**: documented.\n\n**Signature**: `type Rect struct{ W, H float64 }`\n\n## MethodDef Rect.Area\n**Rect.Area**: documented.\n\n**Signature**: `func (r Rect) Area() float64`\n\n## MethodDef Rect.Name\n**Rect.Name**: documented.\n\n**Signature**: `func (r Rect) Name() string`\n\n## FunctionDef Classify\n**Classify**: documented.\n\n**Signature**: `func Classify(s Shape) string`\n\n## FunctionDef Largest\n**Largest**: documented.\n\n**Signature**: `func Largest(shapes []Shape) Shape`\n",
+   "code": "// Package shapes computes simple geometric properties.\npackage shapes\n\nimport \"fmt\"\n\n// Shape is anything with an area and a printable name.\ntype Shape interface {\n\tArea() float64\n\tName() string\n}\n\n// Rect is an axis-aligned rectangle.\ntype Rect struct{ W, H float64 }\n\n// Area returns W*H, or 0 when either side is negative.\nfunc (r Rect) Area() float64 {\n\tif r.W < 0 || r.H < 0 {\n\t\treturn 0\n\t}\n\treturn r.W * r.H\n}\n\n// Name returns \"rect WxH\" with one decimal.\nfunc (r Rect) Name() string { return fmt.Sprintf(\"rect %.1fx%.1f\", r.W, r.H) }\n\n// Classify buckets an area: \"empty\" (<=0), \"small\" (<10), \"large\" otherwise.\nfunc Classify(s Shape) string {\n\ta := s.Area()\n\tswitch {\n\tcase a <= 0:\n\t\treturn \"empty\"\n\tcase a < 10:\n\t\treturn \"small\"\n\tdefault:\n\t\treturn \"large\"\n\t}\n}\n\n// Largest returns the shape with the biggest area, or nil for an empty slice.\nfunc Largest(shapes []Shape) Shape {\n\tvar best Shape\n\tfor _, s := range shapes {\n\t\tif best == nil || s.Area() > best.Area() {\n\t\t\tbest = s\n\t\t}\n\t}\n\treturn best\n}\n",
+   "eval": {
+    "signal": "generated-tests",
+    "build_ok": true,
+    "phi": 1.0,
+    "relevant": [
+     "TestCodocsClassify",
+     "TestCodocsLargest",
+     "TestCodocsRect"
+    ],
+    "passed": [
+     "TestCodocsClassify",
+     "TestCodocsLargest",
+     "TestCodocsRect"
+    ],
+    "failing": {},
+    "build_errors": [],
+    "import_fixes": 0
+   },
+   "missing": []
+  }
+ ],
+ "best_round": 1,
+ "best_phi": 1.0,
+ "early_stop": true,
+ "threshold": 0.9,
+ "max_rounds": 3,
+ "error": "",
+ "phi_trajectory": [
+  1.0
+ ]
+}

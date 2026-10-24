@@ -1,0 +1,73 @@
+{
+ "module_root": "<REPO>",
+ "module": "example.com/fixture",
+ "go_version": "go version <GO>",
+ "selection": {
+  "subtree": null,
+  "packages": null,
+  "files": null,
+  "max_files": null
+ },
+ "totals": {
+  "packages": 2,
+  "packages_with_tests": 1,
+  "files": 3,
+  "lines": 114,
+  "test_files": 2,
+  "statuses": {
+   "ok": 3
+  },
+  "docgen_targets": 3,
+  "testgen_targets": 3
+ },
+ "packages": [
+  {
+   "rel": "calc",
+   "import_path": "example.com/fixture/calc",
+   "name": "calc",
+   "go_files": 2,
+   "test_files": 2,
+   "xtest_files": 0,
+   "targets": {
+    "ok": 2
+   },
+   "error": ""
+  },
+  {
+   "rel": "shapes",
+   "import_path": "example.com/fixture/shapes",
+   "name": "shapes",
+   "go_files": 1,
+   "test_files": 0,
+   "xtest_files": 0,
+   "targets": {
+    "ok": 1
+   },
+   "error": ""
+  }
+ ],
+ "targets": [
+  {
+   "pkg": "calc",
+   "file": "calc/calc.go",
+   "stem": "calc",
+   "lines": 41,
+   "status": "ok"
+  },
+  {
+   "pkg": "calc",
+   "file": "calc/stats.go",
+   "stem": "stats",
+   "lines": 25,
+   "status": "ok"
+  },
+  {
+   "pkg": "shapes",
+   "file": "shapes/shapes.go",
+   "stem": "shapes",
+   "lines": 48,
+   "status": "ok"
+  }
+ ],
+ "skipped": []
+}

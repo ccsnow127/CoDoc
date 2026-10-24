@@ -1,0 +1,25 @@
+package calc
+
+// Stats accumulates integer observations.
+type Stats struct {
+	Count int
+	Total int
+	Max   int
+}
+
+// Add records one observation.
+func (s *Stats) Add(v int) {
+	if s.Count == 0 || v > s.Max {
+		s.Max = v
+	}
+	s.Count++
+	s.Total += v
+}
+
+// Mean returns Total/Count in fixed point (multiplied by Scale), or 0 when empty.
+func (s Stats) Mean() int {
+	if s.Count == 0 {
+		return 0
+	}
+	return s.Total * Scale / s.Count
+}

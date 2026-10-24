@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>repo</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  display: flex; height: 100vh; color: #1a1a1a; background: #fff; }
+.sidebar { width: 260px; border-right: 1px solid #e5e7eb; padding: 16px;
+  overflow-y: auto; flex-shrink: 0; background: #fafafa; }
+.sidebar h2 { font-size: 16px; margin-bottom: 12px; color: #111; }
+.nav-item { display: block; padding: 6px 12px; color: #374151; text-decoration: none;
+  border-radius: 6px; font-size: 14px; cursor: pointer; }
+.nav-item:hover { background: #e5e7eb; }
+.nav-item.active { background: #dbeafe; color: #1d4ed8; font-weight: 500; }
+.nav-child { padding-left: 28px; font-size: 13px; }
+.nav-group { padding: 8px 12px 4px; font-size: 12px; font-weight: 600;
+  text-transform: uppercase; color: #6b7280; margin-top: 8px; }
+.content { flex: 1; padding: 32px 48px; overflow-y: auto; max-width: none; min-width: 0; }
+.content > p, .content > ul, .content > ol, .content > blockquote, .content > h1, .content > h2, .content > h3 { max-width: 1000px; }
+h1 { font-size: 28px; margin-bottom: 16px; border-bottom: 1px solid #e5e7eb; padding-bottom: 8px; }
+h2 { font-size: 22px; margin: 24px 0 12px; }
+h3 { font-size: 18px; margin: 20px 0 8px; }
+p { margin: 8px 0; line-height: 1.7; }
+li { margin: 4px 0 4px 24px; line-height: 1.6; }
+blockquote { border-left: 3px solid #3b82f6; padding: 8px 16px; margin: 12px 0;
+  background: #eff6ff; color: #1e40af; border-radius: 0 4px 4px 0; }
+pre { background: #1e293b; color: #e2e8f0; padding: 16px; border-radius: 8px;
+  overflow-x: auto; margin: 12px 0; font-size: 13px; line-height: 1.5; }
+code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+pre code { background: none; padding: 0; }
+strong { font-weight: 600; }
+a { color: #2563eb; }
+.mermaid { margin: 16px 0; text-align: center; overflow-x: auto; }
+table { border-collapse: collapse; margin: 16px 0; width: 100%; font-size: 14px; }
+th, td { border: 1px solid #e5e7eb; padding: 8px 12px; text-align: left; }
+th { background: #f9fafb; }
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <h2>repo</h2>
+  <div class="nav-group">Business Logic (K=2)</div><a class="nav-item nav-child" href="#" onclick="showPage('bizlogic-k2')">Overview</a><a class="nav-item nav-child" href="#" onclick="showPage('bizlogic-k2-p0')">Group 0: C0</a><a class="nav-item nav-child" href="#" onclick="showPage('bizlogic-k2-p1')">Group 1: C1</a>
+  
+</div>
+<div class="content" id="content">
+  <div id="page-bizlogic-k2" class="wiki-page" style="display:none"><h1>Business Logic (K = 2)</h1>
+<br>
+<p>Business logic inferred from behaviour trajectories: random walks over the function dependency graph from entry roots, deduplicated by their sequence of clusters at this granularity. Fewer clusters give fewer, coarser business logics. Each business logic was inferred by an LLM from code evidence; diagrams are generated from that inference and the code structure, and mark what the code confirms. Read them as a map, not a specification.</p>
+<br>
+<h2>System context</h2>
+<br>
+<div class="mermaid">%%{init: {&quot;flowchart&quot;: {&quot;useMaxWidth&quot;: false}} }%%
+flowchart LR
+  classDef sysactor fill:#fff7e6,stroke:#d48806,color:#000
+  classDef dep fill:#f6ffed,stroke:#52c41a,color:#000
+  classDef infra fill:#f5f5f5,stroke:#8c8c8c,stroke-dasharray:4 3,color:#333
+  classDef more fill:#fafafa,stroke:#bfbfbf,stroke-dasharray:3 3,color:#555
+  subgraph sys [&quot;repo&quot;]
+    n_repo[&quot;repo&lt;br&gt;0 logics&quot;]:::dep
+  end</div>
+<br>
+<p>No business logic was inferred, so no outside party is shown.</p>
+<br>
+<h2>Who takes part in which group</h2>
+<br>
+<p>No business logic was inferred (plan only), so no outside party is known.</p>
+<br>
+<ul>
+<li><a href="#" onclick="showPage('bizlogic-k2-p0'); return false;">G0</a> = Group 0: C0</li>
+<li><a href="#" onclick="showPage('bizlogic-k2-p1'); return false;">G1</a> = Group 1: C1</li>
+</ul>
+<br>
+<h2>Code components (clustered)</h2>
+<br>
+<div class="mermaid">%%{init: {&quot;flowchart&quot;: {&quot;useMaxWidth&quot;: false}} }%%
+flowchart TB
+  classDef k_none fill:#fafafa,stroke:#bfbfbf,stroke-dasharray:3 3,color:#888
+  classDef mixed stroke-dasharray:6 3,stroke-width:2px
+  subgraph p1 [&quot;Group 1: C1&quot;]
+    direction TB
+    c1[&quot;C1&lt;br&gt;calc&lt;br&gt;2 fns · 0 logics&quot;]:::k_none
+  end
+  subgraph p0 [&quot;Group 0: C0&quot;]
+    direction TB
+    c0[&quot;C0&lt;br&gt;shapes&lt;br&gt;4 fns · 0 logics&quot;]:::k_none
+  end</div>
+<br>
+<p>Components were not labelled by the LLM: white = business logic passes through it, dashed grey = none does; dashed border = mixed (packages from more than one deployable). The package line shows what each contains.</p>
+<br>
+<table><tr><th>group</th><th>component</th><th>top packages</th><th>functions</th><th>kind</th><th>business logics</th></tr><tr><td>G0</td><td><a href="#" onclick="showPage('bizlogic-k2-c0'); return false;">C0</a></td><td>shapes</td><td>4</td><td></td><td>0</td></tr><tr><td>G1</td><td><a href="#" onclick="showPage('bizlogic-k2-c1'); return false;">C1</a></td><td>calc</td><td>2</td><td></td><td>0</td></tr></table>
+<br>
+<h2>Component call map</h2>
+<br>
+<p>No calls observed between components at this granularity.</p>
+<br>
+<h2>All business logic</h2>
+<br>
+<p>0 business logics</p>
+<br>
+<table><tr><th>#</th><th>business logic</th><th>category</th><th>group</th><th>initiated by</th><th>parties</th><th>walks (whole path)</th><th>confidence</th></tr></table>
+<br>
+<h2>Coverage by subsystem</h2>
+<br>
+<p>Subsystems whose roots were not sampled, or whose code no trajectory passes through, are absent from this page because of sampling, not because the code lacks the behaviour.</p>
+<br>
+<table><tr><th>subsystem</th><th>business functions</th><th>candidate roots</th><th>roots walked</th><th>functions visited</th><th>trajectories</th></tr><tr><td>shapes</td><td>4</td><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>calc</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table>
+<br>
+<p>No business logic passes through: shapes, calc.</p>
+<br>
+<h2>Run</h2>
+<br>
+<table><tr><th>item</th><th>value</th></tr><tr><td>functions (business / utility)</td><td>6 / 0</td></tr><tr><td>base communities</td><td>2</td></tr><tr><td>clusters K</td><td>2</td></tr><tr><td>parent level</td><td>2</td></tr><tr><td>entry roots (walked / candidates)</td><td>0 / 0</td></tr><tr><td>walks</td><td></td></tr><tr><td>business functions visited</td><td>0 / 6</td></tr><tr><td>distinct cluster sequences</td><td></td></tr><tr><td>min walks per kept sequence</td><td>1</td></tr><tr><td>rarer sequences folded in</td><td></td></tr><tr><td>after prefix merge</td><td></td></tr><tr><td>business logics</td><td></td></tr></table>
+<br></div><div id="page-bizlogic-k2-p0" class="wiki-page" style="display:none"><h1>Group 0: C0</h1>
+<br>
+<p>Component group · K = 2 · 1 component · 0 business logics · 4 functions</p>
+<br>
+<h2>Use cases</h2>
+<br>
+<p>No business logic starts in this group.</p>
+<br>
+<h2>Components and calls</h2>
+<br>
+<p>No calls observed between components at this granularity.</p>
+<br>
+<ul>
+<li><a href="#" onclick="showPage('bizlogic-k2-c0'); return false;">C0</a>: unlabelled, 4 functions, 0 business logics, packages <code>shapes</code></li>
+</ul>
+<br>
+<h2>Business logic</h2>
+<br>
+<p>No business logic has this group as its main group.</p>
+<br>
+<br></div><div id="page-bizlogic-k2-p1" class="wiki-page" style="display:none"><h1>Group 1: C1</h1>
+<br>
+<p>Component group · K = 2 · 1 component · 0 business logics · 2 functions</p>
+<br>
+<h2>Use cases</h2>
+<br>
+<p>No business logic starts in this group.</p>
+<br>
+<h2>Components and calls</h2>
+<br>
+<p>No calls observed between components at this granularity.</p>
+<br>
+<ul>
+<li><a href="#" onclick="showPage('bizlogic-k2-c1'); return false;">C1</a>: unlabelled, 2 functions, 0 business logics, packages <code>calc</code></li>
+</ul>
+<br>
+<h2>Business logic</h2>
+<br>
+<p>No business logic has this group as its main group.</p>
+<br>
+<br></div><div id="page-bizlogic-k2-c0" class="wiki-page" style="display:none"><h1>C0</h1>
+<br>
+<p>Component C0 · K = 2 · 4 functions · runs in shapes · part of <a href="#" onclick="showPage('bizlogic-k2-p0'); return false;">Group 0: C0</a></p>
+<br>
+<p><strong>Subsystems:</strong> <code>shapes</code> 100%</p>
+<br>
+<p><strong>Packages:</strong> <code>shapes</code> (4)</p>
+<br>
+<h2>Neighbouring components</h2>
+<br>
+<p>No calls observed into or out of this component.</p>
+<br>
+<h2>Central functions</h2>
+<br>
+<table><tr><th>function</th><th>location</th><th>documentation</th></tr><tr><td><code>shapes.Rect.Area</code></td><td><code>shapes/shapes.go:16</code></td><td>documented.</td></tr><tr><td><code>shapes.Classify</code></td><td><code>shapes/shapes.go:27</code></td><td>documented.</td></tr><tr><td><code>shapes.Largest</code></td><td><code>shapes/shapes.go:40</code></td><td>documented.</td></tr><tr><td><code>shapes.Rect.Name</code></td><td><code>shapes/shapes.go:24</code></td><td>documented.</td></tr></table>
+<br></div><div id="page-bizlogic-k2-c1" class="wiki-page" style="display:none"><h1>C1</h1>
+<br>
+<p>Component C1 · K = 2 · 2 functions · runs in calc · part of <a href="#" onclick="showPage('bizlogic-k2-p1'); return false;">Group 1: C1</a></p>
+<br>
+<p><strong>Subsystems:</strong> <code>calc</code> 100%</p>
+<br>
+<p><strong>Packages:</strong> <code>calc</code> (2)</p>
+<br>
+<h2>Neighbouring components</h2>
+<br>
+<p>No calls observed into or out of this component.</p>
+<br>
+<h2>Central functions</h2>
+<br>
+<table><tr><th>function</th><th>location</th><th>documentation</th></tr><tr><td><code>calc.Stats.Add</code></td><td><code>calc/stats.go:11</code></td><td>documented.</td></tr><tr><td><code>calc.Stats.Mean</code></td><td><code>calc/stats.go:20</code></td><td>documented.</td></tr></table>
+<br></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+mermaid.initialize({ startOnLoad: false, theme: 'default' });
+function showPage(id) {
+  document.querySelectorAll('.wiki-page').forEach(p => p.style.display = 'none');
+  document.querySelectorAll('.nav-item').forEach(a => a.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) {
+    page.style.display = 'block';
+    mermaid.run({ nodes: page.querySelectorAll('.mermaid') });
+  }
+  document.querySelectorAll('.nav-item').forEach(a => {
+    if ((a.getAttribute('onclick') || '').includes("showPage('" + id + "')")) a.classList.add('active');
+  });
+}
+showPage('bizlogic-k2');
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+You refine the documentation of ONE Java source file so that a code generator can rebuild the file from the documentation alone.
+
+How the documentation was evaluated: a code generator saw ONLY the current documentation (plus the package declaration, the list of allowed imports, and the outlines (fields and member signatures) of the other types of the package and of the project types the file imports) and wrote the generated code. That code replaced the original file inside the project, was built together with the project, and the tests that exercise this file were run. You get the reference implementation (the original file), the current documentation, the generated code, and the evaluation: the score phi (fraction of the tests that passed), the build errors or the failing tests with their output, and the sections missing from the documentation.
+
+Do both steps in a single pass:
+
+1. Diagnose. Compare the generated code with the reference implementation. Find every divergence that explains the build errors or the failing tests (wrong or missing declarations, signatures, types, fields, constant values, exceptions and error values and their messages, output formats, boundary conditions, edge cases, side effects), and every other divergence that would make a test fail. Decide what the documentation said, or failed to say, that led the generator astray.
+2. Prescribe. Rewrite the documentation so that a generator reading only it cannot make those mistakes again. Fix the diagnosed parts with extra precision, keep every part that is already correct, and add every missing section. Do not overfit to the generated code: describe the reference behavior.
+
+## Output format (EXACT: downstream parsers depend on these heading patterns)
+
+~~~markdown
+# <file path>
+
+**Package**: `<package name>` (module `<module name>`)
+
+<One paragraph: what this file contributes to the project.>
+
+## VariableDef <Name>
+**<Name>**: <one-sentence purpose>.
+
+```java
+<exact declaration>
+```
+
+## ClassDef <Name>
+**<Name>**: <one-sentence summary>.
+
+```java
+<exact type definition>
+```
+<Member semantics and invariants.>
+
+## FunctionDef <Name>
+**<Name>**: <one-sentence summary>.
+
+**Signature**: `<exact signature>`
+
+**Behavior**: ... **Edge cases**: ... **Errors**: ... **Side effects**: ... **Returns**: ...
+
+## MethodDef <Type>.<Name>
+**<Type>.<Name>**: <one-sentence summary>.
+
+**Signature**: `<exact signature>`
+
+...
+~~~
+
+Section kinds for Java (use only the kinds listed here):
+- `## ClassDef <Name>` for every class, interface, enum, record and annotation type, including nested ones (`## ClassDef Outer.Inner`).
+- `## MethodDef <Type>.<name>` for every method and constructor with a body; `<Type>` is the declaring type's name with `.` for nesting (`## MethodDef Calc.clamp`, `## MethodDef Outer.Inner.run`); a constructor is `## MethodDef <Type>.<Type>`. Overloads share one section that describes every overload.
+- Java has no top-level functions or variables: there are no FunctionDef or VariableDef sections. Fields, enum constants, record components and abstract or interface method signatures belong to the ClassDef section of their type.
+- The first line under every header is `**<Name>**: <one-sentence summary>.` (for methods `**<Type>.<name>**: ...`). This line is used as the symbol summary in a wiki, so make it a real summary.
+
+## Rules
+
+1. Document EVERY top-level declaration of the file, public and private, in the SAME ORDER as in the source. The request lists the sections required; use exactly those headers. Do not rename, skip, or invent sections.
+2. Types: give the exact declaration header in a fenced `java` block: annotations, modifiers, the keyword, type parameters with bounds, `extends` and `implements` clauses, record components, every field with its exact modifiers, type, name and initializer, every enum constant with its arguments, and every abstract, interface or annotation method signature. Do not include method bodies. Comments may be dropped. Then explain the meaning of the fields and the invariants in prose.
+3. Constants: `static final` fields are part of their type's ClassDef block and must appear there with their exact initializer value. If an initializer is a lambda, an anonymous class or longer than about 20 lines, describe its content precisely in prose instead.
+4. Functions and methods: give the exact signature in `**Signature**:`. Then describe, in natural language:
+   - the behavior and the observable order of operations;
+   - edge cases and boundary conditions (empty, zero, negative, missing keys; `<` versus `<=`);
+   - exceptions: which exception types are thrown when (checked and unchecked), with their exact messages; which exceptions are caught and how they are handled; the `throws` clause;
+   - nulls: which parameters may be null, what is returned for null or empty input, `Optional` results;
+   - side effects: fields read or mutated (static and instance), logging calls (logger, level, exact message), files, network, threads, locks and `synchronized` blocks;
+   - overloads: describe each overload's parameters and behaviour separately, and which overload delegates to which;
+   - annotations on the method (`@Override`, framework annotations) and its exact modifiers and visibility;
+   - which other functions, methods and types of the project or of imported libraries it relies on;
+   - the exact return values, including exact output strings and number formats.
+5. Put exact literals (strings, format strings, numbers, field names, dictionary keys, header names, environment variable names) inline in backticks. Exact values matter: tests compare them.
+6. Do NOT write function or method bodies, pseudocode, or line-by-line transcriptions, and no fenced code blocks for functions or methods. Describe behavior and contracts precisely enough that an expert Java programmer reproduces the same observable behavior.
+7. Types listed in the package context belong to OTHER files of the package or of the project: do not document them as sections of this file, but name them when this file uses them; name their fields, constructors and methods that this file uses exactly, in backticks.
+
+## Reply
+
+Reply with the COMPLETE revised documentation (never a diff, a partial document, or a list of changes) inside <documentation>...</documentation>, and nothing outside the tags.

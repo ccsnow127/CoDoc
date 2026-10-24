@@ -1,0 +1,10 @@
+{
+ "pkg": "shapes",
+ "build_ok": true,
+ "passing": [],
+ "failing": [],
+ "build_errors": [],
+ "timed_out": false,
+ "incomplete": false,
+ "runs": 0
+}

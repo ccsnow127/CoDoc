@@ -1,0 +1,12 @@
+{
+ "stages": [
+  "analyze",
+  "baseline",
+  "docgen",
+  "testgen"
+ ],
+ "tokens": {
+  "input": 0,
+  "output": 0
+ }
+}

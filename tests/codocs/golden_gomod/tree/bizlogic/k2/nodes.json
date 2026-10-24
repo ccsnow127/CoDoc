@@ -1,0 +1,32 @@
+{
+ "shapes::Rect.Area": [
+  "shapes/shapes.go",
+  16,
+  "documented."
+ ],
+ "shapes::Classify": [
+  "shapes/shapes.go",
+  27,
+  "documented."
+ ],
+ "shapes::Largest": [
+  "shapes/shapes.go",
+  40,
+  "documented."
+ ],
+ "shapes::Rect.Name": [
+  "shapes/shapes.go",
+  24,
+  "documented."
+ ],
+ "calc::Stats.Add": [
+  "calc/stats.go",
+  11,
+  "documented."
+ ],
+ "calc::Stats.Mean": [
+  "calc/stats.go",
+  20,
+  "documented."
+ ]
+}

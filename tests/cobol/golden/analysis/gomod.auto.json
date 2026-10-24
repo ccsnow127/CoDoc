@@ -1,0 +1,71 @@
+{
+ "module": "example.com/fixture",
+ "packages": [
+  {
+   "error": "",
+   "go_files": 2,
+   "import_path": "example.com/fixture/calc",
+   "name": "calc",
+   "rel": "calc",
+   "targets": {
+    "ok": 2
+   },
+   "test_files": 2,
+   "xtest_files": 0
+  },
+  {
+   "error": "",
+   "go_files": 1,
+   "import_path": "example.com/fixture/shapes",
+   "name": "shapes",
+   "rel": "shapes",
+   "targets": {
+    "ok": 1
+   },
+   "test_files": 0,
+   "xtest_files": 0
+  }
+ ],
+ "selection": {
+  "files": null,
+  "max_files": null,
+  "packages": null,
+  "subtree": null
+ },
+ "skipped": [],
+ "targets": [
+  {
+   "file": "calc/calc.go",
+   "lines": 41,
+   "pkg": "calc",
+   "status": "ok",
+   "stem": "calc"
+  },
+  {
+   "file": "calc/stats.go",
+   "lines": 25,
+   "pkg": "calc",
+   "status": "ok",
+   "stem": "stats"
+  },
+  {
+   "file": "shapes/shapes.go",
+   "lines": 48,
+   "pkg": "shapes",
+   "status": "ok",
+   "stem": "shapes"
+  }
+ ],
+ "totals": {
+  "docgen_targets": 3,
+  "files": 3,
+  "lines": 114,
+  "packages": 2,
+  "packages_with_tests": 1,
+  "statuses": {
+   "ok": 3
+  },
+  "test_files": 2,
+  "testgen_targets": 3
+ }
+}

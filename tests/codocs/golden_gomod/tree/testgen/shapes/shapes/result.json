@@ -1,0 +1,105 @@
+{
+ "pkg": "shapes",
+ "file": "shapes/shapes.go",
+ "stem": "shapes",
+ "status": "ok",
+ "rounds": [
+  {
+   "round": 1,
+   "suite": "package shapes\n\nimport \"testing\"\n\nfunc TestCodocsRect(t *testing.T) {\n\tr := Rect{W: 2, H: 3}\n\tif r.Area() != 6 {\n\t\tt.Fatalf(\"Area = %v\", r.Area())\n\t}\n\tif (Rect{W: -1, H: 3}).Area() != 0 || (Rect{W: 1, H: -3}).Area() != 0 {\n\t\tt.Fatal(\"negative side must give 0\")\n\t}\n\tif r.Name() != \"rect 2.0x3.0\" {\n\t\tt.Fatalf(\"Name = %q\", r.Name())\n\t}\n}\n\nfunc TestCodocsClassify(t *testing.T) {\n\tfor _, c := range []struct {\n\t\tr    Rect\n\t\twant string\n\t}{{Rect{0, 5}, \"empty\"}, {Rect{1, 1}, \"small\"}, {Rect{2, 5}, \"large\"}, {Rect{3, 3}, \"small\"}} {\n\t\tif got := Classify(c.r); got != c.want {\n\t\t\tt.Errorf(\"Classify(%v) = %q, want %q\", c.r, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCodocsLargest(t *testing.T) {\n\tif Largest(nil) != nil {\n\t\tt.Fatal(\"Largest(nil) must be nil\")\n\t}\n\ta, b := Rect{1, 1}, Rect{2, 2}\n\tif got := Largest([]Shape{a, b, a}); got != b {\n\t\tt.Fatalf(\"Largest = %v\", got)\n\t}\n\tif got := Largest([]Shape{b, b}); got != b {\n\t\tt.Fatalf(\"Largest = %v\", got)\n\t}\n}\n",
+   "measurement": {
+    "build_ok": true,
+    "build_errors": [],
+    "size": 3,
+    "passing": [
+     "TestCodocsClassify",
+     "TestCodocsLargest",
+     "TestCodocsRect"
+    ],
+    "failing": {},
+    "green_src": "package shapes\n\nimport \"testing\"\n\nfunc TestCodocsRect(t *testing.T) {\n\tr := Rect{W: 2, H: 3}\n\tif r.Area() != 6 {\n\t\tt.Fatalf(\"Area = %v\", r.Area())\n\t}\n\tif (Rect{W: -1, H: 3}).Area() != 0 || (Rect{W: 1, H: -3}).Area() != 0 {\n\t\tt.Fatal(\"negative side must give 0\")\n\t}\n\tif r.Name() != \"rect 2.0x3.0\" {\n\t\tt.Fatalf(\"Name = %q\", r.Name())\n\t}\n}\n\nfunc TestCodocsClassify(t *testing.T) {\n\tfor _, c := range []struct {\n\t\tr    Rect\n\t\twant string\n\t}{{Rect{0, 5}, \"empty\"}, {Rect{1, 1}, \"small\"}, {Rect{2, 5}, \"large\"}, {Rect{3, 3}, \"small\"}} {\n\t\tif got := Classify(c.r); got != c.want {\n\t\t\tt.Errorf(\"Classify(%v) = %q, want %q\", c.r, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCodocsLargest(t *testing.T) {\n\tif Largest(nil) != nil {\n\t\tt.Fatal(\"Largest(nil) must be nil\")\n\t}\n\ta, b := Rect{1, 1}, Rect{2, 2}\n\tif got := Largest([]Shape{a, b, a}); got != b {\n\t\tt.Fatalf(\"Largest = %v\", got)\n\t}\n\tif got := Largest([]Shape{b, b}); got != b {\n\t\tt.Fatalf(\"Largest = %v\", got)\n\t}\n}\n",
+    "green_size": 3,
+    "cov": 1.0,
+    "uncovered": [],
+    "mut": 0.25,
+    "mutants_total": 4,
+    "mutants_valid": 4,
+    "killed": 1,
+    "survivors": [
+     {
+      "id": "m366",
+      "line": 17,
+      "operator": "cmp: < -> <="
+     },
+     {
+      "id": "m377",
+      "line": 17,
+      "operator": "cmp: < -> <="
+     },
+     {
+      "id": "m962",
+      "line": 43,
+      "operator": "cmp: > -> >="
+     }
+    ],
+    "suite_src": "package shapes\n\nimport \"testing\"\n\nfunc TestCodocsRect(t *testing.T) {\n\tr := Rect{W: 2, H: 3}\n\tif r.Area() != 6 {\n\t\tt.Fatalf(\"Area = %v\", r.Area())\n\t}\n\tif (Rect{W: -1, H: 3}).Area() != 0 || (Rect{W: 1, H: -3}).Area() != 0 {\n\t\tt.Fatal(\"negative side must give 0\")\n\t}\n\tif r.Name() != \"rect 2.0x3.0\" {\n\t\tt.Fatalf(\"Name = %q\", r.Name())\n\t}\n}\n\nfunc TestCodocsClassify(t *testing.T) {\n\tfor _, c := range []struct {\n\t\tr    Rect\n\t\twant string\n\t}{{Rect{0, 5}, \"empty\"}, {Rect{1, 1}, \"small\"}, {Rect{2, 5}, \"large\"}, {Rect{3, 3}, \"small\"}} {\n\t\tif got := Classify(c.r); got != c.want {\n\t\t\tt.Errorf(\"Classify(%v) = %q, want %q\", c.r, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCodocsLargest(t *testing.T) {\n\tif Largest(nil) != nil {\n\t\tt.Fatal(\"Largest(nil) must be nil\")\n\t}\n\ta, b := Rect{1, 1}, Rect{2, 2}\n\tif got := Largest([]Shape{a, b, a}); got != b {\n\t\tt.Fatalf(\"Largest = %v\", got)\n\t}\n\tif got := Largest([]Shape{b, b}); got != b {\n\t\tt.Fatalf(\"Largest = %v\", got)\n\t}\n}\n",
+    "score": 0.25
+   }
+  },
+  {
+   "round": 2,
+   "suite": "package shapes\n\nimport \"testing\"\n\nfunc TestCodocsRect(t *testing.T) {\n\tr := Rect{W: 2, H: 3}\n\tif r.Area() != 6 {\n\t\tt.Fatalf(\"Area = %v\", r.Area())\n\t}\n\tif (Rect{W: -1, H: 3}).Area() != 0 || (Rect{W: 1, H: -3}).Area() != 0 {\n\t\tt.Fatal(\"negative side must give 0\")\n\t}\n\tif r.Name() != \"rect 2.0x3.0\" {\n\t\tt.Fatalf(\"Name = %q\", r.Name())\n\t}\n}\n\nfunc TestCodocsClassify(t *testing.T) {\n\tfor _, c := range []struct {\n\t\tr    Rect\n\t\twant string\n\t}{{Rect{0, 5}, \"empty\"}, {Rect{1, 1}, \"small\"}, {Rect{2, 5}, \"large\"}, {Rect{3, 3}, \"small\"}} {\n\t\tif got := Classify(c.r); got != c.want {\n\t\t\tt.Errorf(\"Classify(%v) = %q, want %q\", c.r, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCodocsLargest(t *testing.T) {\n\tif Largest(nil) != nil {\n\t\tt.Fatal(\"Largest(nil) must be nil\")\n\t}\n\ta, b := Rect{1, 1}, Rect{2, 2}\n\tif got := Largest([]Shape{a, b, a}); got != b {\n\t\tt.Fatalf(\"Largest = %v\", got)\n\t}\n\tif got := Largest([]Shape{b, b}); got != b {\n\t\tt.Fatalf(\"Largest = %v\", got)\n\t}\n}\n",
+   "measurement": {
+    "build_ok": true,
+    "build_errors": [],
+    "size": 3,
+    "passing": [
+     "TestCodocsClassify",
+     "TestCodocsLargest",
+     "TestCodocsRect"
+    ],
+    "failing": {},
+    "green_src": "package shapes\n\nimport \"testing\"\n\nfunc TestCodocsRect(t *testing.T) {\n\tr := Rect{W: 2, H: 3}\n\tif r.Area() != 6 {\n\t\tt.Fatalf(\"Area = %v\", r.Area())\n\t}\n\tif (Rect{W: -1, H: 3}).Area() != 0 || (Rect{W: 1, H: -3}).Area() != 0 {\n\t\tt.Fatal(\"negative side must give 0\")\n\t}\n\tif r.Name() != \"rect 2.0x3.0\" {\n\t\tt.Fatalf(\"Name = %q\", r.Name())\n\t}\n}\n\nfunc TestCodocsClassify(t *testing.T) {\n\tfor _, c := range []struct {\n\t\tr    Rect\n\t\twant string\n\t}{{Rect{0, 5}, \"empty\"}, {Rect{1, 1}, \"small\"}, {Rect{2, 5}, \"large\"}, {Rect{3, 3}, \"small\"}} {\n\t\tif got := Classify(c.r); got != c.want {\n\t\t\tt.Errorf(\"Classify(%v) = %q, want %q\", c.r, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCodocsLargest(t *testing.T) {\n\tif Largest(nil) != nil {\n\t\tt.Fatal(\"Largest(nil) must be nil\")\n\t}\n\ta, b := Rect{1, 1}, Rect{2, 2}\n\tif got := Largest([]Shape{a, b, a}); got != b {\n\t\tt.Fatalf(\"Largest = %v\", got)\n\t}\n\tif got := Largest([]Shape{b, b}); got != b {\n\t\tt.Fatalf(\"Largest = %v\", got)\n\t}\n}\n",
+    "green_size": 3,
+    "cov": 1.0,
+    "uncovered": [],
+    "mut": 0.25,
+    "mutants_total": 4,
+    "mutants_valid": 4,
+    "killed": 1,
+    "survivors": [
+     {
+      "id": "m366",
+      "line": 17,
+      "operator": "cmp: < -> <="
+     },
+     {
+      "id": "m377",
+      "line": 17,
+      "operator": "cmp: < -> <="
+     },
+     {
+      "id": "m962",
+      "line": 43,
+      "operator": "cmp: > -> >="
+     }
+    ],
+    "suite_src": "package shapes\n\nimport \"testing\"\n\nfunc TestCodocsRect(t *testing.T) {\n\tr := Rect{W: 2, H: 3}\n\tif r.Area() != 6 {\n\t\tt.Fatalf(\"Area = %v\", r.Area())\n\t}\n\tif (Rect{W: -1, H: 3}).Area() != 0 || (Rect{W: 1, H: -3}).Area() != 0 {\n\t\tt.Fatal(\"negative side must give 0\")\n\t}\n\tif r.Name() != \"rect 2.0x3.0\" {\n\t\tt.Fatalf(\"Name = %q\", r.Name())\n\t}\n}\n\nfunc TestCodocsClassify(t *testing.T) {\n\tfor _, c := range []struct {\n\t\tr    Rect\n\t\twant string\n\t}{{Rect{0, 5}, \"empty\"}, {Rect{1, 1}, \"small\"}, {Rect{2, 5}, \"large\"}, {Rect{3, 3}, \"small\"}} {\n\t\tif got := Classify(c.r); got != c.want {\n\t\t\tt.Errorf(\"Classify(%v) = %q, want %q\", c.r, got, c.want)\n\t\t}\n\t}\n}\n\nfunc TestCodocsLargest(t *testing.T) {\n\tif Largest(nil) != nil {\n\t\tt.Fatal(\"Largest(nil) must be nil\")\n\t}\n\ta, b := Rect{1, 1}, Rect{2, 2}\n\tif got := Largest([]Shape{a, b, a}); got != b {\n\t\tt.Fatalf(\"Largest = %v\", got)\n\t}\n\tif got := Largest([]Shape{b, b}); got != b {\n\t\tt.Fatalf(\"Largest = %v\", got)\n\t}\n}\n",
+    "score": 0.25
+   }
+  }
+ ],
+ "best_round": 1,
+ "best_score": 0.25,
+ "best_cov": 1.0,
+ "best_mut": 0.25,
+ "best_size": 3,
+ "early_stop": false,
+ "threshold": 0.85,
+ "max_rounds": 2,
+ "error": "",
+ "score_trajectory": [
+  0.25,
+  0.25
+ ]
+}

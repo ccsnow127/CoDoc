@@ -1,0 +1,99 @@
+cff-version: 1.2.0
+message: >-
+  If you use CoDoc, please cite the papers behind its two loops: SpecForge
+  (preferred citation, the documentation loop) and TeSearch (listed under
+  references, the unit-test loop).
+type: software
+title: "CoDoc: executably verified documentation, unit tests and repository wikis"
+abstract: >-
+  CoDoc (codocs) generates per-file documentation, unit tests, a repository
+  wiki and a business-logic analysis for Go, Python, Java, C, C++ and COBOL
+  repositories. Each doc is scored by regenerating the file from the doc alone
+  and running the repository's tests on the regenerated code (SpecForge); each
+  test suite is pruned to passing tests and scored by coverage times mutation
+  score (TeSearch).
+authors:
+  - given-names: Yutong
+    family-names: Cheng
+    alias: CiCi
+    website: "https://ccsnow127.github.io"
+repository-code: "https://github.com/ccsnow127/CoDoc"
+url: "https://github.com/ccsnow127/CoDoc"
+license: MIT
+version: 0.1.0
+keywords:
+  - documentation generation
+  - unit test generation
+  - mutation testing
+  - code coverage
+  - large language models
+  - coding agents
+  - COBOL
+  - legacy code
+  - repository wiki
+preferred-citation:
+  type: conference-paper
+  title: "SpecForge: Recursive Self-Improvement for Coding Agents via Behavioral Specifications"
+  authors:
+    - given-names: Yutong
+      family-names: Cheng
+    - given-names: Haifeng
+      family-names: Chen
+    - given-names: Peng
+      family-names: Gao
+    - given-names: Wei
+      family-names: Cheng
+  collection-title: "Advances in Neural Information Processing Systems (NeurIPS)"
+  conference:
+    name: "NeurIPS 2026"
+  year: 2026
+  url: "https://arxiv.org/abs/2610.15708"
+  identifiers:
+    - type: url
+      value: "https://arxiv.org/abs/2610.15708"
+      description: arXiv
+    - type: other
+      value: "arXiv:2610.15708"
+      description: arXiv identifier
+    - type: url
+      value: "https://openreview.net/forum?id=yMLqe1DovZ"
+      description: OpenReview
+references:
+  - type: conference-paper
+    title: "Small but Mighty: Test Suites as Improvement Signals for Self-Evolving Agents"
+    authors:
+      - given-names: Yutong
+        family-names: Cheng
+      - given-names: Wei
+        family-names: Cheng
+      - given-names: Wenchao
+        family-names: Yu
+      - given-names: Dawei
+        family-names: Zhou
+      - given-names: Haifeng
+        family-names: Chen
+    collection-title: "NeurIPS 2026 Workshop on Self-Evolving Diversity-Driven Search for Robust AI Systems (EvoRobust)"
+    conference:
+      name: "NeurIPS 2026 Workshop on Self-Evolving Diversity-Driven Search for Robust AI Systems (EvoRobust)"
+    year: 2026
+    url: "https://arxiv.org/abs/2610.15964"
+    identifiers:
+      - type: other
+        value: "arXiv:2610.15964"
+        description: arXiv identifier
+  - type: blog
+    title: "CoDoc: Documentation and Unit Tests, Verified by Execution"
+    authors:
+      - given-names: Yutong
+        family-names: Cheng
+    year: 2026
+    month: 10
+    url: "https://ccsnow127.github.io/blog/2026/codoc/"
+    medium: "Blog post"
+  - type: software
+    title: RepoWiki
+    authors:
+      - name: "Yufeng He"
+    repository-code: "https://github.com/he-yufeng/RepoWiki"
+    license: MIT
+    notes: "CoDoc vendors a modified fork of RepoWiki."

@@ -1,0 +1,679 @@
+{
+  "name": "3gpp-5gc",
+  "description": "Example profile for a 3GPP 5G core network (5GC). Public 3GPP vocabulary only (TS 23.501, TS 23.502, TS 33.501): network functions, their reference points and service-based interfaces, procedures and RM/CM states. Deployables use the conventional lower-case network-function directory names (amf/, smf/, ...); copy the file and adjust them to your repository layout.",
+  "system_description": "a 3GPP 5G core network",
+  "deployables": {
+    "amf": "AMF",
+    "smf": "SMF",
+    "smsf": "SMSF",
+    "ausf": "AUSF",
+    "udm": "UDM",
+    "udr": "UDR",
+    "pcf": "PCF",
+    "nrf": "NRF",
+    "nssf": "NSSF",
+    "chf": "CHF",
+    "upf": "UPF"
+  },
+  "self": {
+    "AMF": "AMF",
+    "SMF": "SMF",
+    "SMSF": "SMSF",
+    "AUSF": "AUSF",
+    "UDM": "UDM",
+    "UDR": "UDR",
+    "PCF": "PCF",
+    "NRF": "NRF",
+    "NSSF": "NSSF",
+    "CHF": "CHF",
+    "UPF": "UPF"
+  },
+  "interfaces": {
+    "AMF": {
+      "UE": "N1 (NAS)",
+      "NG-RAN (gNB)": "N2 (NGAP)",
+      "SMF": "N11 (Nsmf)",
+      "UDM": "N8 (Nudm)",
+      "AUSF": "N12 (Nausf)",
+      "PCF": "N15 (Npcf)",
+      "NSSF": "N22 (Nnssf)",
+      "NRF": "Nnrf",
+      "Peer AMF": "N14 (Namf)",
+      "MME (EPC)": "N26 (GTPv2-C)",
+      "SMSF": "N20 (Nsmsf)",
+      "LMF": "NLs",
+      "GMLC / LCS client": "NLg (Namf_Location)",
+      "CBC / warning gateway": "N50 (Namf_Communication)",
+      "5G-EIR": "N17 (N5g-eir)",
+      "NEF / AF": "N51 (Namf_EventExposure)",
+      "CHF": "Nchf",
+      "SCP": "SBI via SCP",
+      "Operator / OAM": "O&M",
+      "OSS / BSS": "O&M northbound",
+      "Monitoring / observability": "metrics"
+    },
+    "SMF": {
+      "AMF": "N11 (Namf)",
+      "UPF": "N4 (PFCP)",
+      "PCF": "N7 (Npcf)",
+      "UDM": "N10 (Nudm)",
+      "CHF": "N40 (Nchf)",
+      "NRF": "Nnrf",
+      "SCP": "SBI via SCP",
+      "Operator / OAM": "O&M"
+    },
+    "SMSF": {
+      "AMF": "N20 (Nsmsf / Namf)",
+      "UDM": "N21 (Nudm)",
+      "SMS-GMSC / IWMSC (SGd, Diameter)": "SGd (Diameter)",
+      "CHF": "Nchf",
+      "NRF": "Nnrf",
+      "Operator / OAM": "O&M"
+    },
+    "AUSF": {
+      "AMF": "N12 (Nausf)",
+      "UDM": "N13 (Nudm)",
+      "NRF": "Nnrf",
+      "Operator / OAM": "O&M"
+    },
+    "UDM": {
+      "AMF": "N8 (Nudm)",
+      "SMF": "N10 (Nudm)",
+      "AUSF": "N13 (Nudm)",
+      "SMSF": "N21 (Nudm)",
+      "UDR": "N35 (Nudr)",
+      "NRF": "Nnrf",
+      "Operator / OAM": "O&M",
+      "*": "Nudm"
+    },
+    "UDR": {
+      "UDM": "N35 (Nudr)",
+      "PCF": "N36 (Nudr)",
+      "NEF / AF": "N37 (Nudr)",
+      "NRF": "Nnrf",
+      "Operator / OAM": "O&M"
+    },
+    "PCF": {
+      "AMF": "N15 (Npcf)",
+      "SMF": "N7 (Npcf)",
+      "UDR": "N36 (Nudr)",
+      "NEF / AF": "N5 (Npcf)",
+      "CHF": "N28 (Nchf)",
+      "NRF": "Nnrf",
+      "Operator / OAM": "O&M"
+    },
+    "NRF": {
+      "Operator / OAM": "O&M",
+      "*": "Nnrf"
+    },
+    "NSSF": {
+      "AMF": "N22 (Nnssf)",
+      "NRF": "Nnrf",
+      "Operator / OAM": "O&M",
+      "*": "Nnssf"
+    },
+    "CHF": {
+      "SMF": "N40 (Nchf)",
+      "PCF": "N28 (Nchf)",
+      "NRF": "Nnrf",
+      "Operator / OAM": "O&M",
+      "*": "Nchf"
+    },
+    "UPF": {
+      "SMF": "N4 (PFCP)",
+      "NG-RAN (gNB)": "N3 (GTP-U)",
+      "Operator / OAM": "O&M"
+    }
+  },
+  "wildcard_parties": [
+    "AMF",
+    "Peer AMF",
+    "SMF",
+    "UDM",
+    "UDR",
+    "AUSF",
+    "PCF",
+    "NRF",
+    "NSSF",
+    "SCP",
+    "CHF",
+    "5G-EIR",
+    "GMLC / LCS client",
+    "LMF",
+    "NEF / AF",
+    "CBC / warning gateway",
+    "SMSF",
+    "Other 5GC NFs"
+  ],
+  "actors": [
+    {
+      "name": "UDM",
+      "kind": "nf",
+      "pattern": "\\budm\\b|subscri(ber|ption) data",
+      "aliases": [
+        "UDM",
+        "subscriber data",
+        "subscription data"
+      ]
+    },
+    {
+      "name": "Peer AMF",
+      "kind": "nf",
+      "pattern": "\\b(source|target|old|new|peer|other|another|initial) amf\\b|inter-?amf|amf re-?allocation|^amf\\s*\\(\\s*n14\\b[^)]*\\)$",
+      "primary": true,
+      "aliases": [
+        "source AMF",
+        "target AMF",
+        "old AMF",
+        "peer AMF",
+        "other AMF",
+        "new AMF"
+      ]
+    },
+    {
+      "name": "AMF",
+      "kind": "nf",
+      "pattern": "^(the |serving )?amf(\\s*\\([^)]*\\))?$",
+      "unless": "Peer AMF"
+    },
+    {
+      "name": "UE",
+      "kind": "nf",
+      "pattern": "\\bue\\b|\\bsubscriber\\b(?! data)|user equipment",
+      "label": "UE (subscriber device)",
+      "device": true,
+      "primary": true,
+      "aliases": [
+        "UE",
+        "user equipment"
+      ]
+    },
+    {
+      "name": "NG-RAN (gNB)",
+      "kind": "nf",
+      "pattern": "gnb|\\bran\\b|ng-?ran|\\(r\\)an|access network|access node|nrppa|ran nodes?",
+      "primary": true,
+      "aliases": [
+        "gNB",
+        "NG-RAN",
+        "RAN",
+        "(R)AN"
+      ],
+      "case_sensitive_aliases": [
+        "AN"
+      ]
+    },
+    {
+      "name": "NG-RAN (gNB)",
+      "kind": "nf",
+      "pattern": "\\bAN\\b",
+      "case_sensitive": true
+    },
+    {
+      "name": "SMF",
+      "kind": "nf",
+      "pattern": "\\b[ivh]?-?smf\\b"
+    },
+    {
+      "name": "UPF",
+      "kind": "nf",
+      "pattern": "\\bupf\\b|user plane function"
+    },
+    {
+      "name": "AUSF",
+      "kind": "nf",
+      "pattern": "\\bausf\\b|authentication server function"
+    },
+    {
+      "name": "PCF",
+      "kind": "nf",
+      "pattern": "\\bpcf\\b|policy control function|policy-related"
+    },
+    {
+      "name": "NRF",
+      "kind": "nf",
+      "pattern": "\\bnrf\\b"
+    },
+    {
+      "name": "NSSF",
+      "kind": "nf",
+      "pattern": "\\bnssf\\b"
+    },
+    {
+      "name": "UDR",
+      "kind": "nf",
+      "pattern": "\\budr\\b|unified data repository"
+    },
+    {
+      "name": "SCP",
+      "kind": "nf",
+      "pattern": "\\bscp\\b"
+    },
+    {
+      "name": "CHF",
+      "kind": "nf",
+      "pattern": "\\bchf\\b|charging"
+    },
+    {
+      "name": "5G-EIR",
+      "kind": "nf",
+      "pattern": "\\b(5g-)?eir\\b"
+    },
+    {
+      "name": "GMLC / LCS client",
+      "kind": "nf",
+      "pattern": "gmlc|lcs client|location (services|information) consumer"
+    },
+    {
+      "name": "LMF",
+      "kind": "nf",
+      "pattern": "\\blmf\\b"
+    },
+    {
+      "name": "MME (EPC)",
+      "kind": "nf",
+      "pattern": "\\bmme\\b|\\bepc\\b|legacy core|\\bn26\\b|mobility (node|peer)\\b|handover peer",
+      "primary": true,
+      "aliases": [
+        "MME",
+        "EPC",
+        "EPS"
+      ]
+    },
+    {
+      "name": "CBC / warning gateway",
+      "kind": "nf",
+      "pattern": "\\bcbc[ef]?\\b|warning gateway|\\bpws\\b"
+    },
+    {
+      "name": "NEF / AF",
+      "kind": "nf",
+      "pattern": "\\bnef\\b|application function|\\baf\\b|event (exposure )?consumer"
+    },
+    {
+      "name": "SMSF",
+      "kind": "nf",
+      "pattern": "\\bsmsf\\b|sms function|sms-related"
+    },
+    {
+      "name": "SMS-GMSC / IWMSC (SGd, Diameter)",
+      "kind": "nf",
+      "pattern": "diameter|\\bsgd\\b|sms-?gmsc|iwmsc|sms router|\\bsmsc\\b"
+    },
+    {
+      "name": "OSS / BSS",
+      "kind": "system",
+      "pattern": "\\boss\\b|\\bbss\\b|northbound",
+      "primary": true
+    },
+    {
+      "name": "Other 5GC NFs",
+      "kind": "generic",
+      "pattern": "network functions?|\\bnfs?\\b|peer nf|5g core|5gc|partner services|remote http peer|other nf|callback (notification )?consumer|callback endpoint"
+    }
+  ],
+  "prompt_actors": [
+    "UE",
+    {
+      "name": "NG-RAN",
+      "actor": "NG-RAN (gNB)"
+    },
+    {
+      "name": "peer AMF",
+      "actor": "Peer AMF"
+    },
+    {
+      "name": "MME",
+      "actor": "MME (EPC)"
+    },
+    "SMF",
+    "UPF",
+    "UDM",
+    "UDR",
+    "AUSF",
+    "PCF",
+    "NRF",
+    "NSSF",
+    "SCP",
+    "CHF",
+    "5G-EIR",
+    {
+      "name": "GMLC",
+      "actor": "GMLC / LCS client"
+    },
+    "LMF",
+    {
+      "name": "NEF/AF",
+      "actor": "NEF / AF"
+    },
+    {
+      "name": "CBC",
+      "actor": "CBC / warning gateway"
+    },
+    "SMSF",
+    {
+      "name": "SMS-GMSC/IWMSC",
+      "actor": "SMS-GMSC / IWMSC (SGd, Diameter)"
+    },
+    "AMF",
+    {
+      "name": "operator",
+      "actor": "Operator / OAM"
+    },
+    {
+      "name": "OSS",
+      "actor": "OSS / BSS"
+    },
+    {
+      "name": "monitoring system",
+      "actor": "Monitoring / observability"
+    },
+    {
+      "name": "data store",
+      "actor": "Key-value store"
+    },
+    {
+      "name": "Kubernetes",
+      "actor": "Kubernetes platform"
+    },
+    {
+      "name": "other NF",
+      "actor": "Other 5GC NFs"
+    }
+  ],
+  "procedures": [
+    {
+      "name": "Initial registration",
+      "reference": "TS 23.502 4.2.2.2.2",
+      "family": "Registration management"
+    },
+    {
+      "name": "Mobility registration update",
+      "reference": "TS 23.502 4.2.2.2.2",
+      "family": "Registration management"
+    },
+    {
+      "name": "Periodic registration update",
+      "reference": "TS 23.502 4.2.2.2.2",
+      "family": "Registration management"
+    },
+    {
+      "name": "Registration with AMF re-allocation",
+      "reference": "TS 23.502 4.2.2.2.3",
+      "family": "Registration management"
+    },
+    {
+      "name": "UE-initiated deregistration",
+      "reference": "TS 23.502 4.2.2.3.2",
+      "family": "Registration management"
+    },
+    {
+      "name": "Network-initiated deregistration",
+      "reference": "TS 23.502 4.2.2.3.3",
+      "family": "Registration management"
+    },
+    {
+      "name": "UE-triggered service request",
+      "reference": "TS 23.502 4.2.3.2",
+      "family": "Connection management"
+    },
+    {
+      "name": "Network-triggered service request (paging)",
+      "reference": "TS 23.502 4.2.3.3",
+      "family": "Connection management"
+    },
+    {
+      "name": "AN release",
+      "reference": "TS 23.502 4.2.6",
+      "family": "Connection management"
+    },
+    {
+      "name": "UE configuration update",
+      "reference": "TS 23.502 4.2.4.2",
+      "family": "Connection management"
+    },
+    {
+      "name": "UE reachability",
+      "reference": "TS 23.502 4.2.5",
+      "family": "Connection management"
+    },
+    {
+      "name": "Xn-based handover",
+      "reference": "TS 23.502 4.9.1.2",
+      "family": "Mobility and handover"
+    },
+    {
+      "name": "N2-based handover",
+      "reference": "TS 23.502 4.9.1.3",
+      "family": "Mobility and handover"
+    },
+    {
+      "name": "5GS to EPS handover (N26)",
+      "reference": "TS 23.502 4.11.1.2.1",
+      "family": "Mobility and handover"
+    },
+    {
+      "name": "EPS to 5GS handover (N26)",
+      "reference": "TS 23.502 4.11.1.2.2",
+      "family": "Mobility and handover"
+    },
+    {
+      "name": "5GS to EPS idle mode mobility (N26)",
+      "reference": "TS 23.502 4.11.1.3.2",
+      "family": "Mobility and handover"
+    },
+    {
+      "name": "EPS to 5GS mobility registration (N26)",
+      "reference": "TS 23.502 4.11.1.3.3",
+      "family": "Mobility and handover"
+    },
+    {
+      "name": "PDU session establishment",
+      "reference": "TS 23.502 4.3.2",
+      "family": "PDU session support"
+    },
+    {
+      "name": "PDU session modification",
+      "reference": "TS 23.502 4.3.3",
+      "family": "PDU session support"
+    },
+    {
+      "name": "PDU session release",
+      "reference": "TS 23.502 4.3.4",
+      "family": "PDU session support"
+    },
+    {
+      "name": "AM policy association establishment",
+      "reference": "TS 23.502 4.16.1",
+      "family": "Policy association"
+    },
+    {
+      "name": "AM policy association modification",
+      "reference": "TS 23.502 4.16.2",
+      "family": "Policy association"
+    },
+    {
+      "name": "AM policy association termination",
+      "reference": "TS 23.502 4.16.3",
+      "family": "Policy association"
+    },
+    {
+      "name": "Primary authentication",
+      "reference": "TS 33.501 6.1",
+      "family": "Security and identity"
+    },
+    {
+      "name": "NAS security mode control",
+      "reference": "TS 33.501 6.7.2",
+      "family": "Security and identity"
+    },
+    {
+      "name": "PEI check",
+      "reference": "TS 23.502 4.2.2.2.2 (step 14)",
+      "family": "Security and identity"
+    },
+    {
+      "name": "SMS over NAS registration",
+      "reference": "TS 23.502 4.13.3.1",
+      "family": "SMS over NAS"
+    },
+    {
+      "name": "MO SMS over NAS",
+      "reference": "TS 23.502 4.13.3",
+      "family": "SMS over NAS"
+    },
+    {
+      "name": "MT SMS over NAS",
+      "reference": "TS 23.502 4.13.3",
+      "family": "SMS over NAS"
+    },
+    {
+      "name": "Location services",
+      "reference": "TS 23.273",
+      "family": "Location and event exposure"
+    },
+    {
+      "name": "AMF event exposure",
+      "reference": "TS 23.502 4.15",
+      "family": "Location and event exposure"
+    },
+    {
+      "name": "Public warning message delivery",
+      "reference": "TS 23.041",
+      "family": "Public warning"
+    },
+    {
+      "name": "NF registration",
+      "reference": "TS 23.502 4.17.1",
+      "family": "NF registration and discovery"
+    },
+    {
+      "name": "NF update",
+      "reference": "TS 23.502 4.17.2",
+      "family": "NF registration and discovery"
+    },
+    {
+      "name": "NF deregistration",
+      "reference": "TS 23.502 4.17.3",
+      "family": "NF registration and discovery"
+    },
+    {
+      "name": "NF discovery",
+      "reference": "TS 23.502 4.17.4",
+      "family": "NF registration and discovery"
+    },
+    {
+      "name": "NF status subscribe / notify",
+      "reference": "TS 23.502 4.17",
+      "family": "NF registration and discovery"
+    }
+  ],
+  "ops_family": "Operations and maintenance",
+  "data_objects": [
+    "UE context",
+    "PDU session context",
+    "subscription data",
+    "NF profile",
+    "SMS message",
+    "policy association"
+  ],
+  "states": {
+    "RM": [
+      "RM-DEREGISTERED",
+      "RM-REGISTERED"
+    ],
+    "CM": [
+      "CM-IDLE",
+      "CM-CONNECTED"
+    ],
+    "NF registration": [
+      "REGISTERED",
+      "SUSPENDED",
+      "UNDISCOVERABLE",
+      "DEREGISTERED"
+    ],
+    "PDU session": [
+      "ACTIVE",
+      "INACTIVE",
+      "RELEASED"
+    ]
+  },
+  "state_aliases": {
+    "5GMM-REGISTERED": "RM-REGISTERED",
+    "5GMM-DEREGISTERED": "RM-DEREGISTERED",
+    "REGISTERED": "RM-REGISTERED",
+    "DEREGISTERED": "RM-DEREGISTERED",
+    "IDLE": "CM-IDLE",
+    "CONNECTED": "CM-CONNECTED"
+  },
+  "state_entities": [
+    {
+      "state": "NF registration",
+      "pattern": "\\bNF\\b.*\\bregistration\\b|\\bNF (profile|status)"
+    },
+    {
+      "state": "PDU session",
+      "pattern": "\\bPDU session\\b"
+    },
+    {
+      "state": "RM",
+      "pattern": "\\bRM\\b|registration (management|state)|\\b5GMM\\b"
+    },
+    {
+      "state": "CM",
+      "pattern": "\\bCM\\b|connection (management|state)"
+    }
+  ],
+  "party_tokens": [
+    "amf",
+    "smf",
+    "pcf",
+    "udm",
+    "udr",
+    "ausf",
+    "nrf",
+    "nssf",
+    "smsf",
+    "ue",
+    "gnb",
+    "ran",
+    "mme",
+    "lmf",
+    "nef",
+    "chf",
+    "upf"
+  ],
+  "token_aliases": {
+    "namf": "amf",
+    "nsmf": "smf",
+    "npcf": "pcf",
+    "nudm": "udm",
+    "nudr": "udr",
+    "nausf": "ausf",
+    "nnrf": "nrf",
+    "nnssf": "nssf",
+    "nsmsf": "smsf",
+    "nlmf": "lmf",
+    "nnef": "nef",
+    "nchf": "chf",
+    "pdusess": "pdu session",
+    "ho": "handover"
+  },
+  "short_tokens": [
+    "ue",
+    "an",
+    "sm",
+    "n1",
+    "n2"
+  ],
+  "adjacent_lifelines": [
+    {
+      "first": "UE",
+      "second": "NG-RAN (gNB)",
+      "note": "NAS carried in NGAP (N2)"
+    }
+  ],
+  "message_prefixes": {
+    "UE": "N1 NAS: "
+  }
+}

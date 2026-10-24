@@ -1,0 +1,81 @@
+=== SYSTEM ===
+You write ONE complete, self-contained Go test file (standard `testing` package) for the target Go source file. Output ONLY the Go source of that file - no prose, no fences. Rules:
+- The file starts with the package clause given in the request (`package <name>`, the same package as the target: an internal test, so unexported identifiers are reachable), then its imports.
+- Import only the Go standard library, this module's own packages, and the third-party modules listed as allowed in the request. Every import must be used.
+- The package's existing _test.go files are NOT compiled together with your file: do not rely on any helper, fixture or TestMain from them - define everything you need yourself, in this file. When excerpts of them are shown as reference, reuse their stubbing and setup patterns (function-variable stubs restored with defer, logger/memory initialisation) by copying them into your file under `cdx`-prefixed names; setup that lived in a TestMain goes into a `cdx` helper called at the start of each test.
+- Do not redeclare any package-level identifier listed as taken in the request. Prefix every function, type, variable and constant you declare at package level, other than the tests, with `cdx` (for example `cdxNewStore`).
+- Tests are `func TestXxx(t *testing.T)`, where the name starts with `Test` followed by an upper-case letter. No benchmarks, examples, fuzz tests or TestMain (they are removed before the suite runs).
+- Deterministic: no network, no sleeps, no dependence on wall-clock time, randomness, map iteration order or the environment; write files only under t.TempDir(); t.Setenv is allowed.
+- EVERY test must pass against the code as given. Compute expected values yourself by reading the source; when a behaviour is unclear, assert only what the source guarantees.
+- Use strong, exact-value assertions: compare whole return values, struct fields, error identities (errors.Is) or exact messages - not merely "no error" or "not nil".
+- Prefer a few table-driven tests (t.Run subtests) over many tiny ones, spread across ALL functions and methods of the target file, executing every branch.
+
+=== USER ===
+[TARGET FILE] calc/calc.go
+
+[PACKAGE] `package calc` (example.com/fixture/calc); the suite is compiled as calc/calc_codocs_test.go with no other _test.go file of the package
+
+[ALLOWED IMPORTS] the Go standard library; the packages of this module (`example.com/fixture/...`); no third-party modules
+
+[TAKEN NAMES - package-level identifiers starting with `cdx` or `Test` that the suite must not redeclare]
+(none)
+
+[PACKAGE CONTEXT - other declarations of the package]
+// calc/stats.go
+type Stats struct
+func (s *Stats) Add(v int)
+func (s Stats) Mean() int
+
+[EXISTING TEST CODE OF THE PACKAGE - reference only: these files are hidden while your suite runs. They show how this codebase stubs its collaborators and sets up loggers, memory and globals; copy what you need into your file, renaming every package-level name you copy with the `cdx` prefix]
+// from calc/calc_test.go
+// example test of the target from the existing suite
+func TestNormalize(t *testing.T) {
+	if got := Normalize("  Hello World "); got != "hello-world" {
+		t.Fatalf("Normalize = %q", got)
+	}
+}
+
+[TARGET SOURCE]
+package calc
+
+import (
+	"errors"
+	"strings"
+)
+
+// ErrEmpty is returned when the input is empty.
+var ErrEmpty = errors.New("calc: empty input")
+
+// Scale is the fixed-point factor used by Stats.Mean.
+const Scale = 10
+
+// Clamp limits v to the closed range [lo, hi].
+func Clamp(v, lo, hi int) int {
+	if v < lo {
+		return lo
+	}
+	if v > hi {
+		return hi
+	}
+	return v
+}
+
+// Sum adds all values and returns ErrEmpty when there are none.
+func Sum(values []int) (int, error) {
+	if len(values) == 0 {
+		return 0, ErrEmpty
+	}
+	total := 0
+	for _, v := range values {
+		total += v
+	}
+	return total, nil
+}
+
+// Normalize trims and lower-cases s, then replaces inner spaces with "-".
+func Normalize(s string) string {
+	s = strings.TrimSpace(strings.ToLower(s))
+	return strings.ReplaceAll(s, " ", "-")
+}
+
+Write the complete test file now, starting with `package calc`. Complete file, no prose, no fences.

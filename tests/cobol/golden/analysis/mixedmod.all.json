@@ -1,0 +1,249 @@
+{
+ "languages": [
+  "go",
+  "c",
+  "python"
+ ],
+ "module": "example.com/mixed",
+ "notes": [],
+ "packages": [
+  {
+   "error": "",
+   "go_files": 2,
+   "import_path": "example.com/mixed/ring",
+   "lang": "go",
+   "name": "ring",
+   "rel": "ring",
+   "targets": {
+    "ok": 2
+   },
+   "test_files": 1,
+   "xtest_files": 0
+  },
+  {
+   "error": "",
+   "files": 1,
+   "import_path": "",
+   "lang": "c",
+   "name": "src",
+   "rel": "clib/src",
+   "targets": {
+    "ok": 1
+   },
+   "test_files": 1
+  },
+  {
+   "error": "",
+   "files": 4,
+   "import_path": "",
+   "lang": "c",
+   "name": "src",
+   "rel": "gen/asn/src",
+   "targets": {
+    "generated": 4
+   },
+   "test_files": 0
+  },
+  {
+   "error": "",
+   "files": 1,
+   "import_path": "",
+   "lang": "c",
+   "name": "ring",
+   "rel": "ring",
+   "targets": {
+    "no-decls": 1
+   },
+   "test_files": 0
+  },
+  {
+   "error": "",
+   "files": 1,
+   "import_path": "tools",
+   "lang": "python",
+   "name": "tools",
+   "rel": "tools",
+   "targets": {
+    "ok": 1
+   },
+   "test_files": 1
+  }
+ ],
+ "selection": {
+  "files": null,
+  "max_files": null,
+  "packages": null,
+  "subtree": null
+ },
+ "skipped": [
+  {
+   "file": "gen/asn/src/msg1.c",
+   "lang": "c",
+   "lines": 9,
+   "pkg": "gen/asn/src",
+   "status": "generated",
+   "stem": "msg1.c"
+  },
+  {
+   "file": "gen/asn/src/msg2.c",
+   "lang": "c",
+   "lines": 9,
+   "pkg": "gen/asn/src",
+   "status": "generated",
+   "stem": "msg2.c"
+  },
+  {
+   "file": "gen/asn/src/msg3.c",
+   "lang": "c",
+   "lines": 9,
+   "pkg": "gen/asn/src",
+   "status": "generated",
+   "stem": "msg3.c"
+  },
+  {
+   "file": "gen/asn/src/skeleton.c",
+   "lang": "c",
+   "lines": 6,
+   "pkg": "gen/asn/src",
+   "status": "generated",
+   "stem": "skeleton.c"
+  },
+  {
+   "file": "ring/cring_build.c",
+   "lang": "c",
+   "lines": 2,
+   "pkg": "ring",
+   "status": "no-decls",
+   "stem": "cring_build.c"
+  }
+ ],
+ "targets": [
+  {
+   "file": "ring/export.go",
+   "lang": "go",
+   "lines": 16,
+   "pkg": "ring",
+   "status": "ok",
+   "stem": "export"
+  },
+  {
+   "file": "ring/ring.go",
+   "lang": "go",
+   "lines": 56,
+   "pkg": "ring",
+   "status": "ok",
+   "stem": "ring"
+  },
+  {
+   "file": "clib/src/cring.c",
+   "lang": "c",
+   "lines": 37,
+   "pkg": "clib/src",
+   "status": "ok",
+   "stem": "cring.c"
+  },
+  {
+   "file": "gen/asn/src/msg1.c",
+   "lang": "c",
+   "lines": 9,
+   "pkg": "gen/asn/src",
+   "status": "generated",
+   "stem": "msg1.c"
+  },
+  {
+   "file": "gen/asn/src/msg2.c",
+   "lang": "c",
+   "lines": 9,
+   "pkg": "gen/asn/src",
+   "status": "generated",
+   "stem": "msg2.c"
+  },
+  {
+   "file": "gen/asn/src/msg3.c",
+   "lang": "c",
+   "lines": 9,
+   "pkg": "gen/asn/src",
+   "status": "generated",
+   "stem": "msg3.c"
+  },
+  {
+   "file": "gen/asn/src/skeleton.c",
+   "lang": "c",
+   "lines": 6,
+   "pkg": "gen/asn/src",
+   "status": "generated",
+   "stem": "skeleton.c"
+  },
+  {
+   "file": "ring/cring_build.c",
+   "lang": "c",
+   "lines": 2,
+   "pkg": "ring",
+   "status": "no-decls",
+   "stem": "cring_build.c"
+  },
+  {
+   "file": "tools/report.py",
+   "lang": "python",
+   "lines": 37,
+   "pkg": "tools",
+   "status": "ok",
+   "stem": "report.py"
+  }
+ ],
+ "totals": {
+  "docgen_targets": 4,
+  "files": 9,
+  "lines": 181,
+  "packages": 5,
+  "packages_with_tests": 3,
+  "statuses": {
+   "generated": 4,
+   "no-decls": 1,
+   "ok": 4
+  },
+  "test_files": 3,
+  "testgen_targets": 4
+ },
+ "totals_by_language": {
+  "c": {
+   "docgen_targets": 1,
+   "files": 6,
+   "lines": 72,
+   "packages": 3,
+   "packages_with_tests": 1,
+   "statuses": {
+    "generated": 4,
+    "no-decls": 1,
+    "ok": 1
+   },
+   "test_files": 1,
+   "testgen_targets": 1
+  },
+  "go": {
+   "docgen_targets": 2,
+   "files": 2,
+   "lines": 72,
+   "packages": 1,
+   "packages_with_tests": 1,
+   "statuses": {
+    "ok": 2
+   },
+   "test_files": 1,
+   "testgen_targets": 2
+  },
+  "python": {
+   "docgen_targets": 1,
+   "files": 1,
+   "lines": 37,
+   "packages": 1,
+   "packages_with_tests": 1,
+   "statuses": {
+    "ok": 1
+   },
+   "test_files": 1,
+   "testgen_targets": 1
+  }
+ },
+ "unavailable": {}
+}

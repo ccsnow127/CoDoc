@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# secrets and local config
+.env
+.env.*
+!.env.example
+
+# codocs output and local runs
+out/
+OUT*/
+runs/
+*.sqlite
+*.db
+
+# editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp

@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and ideas
+    url: https://github.com/ccsnow127/CoDoc/discussions
+    about: Ask usage questions and share ideas in Discussions
+  - name: Security vulnerability
+    url: https://github.com/ccsnow127/CoDoc/security/advisories/new
+    about: Report vulnerabilities privately, not as public issues
+  - name: SpecForge paper
+    url: https://arxiv.org/abs/2610.15708
+    about: The method behind the documentation loop
+  - name: TeSearch paper
+    url: https://arxiv.org/abs/2610.15964
+    about: The method behind the unit-test loop

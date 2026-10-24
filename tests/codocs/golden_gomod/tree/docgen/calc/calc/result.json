@@ -1,0 +1,42 @@
+{
+ "pkg": "calc",
+ "file": "calc/calc.go",
+ "stem": "calc",
+ "status": "ok",
+ "signal": "tests",
+ "rounds": [
+  {
+   "round": 1,
+   "doc": "# calc/calc.go\n\nFixture file.\n\n## VariableDef ErrEmpty\n**ErrEmpty**: documented.\n\n**Signature**: `var ErrEmpty = errors.New(\"calc: empty input\")`\n\n## VariableDef Scale\n**Scale**: documented.\n\n**Signature**: `const Scale = 10`\n\n## FunctionDef Clamp\n**Clamp**: documented.\n\n**Signature**: `func Clamp(v, lo, hi int) int`\n\n## FunctionDef Sum\n**Sum**: documented.\n\n**Signature**: `func Sum(values []int) (int, error)`\n\n## FunctionDef Normalize\n**Normalize**: documented.\n\n**Signature**: `func Normalize(s string) string`\n",
+   "code": "package calc\n\nimport (\n\t\"errors\"\n\t\"strings\"\n)\n\n// ErrEmpty is returned when the input is empty.\nvar ErrEmpty = errors.New(\"calc: empty input\")\n\n// Scale is the fixed-point factor used by Stats.Mean.\nconst Scale = 10\n\n// Clamp limits v to the closed range [lo, hi].\nfunc Clamp(v, lo, hi int) int {\n\tif v < lo {\n\t\treturn lo\n\t}\n\tif v > hi {\n\t\treturn hi\n\t}\n\treturn v\n}\n\n// Sum adds all values and returns ErrEmpty when there are none.\nfunc Sum(values []int) (int, error) {\n\tif len(values) == 0 {\n\t\treturn 0, ErrEmpty\n\t}\n\ttotal := 0\n\tfor _, v := range values {\n\t\ttotal += v\n\t}\n\treturn total, nil\n}\n\n// Normalize trims and lower-cases s, then replaces inner spaces with \"-\".\nfunc Normalize(s string) string {\n\ts = strings.TrimSpace(strings.ToLower(s))\n\treturn strings.ReplaceAll(s, \" \", \"-\")\n}\n",
+   "eval": {
+    "signal": "tests",
+    "build_ok": true,
+    "phi": 1.0,
+    "relevant": [
+     "TestClamp",
+     "TestNormalize",
+     "TestSum"
+    ],
+    "passed": [
+     "TestClamp",
+     "TestNormalize",
+     "TestSum"
+    ],
+    "failing": {},
+    "build_errors": [],
+    "import_fixes": 0
+   },
+   "missing": []
+  }
+ ],
+ "best_round": 1,
+ "best_phi": 1.0,
+ "early_stop": true,
+ "threshold": 0.9,
+ "max_rounds": 3,
+ "error": "",
+ "phi_trajectory": [
+  1.0
+ ]
+}

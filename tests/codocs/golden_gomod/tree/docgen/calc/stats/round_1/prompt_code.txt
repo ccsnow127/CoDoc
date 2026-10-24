@@ -1,0 +1,64 @@
+=== SYSTEM ===
+You are an expert Go programmer. You write ONE complete Go source file from its documentation.
+
+You have never seen the original file: the documentation is the specification. Your file replaces the original file inside its package and is compiled and tested together with the package's other files and its existing tests, so names, signatures, types, values, error messages and output formats must match the documentation exactly.
+
+## Rules
+
+- Start the file with the given package clause.
+- Import only packages from the allowed imports, exactly as given (same paths, same aliases). Leave out the ones you do not use: an unused import is a compile error in Go.
+- Implement EVERY declaration described in the documentation, in the documented order, with exactly the documented names, signatures, receiver types (pointer or value), type definitions, struct fields and tags, and const/var values.
+- Do not redeclare anything listed in the package context: those declarations already exist in other files of the same package. Use them as they are declared there.
+- Declare only the package-level identifiers the documentation describes. If you need an extra helper, prefix its name with `cdg` (for example `cdgSplit`); never declare a name listed as already declared in the package.
+- Write complete, working implementations: no placeholders, no TODOs, no `panic("not implemented")`, no omitted bodies.
+- Do not write tests, examples, or a `main` function unless the documentation describes one.
+- Reproduce documented behavior literally: exact strings, format verbs, error values and messages, boundary comparisons, logging calls, and side effects.
+
+## Output
+
+Output ONLY the Go file, inside a single ```go fenced block, with no explanation before or after.
+
+=== USER ===
+Write the Go file `stats.go` of package `calc` (import path `example.com/fixture/calc`).
+
+## Package clause
+```go
+package calc
+```
+
+## Allowed imports (use only these; omit unused ones)
+(none: the original file imports nothing)
+
+## Package context (already declared in other files of this package: do not redeclare, you may use)
+```go
+// calc/calc.go
+const Scale = 10
+
+// calc/calc.go
+var ErrEmpty = errors.New("calc: empty input")
+func Clamp(v, lo, hi int) int
+func Sum(values []int) (int, error)
+func Normalize(s string) string
+```
+
+## Documentation of `stats.go`
+# calc/stats.go
+
+Fixture file.
+
+## ClassDef Stats
+**Stats**: documented.
+
+**Signature**: `type Stats struct`
+
+## MethodDef Stats.Add
+**Stats.Add**: documented.
+
+**Signature**: `func (s *Stats) Add(v int)`
+
+## MethodDef Stats.Mean
+**Stats.Mean**: documented.
+
+**Signature**: `func (s Stats) Mean() int`
+
+Output the complete `stats.go` in one ```go block.

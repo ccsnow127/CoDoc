@@ -1,0 +1,18 @@
+{
+ "signal": "generated-tests",
+ "build_ok": true,
+ "phi": 1.0,
+ "relevant": [
+  "TestCodocsClassify",
+  "TestCodocsLargest",
+  "TestCodocsRect"
+ ],
+ "passed": [
+  "TestCodocsClassify",
+  "TestCodocsLargest",
+  "TestCodocsRect"
+ ],
+ "failing": {},
+ "build_errors": [],
+ "import_fixes": 0
+}

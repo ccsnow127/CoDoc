@@ -1,0 +1,52 @@
+=== LANG ===
+COBOL
+=== FENCE ===
+cobol
+=== FILE_NOUN ===
+COBOL source file
+=== GENERATOR_INPUTS ===
+the full text of the copybooks the program COPYs, the parameter interfaces (USING and LINKAGE records) of the repository programs it calls, the allowed COPY/CALL list, and the compiler dialect and reference format
+=== DOC_HEADER ===
+# <file path>
+
+**Program**: `<PROGRAM-ID>` (COBOL; <role>; unit `<directory name>`)
+=== SECTION_KINDS ===
+- `## ClassDef <PROGRAM-ID>` for every program of the file (the upper-case PROGRAM-ID or FUNCTION-ID), first, in source order.
+- `## VariableDef <data-name>` for every level-01 and level-77 entry written in the file (FILE, WORKING-STORAGE, LOCAL-STORAGE and LINKAGE SECTION; FILLER entries excluded). Entries that come from a COPY statement are not sections: the copybook is given to the code generator. Consecutive elementary entries may share one section `## VariableDef A, B`. When a program has more than 20 such entries, consecutive WORKING-STORAGE level-01 entries that share one purpose, and long constant or message tables, may share one section `## VariableDef A, B, C` listing every name it covers. The summary line ends with the section name in parentheses: `**<data-name>**: <purpose> (WORKING-STORAGE).`
+- `## MethodDef <PROGRAM-ID>.<PARAGRAPH>` for every paragraph or section of the PROCEDURE DIVISION that does more than EXIT, with its exact name. Trivial paragraphs (only `EXIT`) are named in one sentence of the ClassDef section instead.
+- There are no FunctionDef sections in COBOL.
+- The first line under every header is `**<Name>**: <one-sentence summary>.` This line is used as the symbol summary in a wiki, so make it a real summary in business terms.
+=== TYPE_RULE ===
+Programs (ClassDef): after the summary line give the program outline in one fenced `cobol` block, as exact text in the display form of the shown source (columns 7-72; sequence area, identification area and comment lines dropped), in source order: the `IDENTIFICATION DIVISION.` header and the PROGRAM-ID line (the id exactly as written, case included); the whole ENVIRONMENT DIVISION (SPECIAL-NAMES, REPOSITORY, every FILE-CONTROL `SELECT` with ASSIGN, ORGANIZATION, ACCESS, RECORD KEY and FILE STATUS); the DATA DIVISION section headers, every `FD`/`SD` header with its clauses, every DATA DIVISION `COPY` statement in place (with REPLACING), and for every inline level-01/77 entry its first line followed by ` *> VariableDef`; and the `PROCEDURE DIVISION [USING ...] [RETURNING ...].` header. Then these `###` subsections, in this order, with exactly these English headings: `### Invocation` (a table `| How invoked | Details |`: CICS transactions, CALL/LINK/XCTL callers, JCL job steps with their key DD -> DSN mappings, or "No caller found in the repository"), `### Interface` (a table `| Name | Picture/Type | Direction | Meaning |` of the USING / RETURNING / DFHCOMMAREA parameters, or "No parameters.", then the RETURN-CODE values, result fields, CICS RESP values and abend codes it sets), `### Inputs and outputs` (a table `| Resource | Type | Access | Meaning |`: every file with its DD/ASSIGN name, organization, key and FD record, every VSAM/CICS file, DB2 table, BMS map and TS/TD queue), `### Processing logic` (the main line from entry to every exit, then exactly one mermaid `flowchart TD`: at most 20 nodes, alphanumeric node ids, every label in double quotes, a paragraph name labels at most one node, decision diamonds labelled with the real condition with field names and values, every diamond with labelled outgoing edges, separate nodes for error paths that end differently, only `[...]` and `{...}` shapes), `### Business rules` (numbered: `1. <condition -> outcome, with exact field names and literal values> (`<PARAGRAPH>`)`, or "None."), `### Error handling` (FILE STATUS, SQLCODE, CICS RESP and validation checks and how each is handled), `### Dependencies` (`- **Calls**: ...`, `- **Called by**: ...`, `- **Copybooks**: ...`, taken from the static analysis facts only; an ENTRY point is written as `NAME` (ENTRY of `OWNER`)), and `### Control-flow hazards` only when the facts list any.
+=== VALUE_RULE ===
+Data entries (VariableDef): give the exact entry in a fenced `cobol` block, in the display form of the shown source (columns 7-72; sequence area 1-6, identification area 73-80 and comment lines dropped): level numbers, PIC, USAGE, VALUE, OCCURS, REDEFINES, SIGN and every 88-level with its VALUE. Then explain what the item holds and which paragraphs set and test it.
+=== FUNC_RULE ===
+   - every condition with its exact data names and literals (`IF WS-RESP NOT = DFHRESP(NORMAL)`, `WHEN LK-MONTH > 12`), and each branch's outcome;
+   - COBOL control-flow semantics exactly: NEXT SENTENCE is not CONTINUE (it jumps past the next separator period); a period closes every open IF, EVALUATE and inline PERFORM; GO TO never returns; PERFORM A THRU B runs every paragraph from A to B; a paragraph without STOP RUN / GOBACK / GO TO falls through into the next one; PERFORM ... UNTIL tests before each iteration; alphanumeric comparisons pad with spaces; READ ... INTO at end of file; XCTL and RETURN never return;
+   - every PERFORM, PERFORM THRU and GO TO target; every CALL with its USING arguments in order, and every EXEC CICS / EXEC SQL command with its options and arguments; CALL, LINK and XCTL literals quoted with their exact case (`CALL 'get-variable'`);
+   - file I/O (OPEN mode, READ / WRITE / REWRITE / DELETE / START) with the FILE STATUS values tested and what happens on each;
+   - DISPLAY text exactly, values MOVEd into RETURN-CODE and result fields, STOP RUN / GOBACK / EXIT PROGRAM;
+=== CONTEXT_RULE ===
+The copybooks and the callee interfaces in the context are not part of this file: do not document them as sections, but name each copybook where it is COPYed (with its REPLACING), and each callee with its exact CALL literal and its USING order. Static analysis facts are authoritative for program, file, dataset, table, transaction, job and copybook names: never invent a name that is not in the source, the copybooks or the facts.
+=== CODEGEN_RULES ===
+- Write ONE complete COBOL program file (every documented program of it), for GnuCOBOL 3.2 in the stated dialect and reference format.
+- You may write the code in the display form of the documented blocks: indentation is free and no sequence numbers are needed (the code is placed into area A/B for you); comments only as whole lines starting with `*`; never use continuation lines: put every literal, however long, on one line.
+- Copy the PROGRAM-ID line from the outline exactly, and every CALL / LINK / XCTL literal from the documentation exactly, case included: GnuCOBOL resolves them case-sensitively.
+- Write exactly the documented ENVIRONMENT DIVISION, SELECT / ASSIGN names, FD entries, data entries and COPY statements: COPY the copybooks by name (with the documented REPLACING), never inline their content.
+- Write every documented paragraph and section, with exactly its documented name, in the documented order; implement every documented behaviour, condition, literal, message and return code literally: no placeholders, no TODOs.
+- Do not write test code or a calling driver program.
+- Name any extra data item you need with the prefix `CDG-` (for example `CDG-IDX`).
+=== TEST_INTRO ===
+ONE complete characterization test plan, a JSON object (driver program, stub programs, input fixtures and expected outputs), for the target COBOL program
+=== TEST_RULES ===
+- Unit mode: the driver is a fixed-format main program (PROGRAM-ID at most 8 characters, different from every repository program) that CALLs the program under test by its exact PROGRAM-ID literal with its USING arguments in order; its WORKING-STORAGE declares one record per parameter, byte for byte like the program's LINKAGE items (COPY the same copybook when the item comes from one; prefix driver-only names with `TD-`); each case INITIALIZEs the parameters, MOVEs the inputs, CALLs, checks the outputs and CANCELs the program; after the last case STOP RUN; the driver never ACCEPTs, opens files or reads the clock.
+- Every PASS sits inside an IF / EVALUATE that compares a value the program produced with the expected value, and the ELSE branch prints FAIL with expected and actual values: an unconditional PASS checks nothing and does not count.
+- A case whose path ends the run (STOP RUN) is the last one, has "ends_run": true, and is checked through "expected_stdout" and "expected_return_code".
+- Batch mode: the program runs once as a main program with your "inputs" files; "expected_files", "expected_stdout" (ordered, each occurrence consumed once) and "expected_return_code" are its checks.
+- Stubs: a repository callee may be replaced by a stub with its exact PROGRAM-ID in "stubs_source" (then expectations follow the stub); CALL targets outside the repository must be stubbed.
+- Fixture records are objects of field names from the record layouts (the harness builds the bytes) or whole lines for files without a layout.
+- Every case must pass against the code as given: derive every expected value by tracing the source. Case ids are unique (letters, digits, '-', '_').
+=== TEST_SHAPE ===
+each case is one paragraph `TC-<id>` of the driver, PERFORMed in order from the driver's first paragraph, ending in exactly one `DISPLAY 'TEST <id> PASS'` or `DISPLAY 'TEST <id> FAIL ' ...`
+=== MARK ===
+*>

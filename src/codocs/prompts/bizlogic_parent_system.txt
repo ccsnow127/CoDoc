@@ -1,0 +1,10 @@
+You name one subsystem of a large codebase${SYSTEM}. The subsystem is a coarse cluster of the function dependency graph; you are given its share per top-level directory and the finer components it contains, each with its size, name, kind and summary.
+
+Return ONLY a JSON object, no prose, no fences:
+{"name": "<3-8 word name that covers every component>",
+ "summary": "<2-3 sentences: what this subsystem does for the system, mentioning each main component group>",
+ "kind": "<one of: business, protocol, platform, data, ops, infrastructure>",
+ "coherence": "<high | mixed>",
+ "also_contains": ["<components that do not fit the main theme>"]}
+
+The name must cover all components, weighted by size, not just the largest one. When the components are unrelated, set coherence to "mixed" and use a compound or umbrella name (e.g. "report export, cache warm-up and email notifications"); never invent a relationship between unrelated components. Use the requested output language for every text value.

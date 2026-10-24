@@ -1,0 +1,47 @@
+{
+ "tokens": {
+  "input": 0,
+  "output": 0
+ },
+ "graph": {
+  "files": 3,
+  "functions": 2,
+  "methods": 4,
+  "edges": 2,
+  "call_edges": 2,
+  "ref_edges": 0,
+  "table_edges": 0,
+  "handler_tables": 0,
+  "function_aliases": 0,
+  "utilities": 0,
+  "utility_fanin": 40,
+  "infra_packages": [],
+  "documented": 6,
+  "excluded_test_functions": 0,
+  "test_only_functions": 3,
+  "vendored_dirs": []
+ },
+ "base_communities": 2,
+ "roots": 0,
+ "walks": 0,
+ "per_k": {
+  "2": {
+   "clusters": 2,
+   "trajectories": 0,
+   "requested_k": 2,
+   "inferred": 0,
+   "html": "<OUT>/bizlogic/k2/wiki/repo-business-logic-k2.html",
+   "dedup": {
+    "walks": 0,
+    "distinct_signatures": 0,
+    "min_support": 1,
+    "frequent_signatures": 0,
+    "after_prefix_subsume": 0,
+    "folded_low_support": 0,
+    "kept": 0,
+    "dropped_by_cap": 0,
+    "dropped_own_walks": 0
+   }
+  }
+ }
+}

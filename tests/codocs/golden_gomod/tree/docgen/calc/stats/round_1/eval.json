@@ -1,0 +1,16 @@
+{
+ "signal": "tests",
+ "build_ok": true,
+ "phi": 1.0,
+ "relevant": [
+  "TestStatsAdd",
+  "TestStatsMean"
+ ],
+ "passed": [
+  "TestStatsAdd",
+  "TestStatsMean"
+ ],
+ "failing": {},
+ "build_errors": [],
+ "import_fixes": 0
+}

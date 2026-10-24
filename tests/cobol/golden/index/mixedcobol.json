@@ -1,0 +1,768 @@
+{
+ "copybooks": {
+  "ACCTREC": {
+   "kind": "data",
+   "loc": 8,
+   "name": "ACCTREC",
+   "path": "cobol/ACCTREC.cpy",
+   "top_items": [
+    "ACCT-REC"
+   ],
+   "used_by": [
+    "ACCTRPT"
+   ]
+  },
+  "DATEPARM": {
+   "kind": "data",
+   "loc": 11,
+   "name": "DATEPARM",
+   "path": "cobol/DATEPARM.cpy",
+   "top_items": [
+    "LK-DATE-PARMS"
+   ],
+   "used_by": [
+    "ACCTRPT",
+    "DATEUTIL"
+   ]
+  }
+ },
+ "datastores": {
+  "ACCTIN": {
+   "aliases": [
+    "ACCT-FILE"
+   ],
+   "jobs": [],
+   "kind": "dataset",
+   "name": "ACCTIN",
+   "organization": "LINE SEQUENTIAL",
+   "readers": [
+    "ACCTRPT"
+   ],
+   "writers": []
+  },
+  "RPTOUT": {
+   "aliases": [
+    "RPT-FILE"
+   ],
+   "jobs": [],
+   "kind": "dataset",
+   "name": "RPTOUT",
+   "organization": "LINE SEQUENTIAL",
+   "readers": [],
+   "writers": [
+    "ACCTRPT"
+   ]
+  }
+ },
+ "edge_counts": {
+  "call": 2,
+  "copy": 3,
+  "function": 1,
+  "reads": 1,
+  "writes": 1
+ },
+ "edges": [
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:ACCTRPT",
+   "target": "copy:ACCTREC"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:ACCTRPT",
+   "target": "copy:DATEPARM"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:ACCTRPT",
+   "target": "data:ACCTIN"
+  },
+  {
+   "count": 1,
+   "kind": "writes",
+   "kinds": [
+    "writes"
+   ],
+   "source": "prog:ACCTRPT",
+   "target": "data:RPTOUT"
+  },
+  {
+   "count": 1,
+   "kind": "call",
+   "kinds": [
+    "call"
+   ],
+   "source": "prog:ACCTRPT",
+   "target": "prog:DATEUTIL"
+  },
+  {
+   "count": 1,
+   "kind": "call",
+   "kinds": [
+    "call"
+   ],
+   "source": "prog:ACCTRPT",
+   "target": "prog:NUMPGM"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:DATEUTIL",
+   "target": "copy:DATEPARM"
+  },
+  {
+   "count": 1,
+   "kind": "function",
+   "kinds": [
+    "function"
+   ],
+   "source": "prog:DATEUTIL",
+   "target": "prog:DAYS-IN-MONTH"
+  }
+ ],
+ "entrypoints": {
+  "cics": [],
+  "jcl": [],
+  "standalone": [
+   "ACCTRPT"
+  ]
+ },
+ "files": [
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "copybook",
+   "loc": 7,
+   "path": "cobol/ACCTREC.cpy"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 86,
+   "path": "cobol/ACCTRPT.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "copybook",
+   "loc": 10,
+   "path": "cobol/DATEPARM.cpy"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 60,
+   "path": "cobol/DATEUTIL.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 32,
+   "path": "cobol/DAYSINM.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 16,
+   "path": "mixed/NUMPGM.cbl"
+  }
+ ],
+ "groups": {
+  "ACCTRPT": "(root)",
+  "DATEUTIL": "(root)",
+  "DAYS-IN-MONTH": "(root)",
+  "NUMPGM": "mixed"
+ },
+ "jobs": {},
+ "mapsets": {},
+ "name": "mixedcobol",
+ "programs": {
+  "ACCTRPT": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "call",
+     "line": 65,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DATEUTIL",
+     "using": [
+      "LK-DATE-PARMS"
+     ],
+     "via": ""
+    },
+    {
+     "kind": "call",
+     "line": 75,
+     "owner": "",
+     "resolved": false,
+     "static": false,
+     "target": "FMTLINE",
+     "using": [
+      "WS-RPT-DETAIL"
+     ],
+     "via": ""
+    },
+    {
+     "kind": "call",
+     "line": 82,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "NUMPGM",
+     "using": [
+      "WS-VALID",
+      "WS-COUNT-TEXT"
+     ],
+     "via": ""
+    }
+   ],
+   "cics": [],
+   "copybooks": [
+    "ACCTREC",
+    "DATEPARM"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 ACCT-ID PIC 9(9)",
+      "05 ACCT-NAME PIC X(20)",
+      "05 ACCT-OPEN-DATE PIC X(8)",
+      "05 ACCT-BALANCE PIC S9(7)V99",
+      "05 FILLER PIC X(34)"
+     ],
+     "copybook": "ACCTREC",
+     "level": 1,
+     "name": "ACCT-REC",
+     "picture": "",
+     "section": "FILE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "RPT-LINE",
+     "picture": "X(80)",
+     "section": "FILE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-ACCT-STATUS",
+     "picture": "XX",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-RPT-STATUS",
+     "picture": "XX",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "88 WS-AT-END VALUE 'Y'"
+     ],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-EOF",
+     "picture": "X",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-VALID",
+     "picture": "9(5)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-INVALID",
+     "picture": "9(5)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-COUNT-TEXT",
+     "picture": "X(5)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "05 LK-DATE",
+      "10 LK-YEAR PIC 9(4)",
+      "10 LK-MONTH PIC 9(2)",
+      "10 LK-DAY PIC 9(2)",
+      "05 LK-RC PIC X(2)",
+      "88 LK-RC-OK VALUE '00'",
+      "88 LK-RC-BAD-MONTH VALUE '10'",
+      "88 LK-RC-BAD-DAY VALUE '20'"
+     ],
+     "copybook": "DATEPARM",
+     "level": 1,
+     "name": "LK-DATE-PARMS",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "05 RD-ACCT-ID PIC 9(9)",
+      "05 FILLER PIC X VALUE SPACE",
+      "05 RD-DATE PIC X(8)",
+      "05 FILLER PIC X VALUE SPACE",
+      "05 RD-STATUS PIC X(7)"
+     ],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-RPT-DETAIL",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "05 FILLER PIC X(14) VALUE 'TOTAL VALID: '",
+      "05 RT-VALID PIC ZZZZ9",
+      "05 FILLER PIC X(11) VALUE ' INVALID: '",
+      "05 RT-INVALID PIC ZZZZ9"
+     ],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-RPT-TOTAL",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "ACCTIN",
+     "fd_record": "ACCT-REC",
+     "modes": [
+      "INPUT"
+     ],
+     "name": "ACCT-FILE",
+     "organization": "LINE SEQUENTIAL",
+     "record_key": "",
+     "via": "native"
+    },
+    {
+     "access": "",
+     "assign": "RPTOUT",
+     "fd_record": "RPT-LINE",
+     "modes": [
+      "OUTPUT"
+     ],
+     "name": "RPT-FILE",
+     "organization": "LINE SEQUENTIAL",
+     "record_key": "",
+     "via": "native"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "ACCTRPT: account report. Reads the account file (DD ACCTIN),\nvalidates each open date with DATEUTIL, writes one report line\nper account (DD RPTOUT) and the totals.",
+   "is_batch_main": true,
+   "loc": 86,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 44,
+     "name": "0000-MAIN",
+     "performs": [
+      "1000-OPEN",
+      "2000-READ",
+      "3000-PROCESS",
+      "4000-TOTALS",
+      "9000-CLOSE"
+     ]
+    },
+    {
+     "kind": "paragraph",
+     "line": 51,
+     "name": "1000-OPEN",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 59,
+     "name": "2000-READ",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 63,
+     "name": "3000-PROCESS",
+     "performs": [
+      "2000-READ"
+     ]
+    },
+    {
+     "kind": "paragraph",
+     "line": 78,
+     "name": "4000-TOTALS",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 85,
+     "name": "9000-CLOSE",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "cobol/ACCTRPT.cbl",
+   "program_id": "ACCTRPT",
+   "returning": "",
+   "sloc": 81,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "DATEUTIL": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "function",
+     "line": 39,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DAYS-IN-MONTH",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [],
+   "copybooks": [
+    "DATEPARM"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "88 WS-LEAP-YEAR VALUE 'Y'"
+     ],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-LEAP-FLAG",
+     "picture": "X",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-QUOT",
+     "picture": "9(4)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-REM",
+     "picture": "9(4)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-MAX-DAY",
+     "picture": "9(2)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "05 LK-DATE",
+      "10 LK-YEAR PIC 9(4)",
+      "10 LK-MONTH PIC 9(2)",
+      "10 LK-DAY PIC 9(2)",
+      "05 LK-RC PIC X(2)",
+      "88 LK-RC-OK VALUE '00'",
+      "88 LK-RC-BAD-MONTH VALUE '10'",
+      "88 LK-RC-BAD-DAY VALUE '20'"
+     ],
+     "copybook": "DATEPARM",
+     "level": 1,
+     "name": "LK-DATE-PARMS",
+     "picture": "",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "DATEUTIL: validates a YYYYMMDD date (month range, day range,\nleap years). LK-RC: '00' valid, '10' bad month, '20' bad day.",
+   "is_batch_main": false,
+   "loc": 60,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 21,
+     "name": "0000-MAIN",
+     "performs": [
+      "1000-CHECK-MONTH",
+      "3000-LEAP",
+      "2000-CHECK-DAY"
+     ]
+    },
+    {
+     "kind": "paragraph",
+     "line": 29,
+     "name": "1000-CHECK-MONTH",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 38,
+     "name": "2000-CHECK-DAY",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 44,
+     "name": "3000-LEAP",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 59,
+     "name": "9999-EXIT",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "cobol/DATEUTIL.cbl",
+   "program_id": "DATEUTIL",
+   "returning": "",
+   "sloc": 56,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": [
+    "LK-DATE-PARMS"
+   ]
+  },
+  "DAYS-IN-MONTH": {
+   "author": "",
+   "calls": [],
+   "cics": [],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "LK-MON",
+     "picture": "9(2)",
+     "section": "LINKAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "LK-LEAP",
+     "picture": "X",
+     "section": "LINKAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "LK-DAYS",
+     "picture": "9(2)",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "DAYS-IN-MONTH: user-defined function, the number of days of a\nmonth (01-12) given a leap-year flag ('Y' = leap year).",
+   "is_batch_main": false,
+   "loc": 32,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 13,
+     "name": "0000-MAIN",
+     "performs": [
+      "1000-FEB"
+     ]
+    },
+    {
+     "kind": "paragraph",
+     "line": 26,
+     "name": "1000-FEB",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "cobol/DAYSINM.cbl",
+   "program_id": "DAYS-IN-MONTH",
+   "returning": "LK-DAYS",
+   "sloc": 28,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "function",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": [
+    "LK-MON",
+    "LK-LEAP"
+   ]
+  },
+  "NUMPGM": {
+   "author": "",
+   "calls": [],
+   "cics": [],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-EDIT",
+     "picture": "ZZZZ9",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "LK-COUNT",
+     "picture": "9(5)",
+     "section": "LINKAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "LK-TEXT",
+     "picture": "X(5)",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "NUMPGM: callable subprogram, formats a count as edited text.",
+   "is_batch_main": false,
+   "loc": 16,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 13,
+     "name": "0000-MAIN",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "mixed/NUMPGM.cbl",
+   "program_id": "NUMPGM",
+   "returning": "",
+   "sloc": 13,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": [
+    "LK-COUNT",
+    "LK-TEXT"
+   ]
+  }
+ },
+ "ranking": [
+  [
+   "DAYS-IN-MONTH",
+   0.364817
+  ],
+  [
+   "DATEUTIL",
+   0.2351
+  ],
+  [
+   "NUMPGM",
+   0.2351
+  ],
+  [
+   "ACCTRPT",
+   0.164982
+  ]
+ ],
+ "root": "<ROOT>",
+ "summary": {
+  "bms_mapsets": 0,
+  "call_edges": 3,
+  "cobol_loc": 211,
+  "copybooks": 2,
+  "jcl_jobs": 0,
+  "missing_copybooks": [],
+  "name": "mixedcobol",
+  "programs": 4,
+  "root": "<ROOT>",
+  "unresolved_calls": [
+   "FMTLINE"
+  ],
+  "unresolved_dynamic": [],
+  "warnings": []
+ },
+ "transactions": {}
+}

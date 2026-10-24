@@ -1,0 +1,117 @@
+=== SYSTEM ===
+You write ONE complete, self-contained Go test file (standard `testing` package) for the target Go source file. Output ONLY the Go source of that file - no prose, no fences. Rules:
+- The file starts with the package clause given in the request (`package <name>`, the same package as the target: an internal test, so unexported identifiers are reachable), then its imports.
+- Import only the Go standard library, this module's own packages, and the third-party modules listed as allowed in the request. Every import must be used.
+- The package's existing _test.go files are NOT compiled together with your file: do not rely on any helper, fixture or TestMain from them - define everything you need yourself, in this file. When excerpts of them are shown as reference, reuse their stubbing and setup patterns (function-variable stubs restored with defer, logger/memory initialisation) by copying them into your file under `cdx`-prefixed names; setup that lived in a TestMain goes into a `cdx` helper called at the start of each test. A test that panics on a nil global usually lacks such setup.
+- Do not redeclare any package-level identifier listed as taken in the request. Prefix every function, type, variable and constant you declare at package level, other than the tests, with `cdx` (for example `cdxNewStore`).
+- Tests are `func TestXxx(t *testing.T)`, where the name starts with `Test` followed by an upper-case letter. No benchmarks, examples, fuzz tests or TestMain (they are removed before the suite runs).
+- Deterministic: no network, no sleeps, no dependence on wall-clock time, randomness, map iteration order or the environment; write files only under t.TempDir(); t.Setenv is allowed.
+- EVERY test must pass against the code as given. Compute expected values yourself by reading the source; when a behaviour is unclear, assert only what the source guarantees.
+- Use strong, exact-value assertions: compare whole return values, struct fields, error identities (errors.Is) or exact messages - not merely "no error" or "not nil".
+- Prefer a few table-driven tests (t.Run subtests) over many tiny ones.
+You will be shown the CURRENT BEST version of this suite, labeled with its numbers: size (tests written), green (tests that pass), statement coverage of the target file, mutation score (mutants killed / valid mutants) and score = coverage x mutation. Tests that FAIL against the code as given are marked `// <-- FAILING: <message>` at the end of their func line; the numbers were measured on the passing tests only. The target source is annotated with what that suite still misses: `// <-- NOT COVERED YET` marks lines none of its passing tests execute; `// <-- SURVIVING MUTANT: <op>` marks lines where that mutation survives its assertions.
+Your task is to IMPROVE that suite, not to start from scratch: KEEP its passing tests and their strong, exact-value assertions (verbatim or lightly refactored); REPAIR each failing test by reading the source and fixing the expected value or the setup, rather than deleting it, unless the same behaviour is already checked elsewhere; ADD strongly-asserting tests (or table rows) that execute the `// <-- NOT COVERED YET` lines and assert exact values and branches around each `// <-- SURVIVING MUTANT` so that mutation would fail. Do not pad with redundant tests - every addition should close an annotated gap.
+When the request shows an attempt that did NOT COMPILE, fix every reported build error (positions refer to the test file) while keeping the attempt's testing intent. When the request shows a LAST ATTEMPT that built but did not beat the current best, it is for reference only: improve on the CURRENT BEST suite and do not repeat that attempt.
+
+=== USER ===
+[ROUND 2]
+
+[TARGET FILE] calc/calc.go
+
+[PACKAGE] `package calc` (example.com/fixture/calc); the suite is compiled as calc/calc_codocs_test.go with no other _test.go file of the package
+
+[ALLOWED IMPORTS] the Go standard library; the packages of this module (`example.com/fixture/...`); no third-party modules
+
+[TAKEN NAMES - package-level identifiers starting with `cdx` or `Test` that the suite must not redeclare]
+(none)
+
+[PACKAGE CONTEXT - other declarations of the package]
+// calc/stats.go
+type Stats struct
+func (s *Stats) Add(v int)
+func (s Stats) Mean() int
+
+[EXISTING TEST CODE OF THE PACKAGE - reference only: these files are hidden while your suite runs. They show how this codebase stubs its collaborators and sets up loggers, memory and globals; copy what you need into your file, renaming every package-level name you copy with the `cdx` prefix]
+// from calc/calc_test.go
+// example test of the target from the existing suite
+func TestNormalize(t *testing.T) {
+	if got := Normalize("  Hello World "); got != "hello-world" {
+		t.Fatalf("Normalize = %q", got)
+	}
+}
+
+[TARGET SOURCE - annotated with what the CURRENT BEST suite below still misses: `// <-- NOT COVERED YET` marks lines none of its passing tests execute; `// <-- SURVIVING MUTANT: <op>` marks lines where that mutation survives its assertions. Cover those lines, and assert exact values/branches around each surviving mutant so the mutation would fail]
+package calc
+
+import (
+	"errors"
+	"strings"
+)
+
+// ErrEmpty is returned when the input is empty.
+var ErrEmpty = errors.New("calc: empty input")
+
+// Scale is the fixed-point factor used by Stats.Mean.
+const Scale = 10
+
+// Clamp limits v to the closed range [lo, hi].
+func Clamp(v, lo, hi int) int {
+	if v < lo {  // <-- SURVIVING MUTANT: cmp: < -> <=
+		return lo
+	}
+	if v > hi {  // <-- SURVIVING MUTANT: cmp: > -> >=
+		return hi
+	}
+	return v
+}
+
+// Sum adds all values and returns ErrEmpty when there are none.
+func Sum(values []int) (int, error) {
+	if len(values) == 0 {
+		return 0, ErrEmpty
+	}
+	total := 0
+	for _, v := range values {
+		total += v
+	}
+	return total, nil
+}
+
+// Normalize trims and lower-cases s, then replaces inner spaces with "-".
+func Normalize(s string) string {
+	s = strings.TrimSpace(strings.ToLower(s))
+	return strings.ReplaceAll(s, " ", "-")
+}
+
+[CURRENT BEST SUITE - size=3 green=3 coverage=1.000 mutation=0.500 (killed 2 of 4 valid mutants) score=0.500]
+package calc
+
+import "testing"
+
+func TestCodocsClamp(t *testing.T) {
+	cases := []struct{ v, lo, hi, want int }{
+		{5, 0, 10, 5}, {-1, 0, 10, 0}, {11, 0, 10, 10}, {0, 0, 10, 0}, {10, 0, 10, 10},
+	}
+	for _, c := range cases {
+		if got := Clamp(c.v, c.lo, c.hi); got != c.want {
+			t.Errorf("Clamp(%d,%d,%d) = %d, want %d", c.v, c.lo, c.hi, got, c.want)
+		}
+	}
+}
+
+func TestCodocsSum(t *testing.T) {
+	if got, err := Sum([]int{4, 5, 6}); err != nil || got != 15 {
+		t.Fatalf("Sum = %d, %v", got, err)
+	}
+	if got, err := Sum(nil); err != ErrEmpty || got != 0 {
+		t.Fatalf("Sum(nil) = %d, %v", got, err)
+	}
+}
+
+func TestCodocsNormalize(t *testing.T) {
+	if got := Normalize("  Go Is Fun "); got != "go-is-fun" {
+		t.Fatalf("Normalize = %q", got)
+	}
+}
+
+Write the improved complete test file now: keep the passing tests, repair the failing ones, close the marked gaps. Start with `package calc`. Complete file, no prose, no fences.

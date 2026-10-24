@@ -1,0 +1,138 @@
+{
+ "k": 2,
+ "parent_k": 2,
+ "clusters": [
+  {
+   "id": 0,
+   "size": 4,
+   "packages": [
+    [
+     "shapes",
+     4
+    ]
+   ],
+   "central": [
+    "shapes::Rect.Area",
+    "shapes::Classify",
+    "shapes::Largest",
+    "shapes::Rect.Name"
+   ],
+   "subsystems": [
+    [
+     "shapes",
+     1.0
+    ]
+   ],
+   "children": [],
+   "name": "",
+   "summary": "",
+   "kind": "",
+   "coherence": "",
+   "also_contains": [],
+   "error": ""
+  },
+  {
+   "id": 1,
+   "size": 2,
+   "packages": [
+    [
+     "calc",
+     2
+    ]
+   ],
+   "central": [
+    "calc::Stats.Add",
+    "calc::Stats.Mean"
+   ],
+   "subsystems": [
+    [
+     "calc",
+     1.0
+    ]
+   ],
+   "children": [],
+   "name": "",
+   "summary": "",
+   "kind": "",
+   "coherence": "",
+   "also_contains": [],
+   "error": ""
+  }
+ ],
+ "parents": [
+  {
+   "id": 0,
+   "size": 4,
+   "packages": [
+    [
+     "shapes",
+     4
+    ]
+   ],
+   "central": [
+    "shapes::Rect.Area",
+    "shapes::Classify",
+    "shapes::Largest",
+    "shapes::Rect.Name"
+   ],
+   "subsystems": [
+    [
+     "shapes",
+     1.0
+    ]
+   ],
+   "children": [
+    0
+   ],
+   "name": "",
+   "summary": "",
+   "kind": "",
+   "coherence": "",
+   "also_contains": [],
+   "error": ""
+  },
+  {
+   "id": 1,
+   "size": 2,
+   "packages": [
+    [
+     "calc",
+     2
+    ]
+   ],
+   "central": [
+    "calc::Stats.Add",
+    "calc::Stats.Mean"
+   ],
+   "subsystems": [
+    [
+     "calc",
+     1.0
+    ]
+   ],
+   "children": [
+    1
+   ],
+   "name": "",
+   "summary": "",
+   "kind": "",
+   "coherence": "",
+   "also_contains": [],
+   "error": ""
+  }
+ ],
+ "stats": {
+  "functions (business / utility)": "6 / 0",
+  "base communities": 2,
+  "clusters K": 2,
+  "parent level": 2,
+  "entry roots (walked / candidates)": "0 / 0",
+  "walks": 0,
+  "business functions visited": "0 / 6",
+  "distinct cluster sequences": 0,
+  "min walks per kept sequence": 1,
+  "rarer sequences folded in": 0,
+  "after prefix merge": 0,
+  "business logics": 0
+ }
+}

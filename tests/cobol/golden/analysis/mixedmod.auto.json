@@ -1,0 +1,52 @@
+{
+ "module": "example.com/mixed",
+ "packages": [
+  {
+   "error": "",
+   "go_files": 2,
+   "import_path": "example.com/mixed/ring",
+   "name": "ring",
+   "rel": "ring",
+   "targets": {
+    "ok": 2
+   },
+   "test_files": 1,
+   "xtest_files": 0
+  }
+ ],
+ "selection": {
+  "files": null,
+  "max_files": null,
+  "packages": null,
+  "subtree": null
+ },
+ "skipped": [],
+ "targets": [
+  {
+   "file": "ring/export.go",
+   "lines": 16,
+   "pkg": "ring",
+   "status": "ok",
+   "stem": "export"
+  },
+  {
+   "file": "ring/ring.go",
+   "lines": 56,
+   "pkg": "ring",
+   "status": "ok",
+   "stem": "ring"
+  }
+ ],
+ "totals": {
+  "docgen_targets": 2,
+  "files": 2,
+  "lines": 72,
+  "packages": 1,
+  "packages_with_tests": 1,
+  "statuses": {
+   "ok": 2
+  },
+  "test_files": 1,
+  "testgen_targets": 2
+ }
+}

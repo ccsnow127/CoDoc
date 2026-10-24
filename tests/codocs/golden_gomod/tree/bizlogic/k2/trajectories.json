@@ -1,0 +1,32 @@
+{
+ "dedup": {
+  "walks": 0,
+  "distinct_signatures": 0,
+  "min_support": 1,
+  "frequent_signatures": 0,
+  "after_prefix_subsume": 0,
+  "folded_low_support": 0,
+  "kept": 0,
+  "dropped_by_cap": 0,
+  "dropped_own_walks": 0
+ },
+ "coverage": [
+  {
+   "subsystem": "shapes",
+   "functions": 4,
+   "candidate_roots": 0,
+   "roots": 0,
+   "visited": 0,
+   "trajectories": 0
+  },
+  {
+   "subsystem": "calc",
+   "functions": 2,
+   "candidate_roots": 0,
+   "roots": 0,
+   "visited": 0,
+   "trajectories": 0
+  }
+ ],
+ "trajectories": []
+}

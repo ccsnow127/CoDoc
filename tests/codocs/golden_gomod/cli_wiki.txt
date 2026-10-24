@@ -1,0 +1,7 @@
+Module:    example.com/fixture
+Packages:  2 (generated docs 2, in-tree docs 0, static 0)
+Plan:      2 sections, 2 pages
+calc
+  - calc (1 packages)
+shapes
+  - shapes (1 packages)

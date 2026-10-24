@@ -1,0 +1,40 @@
+{
+ "pkg": "calc",
+ "file": "calc/stats.go",
+ "stem": "stats",
+ "status": "ok",
+ "signal": "tests",
+ "rounds": [
+  {
+   "round": 1,
+   "doc": "# calc/stats.go\n\nFixture file.\n\n## ClassDef Stats\n**Stats**: documented.\n\n**Signature**: `type Stats struct`\n\n## MethodDef Stats.Add\n**Stats.Add**: documented.\n\n**Signature**: `func (s *Stats) Add(v int)`\n\n## MethodDef Stats.Mean\n**Stats.Mean**: documented.\n\n**Signature**: `func (s Stats) Mean() int`\n",
+   "code": "package calc\n\n// Stats accumulates integer observations.\ntype Stats struct {\n\tCount int\n\tTotal int\n\tMax   int\n}\n\n// Add records one observation.\nfunc (s *Stats) Add(v int) {\n\tif s.Count == 0 || v > s.Max {\n\t\ts.Max = v\n\t}\n\ts.Count++\n\ts.Total += v\n}\n\n// Mean returns Total/Count in fixed point (multiplied by Scale), or 0 when empty.\nfunc (s Stats) Mean() int {\n\tif s.Count == 0 {\n\t\treturn 0\n\t}\n\treturn s.Total * Scale / s.Count\n}\n",
+   "eval": {
+    "signal": "tests",
+    "build_ok": true,
+    "phi": 1.0,
+    "relevant": [
+     "TestStatsAdd",
+     "TestStatsMean"
+    ],
+    "passed": [
+     "TestStatsAdd",
+     "TestStatsMean"
+    ],
+    "failing": {},
+    "build_errors": [],
+    "import_fixes": 0
+   },
+   "missing": []
+  }
+ ],
+ "best_round": 1,
+ "best_phi": 1.0,
+ "early_stop": true,
+ "threshold": 0.9,
+ "max_rounds": 3,
+ "error": "",
+ "phi_trajectory": [
+  1.0
+ ]
+}

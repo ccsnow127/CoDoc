@@ -1,0 +1,959 @@
+{
+ "copybooks": {
+  "ACCTREC": {
+   "kind": "data",
+   "loc": 3,
+   "name": "ACCTREC",
+   "path": "ACCTREC.cpy",
+   "top_items": [
+    "ACCT-RECORD"
+   ],
+   "used_by": [
+    "ACCT01",
+    "ACCT02"
+   ]
+  },
+  "COMMAREA": {
+   "kind": "data",
+   "loc": 3,
+   "name": "COMMAREA",
+   "path": "COMMAREA.cpy",
+   "top_items": [
+    "CARD-COMMAREA"
+   ],
+   "used_by": [
+    "MENU01",
+    "UPDT01",
+    "VIEW01"
+   ]
+  }
+ },
+ "datastores": {
+  "ACCTDAT": {
+   "aliases": [
+    "ACCTDAT"
+   ],
+   "jobs": [],
+   "kind": "cics-file",
+   "name": "ACCTDAT",
+   "organization": "",
+   "readers": [
+    "MENU01",
+    "UPDT01",
+    "VIEW01"
+   ],
+   "writers": []
+  },
+  "PROD.ACCT.MASTER": {
+   "aliases": [
+    "ACCTFILE"
+   ],
+   "jobs": [
+    "ACCTJOB"
+   ],
+   "kind": "dataset",
+   "name": "PROD.ACCT.MASTER",
+   "organization": "",
+   "readers": [
+    "ACCT01",
+    "ACCT02"
+   ],
+   "writers": []
+  }
+ },
+ "edge_counts": {
+  "call": 2,
+  "cics-xctl": 4,
+  "copy": 5,
+  "reads": 5,
+  "runs": 2,
+  "starts": 3
+ },
+ "edges": [
+  {
+   "count": 1,
+   "kind": "runs",
+   "kinds": [
+    "runs"
+   ],
+   "source": "job:ACCTJOB",
+   "target": "prog:ACCT01"
+  },
+  {
+   "count": 1,
+   "kind": "runs",
+   "kinds": [
+    "runs"
+   ],
+   "source": "job:ACCTJOB",
+   "target": "prog:ACCT02"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:ACCT01",
+   "target": "copy:ACCTREC"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:ACCT01",
+   "target": "data:PROD.ACCT.MASTER"
+  },
+  {
+   "count": 1,
+   "kind": "call",
+   "kinds": [
+    "call"
+   ],
+   "source": "prog:ACCT01",
+   "target": "prog:DATEUTIL"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:ACCT02",
+   "target": "copy:ACCTREC"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:ACCT02",
+   "target": "data:PROD.ACCT.MASTER"
+  },
+  {
+   "count": 1,
+   "kind": "call",
+   "kinds": [
+    "call"
+   ],
+   "source": "prog:ACCT02",
+   "target": "prog:DATEUTIL"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:MENU01",
+   "target": "copy:COMMAREA"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:MENU01",
+   "target": "data:ACCTDAT"
+  },
+  {
+   "count": 1,
+   "kind": "cics-xctl",
+   "kinds": [
+    "cics-xctl"
+   ],
+   "source": "prog:MENU01",
+   "target": "prog:UPDT01"
+  },
+  {
+   "count": 1,
+   "kind": "cics-xctl",
+   "kinds": [
+    "cics-xctl"
+   ],
+   "source": "prog:MENU01",
+   "target": "prog:VIEW01"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:UPDT01",
+   "target": "copy:COMMAREA"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:UPDT01",
+   "target": "data:ACCTDAT"
+  },
+  {
+   "count": 1,
+   "kind": "cics-xctl",
+   "kinds": [
+    "cics-xctl"
+   ],
+   "source": "prog:UPDT01",
+   "target": "prog:MENU01"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:VIEW01",
+   "target": "copy:COMMAREA"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:VIEW01",
+   "target": "data:ACCTDAT"
+  },
+  {
+   "count": 1,
+   "kind": "cics-xctl",
+   "kinds": [
+    "cics-xctl"
+   ],
+   "source": "prog:VIEW01",
+   "target": "prog:MENU01"
+  },
+  {
+   "count": 1,
+   "kind": "starts",
+   "kinds": [
+    "starts"
+   ],
+   "source": "txn:MN01",
+   "target": "prog:MENU01"
+  },
+  {
+   "count": 1,
+   "kind": "starts",
+   "kinds": [
+    "starts"
+   ],
+   "source": "txn:UP01",
+   "target": "prog:UPDT01"
+  },
+  {
+   "count": 1,
+   "kind": "starts",
+   "kinds": [
+    "starts"
+   ],
+   "source": "txn:VW01",
+   "target": "prog:VIEW01"
+  }
+ ],
+ "entrypoints": {
+  "cics": [
+   "MENU01",
+   "UPDT01",
+   "VIEW01"
+  ],
+  "jcl": [
+   "ACCT01",
+   "ACCT02"
+  ],
+  "standalone": []
+ },
+ "files": [
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 18,
+   "path": "ACCT01.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 18,
+   "path": "ACCT02.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "jcl",
+   "loc": 6,
+   "path": "ACCTJOB.jcl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "copybook",
+   "loc": 2,
+   "path": "ACCTREC.cpy"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "copybook",
+   "loc": 2,
+   "path": "COMMAREA.cpy"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 8,
+   "path": "DATEUTIL.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 13,
+   "path": "MENU01.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 12,
+   "path": "UPDT01.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 12,
+   "path": "VIEW01.cbl"
+  }
+ ],
+ "groups": {
+  "ACCT01": "(root)",
+  "ACCT02": "(root)",
+  "DATEUTIL": "(root)",
+  "MENU01": "(root)",
+  "UPDT01": "(root)",
+  "VIEW01": "(root)"
+ },
+ "jobs": {
+  "ACCTJOB": {
+   "description": "NIGHTLY ACCOUNT POSTING",
+   "kind": "job",
+   "name": "ACCTJOB",
+   "path": "ACCTJOB.jcl",
+   "steps": [
+    {
+     "app_program": "ACCT01",
+     "dd": {
+      "ACCTFILE": "PROD.ACCT.MASTER"
+     },
+     "name": "STEP01",
+     "parm": "",
+     "proc": "",
+     "program": "ACCT01"
+    },
+    {
+     "app_program": "ACCT02",
+     "dd": {
+      "ACCTFILE": "PROD.ACCT.MASTER"
+     },
+     "name": "STEP02",
+     "parm": "",
+     "proc": "",
+     "program": "ACCT02"
+    }
+   ],
+   "symbols": {}
+  }
+ },
+ "mapsets": {},
+ "name": "repo",
+ "programs": {
+  "ACCT01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "call",
+     "line": 17,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DATEUTIL",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [],
+   "copybooks": [
+    "ACCTREC"
+   ],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "IN-REC",
+     "picture": "X(80)",
+     "section": "FILE"
+    },
+    {
+     "children": [
+      "05 ACCT-ID PIC 9(9)"
+     ],
+     "copybook": "ACCTREC",
+     "level": 1,
+     "name": "ACCT-RECORD",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "ACCTFILE",
+     "fd_record": "IN-REC",
+     "modes": [
+      "INPUT"
+     ],
+     "name": "IN-FILE",
+     "organization": "",
+     "record_key": "",
+     "via": "native"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : post account balances",
+   "is_batch_main": true,
+   "loc": 18,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 15,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "ACCT01.cbl",
+   "program_id": "ACCT01",
+   "returning": "",
+   "sloc": 17,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "ACCT02": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "call",
+     "line": 17,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DATEUTIL",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [],
+   "copybooks": [
+    "ACCTREC"
+   ],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "IN-REC",
+     "picture": "X(80)",
+     "section": "FILE"
+    },
+    {
+     "children": [
+      "05 ACCT-ID PIC 9(9)"
+     ],
+     "copybook": "ACCTREC",
+     "level": 1,
+     "name": "ACCT-RECORD",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "ACCTFILE",
+     "fd_record": "IN-REC",
+     "modes": [
+      "INPUT"
+     ],
+     "name": "IN-FILE",
+     "organization": "",
+     "record_key": "",
+     "via": "native"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : print account report",
+   "is_batch_main": true,
+   "loc": 18,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 15,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "ACCT02.cbl",
+   "program_id": "ACCT02",
+   "returning": "",
+   "sloc": 17,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "DATEUTIL": {
+   "author": "",
+   "calls": [],
+   "cics": [],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "LK-DATE",
+     "picture": "X(10)",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : convert dates",
+   "is_batch_main": false,
+   "loc": 8,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [],
+   "parse_warnings": [],
+   "path": "DATEUTIL.cbl",
+   "program_id": "DATEUTIL",
+   "returning": "",
+   "sloc": 7,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": [
+    "LK-DATE"
+   ]
+  },
+  "MENU01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "cics-xctl",
+     "line": 10,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "VIEW01",
+     "using": [],
+     "via": ""
+    },
+    {
+     "kind": "cics-xctl",
+     "line": 11,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "UPDT01",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [
+    {
+     "args": {
+      "FILE": "'ACCTDAT'",
+      "INTO": "X",
+      "RIDFLD": "K"
+     },
+     "command": "READ",
+     "line": 9,
+     "resolved": {
+      "FILE": [
+       "ACCTDAT"
+      ]
+     }
+    },
+    {
+     "args": {
+      "TRANSID": "'MN01'"
+     },
+     "command": "RETURN",
+     "line": 12,
+     "resolved": {
+      "TRANSID": [
+       "MN01"
+      ]
+     }
+    }
+   ],
+   "copybooks": [
+    "COMMAREA"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 CA-USER PIC X(8)"
+     ],
+     "copybook": "COMMAREA",
+     "level": 1,
+     "name": "CARD-COMMAREA",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "",
+     "fd_record": "",
+     "modes": [
+      "READ"
+     ],
+     "name": "ACCTDAT",
+     "organization": "",
+     "record_key": "",
+     "via": "cics"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : main menu",
+   "is_batch_main": false,
+   "loc": 13,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 8,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "MENU01.cbl",
+   "program_id": "MENU01",
+   "returning": "",
+   "sloc": 12,
+   "sql": [],
+   "transactions": [
+    "MN01"
+   ],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "UPDT01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "cics-xctl",
+     "line": 10,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "MENU01",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [
+    {
+     "args": {
+      "FILE": "'ACCTDAT'",
+      "INTO": "X",
+      "RIDFLD": "K"
+     },
+     "command": "READ",
+     "line": 9,
+     "resolved": {
+      "FILE": [
+       "ACCTDAT"
+      ]
+     }
+    },
+    {
+     "args": {
+      "TRANSID": "'UP01'"
+     },
+     "command": "RETURN",
+     "line": 11,
+     "resolved": {
+      "TRANSID": [
+       "UP01"
+      ]
+     }
+    }
+   ],
+   "copybooks": [
+    "COMMAREA"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 CA-USER PIC X(8)"
+     ],
+     "copybook": "COMMAREA",
+     "level": 1,
+     "name": "CARD-COMMAREA",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "",
+     "fd_record": "",
+     "modes": [
+      "READ"
+     ],
+     "name": "ACCTDAT",
+     "organization": "",
+     "record_key": "",
+     "via": "cics"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : update an account",
+   "is_batch_main": false,
+   "loc": 12,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 8,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "UPDT01.cbl",
+   "program_id": "UPDT01",
+   "returning": "",
+   "sloc": 11,
+   "sql": [],
+   "transactions": [
+    "UP01"
+   ],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "VIEW01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "cics-xctl",
+     "line": 10,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "MENU01",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [
+    {
+     "args": {
+      "FILE": "'ACCTDAT'",
+      "INTO": "X",
+      "RIDFLD": "K"
+     },
+     "command": "READ",
+     "line": 9,
+     "resolved": {
+      "FILE": [
+       "ACCTDAT"
+      ]
+     }
+    },
+    {
+     "args": {
+      "TRANSID": "'VW01'"
+     },
+     "command": "RETURN",
+     "line": 11,
+     "resolved": {
+      "TRANSID": [
+       "VW01"
+      ]
+     }
+    }
+   ],
+   "copybooks": [
+    "COMMAREA"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 CA-USER PIC X(8)"
+     ],
+     "copybook": "COMMAREA",
+     "level": 1,
+     "name": "CARD-COMMAREA",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "",
+     "fd_record": "",
+     "modes": [
+      "READ"
+     ],
+     "name": "ACCTDAT",
+     "organization": "",
+     "record_key": "",
+     "via": "cics"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : view an account",
+   "is_batch_main": false,
+   "loc": 12,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 8,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "VIEW01.cbl",
+   "program_id": "VIEW01",
+   "returning": "",
+   "sloc": 11,
+   "sql": [],
+   "transactions": [
+    "VW01"
+   ],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  }
+ },
+ "ranking": [
+  [
+   "MENU01",
+   0.393916
+  ],
+  [
+   "UPDT01",
+   0.2079
+  ],
+  [
+   "VIEW01",
+   0.2079
+  ],
+  [
+   "DATEUTIL",
+   0.109312
+  ],
+  [
+   "ACCT01",
+   0.040486
+  ],
+  [
+   "ACCT02",
+   0.040486
+  ]
+ ],
+ "root": "<ROOT>",
+ "summary": {
+  "bms_mapsets": 0,
+  "call_edges": 6,
+  "cobol_loc": 85,
+  "copybooks": 2,
+  "jcl_jobs": 1,
+  "missing_copybooks": [],
+  "name": "repo",
+  "programs": 6,
+  "root": "<ROOT>",
+  "unresolved_calls": [],
+  "unresolved_dynamic": [],
+  "warnings": []
+ },
+ "transactions": {
+  "MN01": "MENU01",
+  "UP01": "UPDT01",
+  "VW01": "VIEW01"
+ }
+}

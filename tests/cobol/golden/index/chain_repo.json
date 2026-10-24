@@ -1,0 +1,1389 @@
+{
+ "copybooks": {},
+ "datastores": {
+  "APPLOG": {
+   "aliases": [],
+   "jobs": [],
+   "kind": "queue",
+   "name": "APPLOG",
+   "organization": "",
+   "readers": [],
+   "writers": [
+    "LOGGR"
+   ]
+  },
+  "CUSTFILE": {
+   "aliases": [
+    "CUSTFILE"
+   ],
+   "jobs": [],
+   "kind": "cics-file",
+   "name": "CUSTFILE",
+   "organization": "",
+   "readers": [],
+   "writers": [
+    "VS01"
+   ]
+  },
+  "CUSTOMER": {
+   "aliases": [],
+   "jobs": [],
+   "kind": "db2-table",
+   "name": "CUSTOMER",
+   "organization": "",
+   "readers": [
+    "DB02"
+   ],
+   "writers": [
+    "DB01"
+   ]
+  },
+  "PROD.EXPORT": {
+   "aliases": [
+    "EXPIN"
+   ],
+   "jobs": [
+    "IMPJOB"
+   ],
+   "kind": "dataset",
+   "name": "PROD.EXPORT",
+   "organization": "",
+   "readers": [
+    "IMPORT1"
+   ],
+   "writers": []
+  },
+  "PROD.MASTER.IMPORT": {
+   "aliases": [
+    "IMPOUT"
+   ],
+   "jobs": [
+    "IMPJOB"
+   ],
+   "kind": "dataset",
+   "name": "PROD.MASTER.IMPORT",
+   "organization": "",
+   "readers": [],
+   "writers": [
+    "IMPORT1"
+   ]
+  },
+  "PROD.MASTER.KSDS": {
+   "aliases": [
+    "MASTER"
+   ],
+   "jobs": [
+    "POSTJOB"
+   ],
+   "kind": "dataset",
+   "name": "PROD.MASTER.KSDS",
+   "organization": "INDEXED",
+   "readers": [],
+   "writers": [
+    "POST01"
+   ]
+  },
+  "PROD.TRANIN": {
+   "aliases": [
+    "TRANIN"
+   ],
+   "jobs": [
+    "POSTJOB"
+   ],
+   "kind": "dataset",
+   "name": "PROD.TRANIN",
+   "organization": "",
+   "readers": [
+    "POST01"
+   ],
+   "writers": []
+  }
+ },
+ "edge_counts": {
+  "call": 2,
+  "cics-link": 10,
+  "reads": 3,
+  "runs": 2,
+  "starts": 2,
+  "writes": 5
+ },
+ "edges": [
+  {
+   "count": 1,
+   "kind": "runs",
+   "kinds": [
+    "runs"
+   ],
+   "source": "job:IMPJOB",
+   "target": "prog:IMPORT1"
+  },
+  {
+   "count": 1,
+   "kind": "runs",
+   "kinds": [
+    "runs"
+   ],
+   "source": "job:POSTJOB",
+   "target": "prog:POST01"
+  },
+  {
+   "count": 1,
+   "kind": "cics-link",
+   "kinds": [
+    "cics-link"
+   ],
+   "source": "prog:BIZ01",
+   "target": "prog:DB01"
+  },
+  {
+   "count": 1,
+   "kind": "cics-link",
+   "kinds": [
+    "cics-link"
+   ],
+   "source": "prog:BIZ01",
+   "target": "prog:LOGGR"
+  },
+  {
+   "count": 1,
+   "kind": "writes",
+   "kinds": [
+    "writes"
+   ],
+   "source": "prog:DB01",
+   "target": "data:CUSTOMER"
+  },
+  {
+   "count": 1,
+   "kind": "cics-link",
+   "kinds": [
+    "cics-link"
+   ],
+   "source": "prog:DB01",
+   "target": "prog:LOGGR"
+  },
+  {
+   "count": 1,
+   "kind": "cics-link",
+   "kinds": [
+    "cics-link"
+   ],
+   "source": "prog:DB01",
+   "target": "prog:VS01"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:DB02",
+   "target": "data:CUSTOMER"
+  },
+  {
+   "count": 1,
+   "kind": "cics-link",
+   "kinds": [
+    "cics-link"
+   ],
+   "source": "prog:DB02",
+   "target": "prog:LOGGR"
+  },
+  {
+   "count": 1,
+   "kind": "cics-link",
+   "kinds": [
+    "cics-link"
+   ],
+   "source": "prog:FRONT01",
+   "target": "prog:BIZ01"
+  },
+  {
+   "count": 1,
+   "kind": "cics-link",
+   "kinds": [
+    "cics-link"
+   ],
+   "source": "prog:FRONT01",
+   "target": "prog:LOGGR"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:IMPORT1",
+   "target": "data:PROD.EXPORT"
+  },
+  {
+   "count": 1,
+   "kind": "writes",
+   "kinds": [
+    "writes"
+   ],
+   "source": "prog:IMPORT1",
+   "target": "data:PROD.MASTER.IMPORT"
+  },
+  {
+   "count": 1,
+   "kind": "call",
+   "kinds": [
+    "call"
+   ],
+   "source": "prog:IMPORT1",
+   "target": "prog:LOGGR"
+  },
+  {
+   "count": 1,
+   "kind": "cics-link",
+   "kinds": [
+    "cics-link"
+   ],
+   "source": "prog:INQ01",
+   "target": "prog:DB02"
+  },
+  {
+   "count": 1,
+   "kind": "cics-link",
+   "kinds": [
+    "cics-link"
+   ],
+   "source": "prog:INQ01",
+   "target": "prog:LOGGR"
+  },
+  {
+   "count": 1,
+   "kind": "writes",
+   "kinds": [
+    "writes"
+   ],
+   "source": "prog:LOGGR",
+   "target": "data:APPLOG"
+  },
+  {
+   "count": 1,
+   "kind": "writes",
+   "kinds": [
+    "writes"
+   ],
+   "source": "prog:POST01",
+   "target": "data:PROD.MASTER.KSDS"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:POST01",
+   "target": "data:PROD.TRANIN"
+  },
+  {
+   "count": 1,
+   "kind": "call",
+   "kinds": [
+    "call"
+   ],
+   "source": "prog:POST01",
+   "target": "prog:LOGGR"
+  },
+  {
+   "count": 1,
+   "kind": "writes",
+   "kinds": [
+    "writes"
+   ],
+   "source": "prog:VS01",
+   "target": "data:CUSTFILE"
+  },
+  {
+   "count": 1,
+   "kind": "cics-link",
+   "kinds": [
+    "cics-link"
+   ],
+   "source": "prog:VS01",
+   "target": "prog:LOGGR"
+  },
+  {
+   "count": 1,
+   "kind": "starts",
+   "kinds": [
+    "starts"
+   ],
+   "source": "txn:FR01",
+   "target": "prog:FRONT01"
+  },
+  {
+   "count": 1,
+   "kind": "starts",
+   "kinds": [
+    "starts"
+   ],
+   "source": "txn:IQ01",
+   "target": "prog:INQ01"
+  }
+ ],
+ "entrypoints": {
+  "cics": [
+   "FRONT01",
+   "INQ01"
+  ],
+  "jcl": [
+   "IMPORT1",
+   "POST01"
+  ],
+  "standalone": []
+ },
+ "files": [
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 15,
+   "path": "BIZ01.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 16,
+   "path": "DB01.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 15,
+   "path": "DB02.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 16,
+   "path": "FRONT01.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "jcl",
+   "loc": 4,
+   "path": "IMPJOB.jcl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 24,
+   "path": "IMPORT1.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 16,
+   "path": "INQ01.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 12,
+   "path": "LOGGR.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 25,
+   "path": "POST01.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "jcl",
+   "loc": 4,
+   "path": "POSTJOB.jcl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 16,
+   "path": "VS01.cbl"
+  }
+ ],
+ "groups": {
+  "BIZ01": "(root)",
+  "DB01": "(root)",
+  "DB02": "(root)",
+  "FRONT01": "(root)",
+  "IMPORT1": "(root)",
+  "INQ01": "(root)",
+  "LOGGR": "(root)",
+  "POST01": "(root)",
+  "VS01": "(root)"
+ },
+ "jobs": {
+  "IMPJOB": {
+   "description": "",
+   "kind": "job",
+   "name": "IMPJOB",
+   "path": "IMPJOB.jcl",
+   "steps": [
+    {
+     "app_program": "IMPORT1",
+     "dd": {
+      "EXPIN": "PROD.EXPORT",
+      "IMPOUT": "PROD.MASTER.IMPORT"
+     },
+     "name": "STEP01",
+     "parm": "",
+     "proc": "",
+     "program": "IMPORT1"
+    }
+   ],
+   "symbols": {}
+  },
+  "POSTJOB": {
+   "description": "",
+   "kind": "job",
+   "name": "POSTJOB",
+   "path": "POSTJOB.jcl",
+   "steps": [
+    {
+     "app_program": "POST01",
+     "dd": {
+      "MASTER": "PROD.MASTER.KSDS",
+      "TRANIN": "PROD.TRANIN"
+     },
+     "name": "STEP01",
+     "parm": "",
+     "proc": "",
+     "program": "POST01"
+    }
+   ],
+   "symbols": {}
+  }
+ },
+ "mapsets": {},
+ "name": "repo",
+ "programs": {
+  "BIZ01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "cics-link",
+     "line": 12,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DB01",
+     "using": [],
+     "via": ""
+    },
+    {
+     "kind": "cics-link",
+     "line": 13,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "LOGGR",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [
+    {
+     "args": {},
+     "command": "RETURN",
+     "line": 14,
+     "resolved": {}
+    }
+   ],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-REC",
+     "picture": "X(80)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-KEY",
+     "picture": "X(8)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "DFHCOMMAREA",
+     "picture": "X(100)",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : validate a new customer",
+   "is_batch_main": false,
+   "loc": 15,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 11,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "BIZ01.cbl",
+   "program_id": "BIZ01",
+   "returning": "",
+   "sloc": 14,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "DB01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "cics-link",
+     "line": 13,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "VS01",
+     "using": [],
+     "via": ""
+    },
+    {
+     "kind": "cics-link",
+     "line": 14,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "LOGGR",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [
+    {
+     "args": {},
+     "command": "RETURN",
+     "line": 15,
+     "resolved": {}
+    }
+   ],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-REC",
+     "picture": "X(80)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-KEY",
+     "picture": "X(8)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "DFHCOMMAREA",
+     "picture": "X(100)",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": true,
+   "header_comment": "FUNCTION : insert the customer row",
+   "is_batch_main": false,
+   "loc": 16,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 11,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "DB01.cbl",
+   "program_id": "DB01",
+   "returning": "",
+   "sloc": 15,
+   "sql": [
+    {
+     "line": 12,
+     "member": "",
+     "op": "INSERT",
+     "tables": [
+      "CUSTOMER"
+     ]
+    }
+   ],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "DB02": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "cics-link",
+     "line": 13,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "LOGGR",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [
+    {
+     "args": {},
+     "command": "RETURN",
+     "line": 14,
+     "resolved": {}
+    }
+   ],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-REC",
+     "picture": "X(80)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-KEY",
+     "picture": "X(8)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "DFHCOMMAREA",
+     "picture": "X(100)",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": true,
+   "header_comment": "FUNCTION : read the customer row",
+   "is_batch_main": false,
+   "loc": 15,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 11,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "DB02.cbl",
+   "program_id": "DB02",
+   "returning": "",
+   "sloc": 14,
+   "sql": [
+    {
+     "line": 12,
+     "member": "",
+     "op": "SELECT",
+     "tables": [
+      "CUSTOMER"
+     ]
+    }
+   ],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "FRONT01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "cics-link",
+     "line": 12,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "BIZ01",
+     "using": [],
+     "via": ""
+    },
+    {
+     "kind": "cics-link",
+     "line": 13,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "LOGGR",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [
+    {
+     "args": {
+      "TRANSID": "'FR01'"
+     },
+     "command": "RETURN",
+     "line": 14,
+     "resolved": {
+      "TRANSID": [
+       "FR01"
+      ]
+     }
+    },
+    {
+     "args": {},
+     "command": "RETURN",
+     "line": 15,
+     "resolved": {}
+    }
+   ],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-REC",
+     "picture": "X(80)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-KEY",
+     "picture": "X(8)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "DFHCOMMAREA",
+     "picture": "X(100)",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : customer menu",
+   "is_batch_main": false,
+   "loc": 16,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 11,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "FRONT01.cbl",
+   "program_id": "FRONT01",
+   "returning": "",
+   "sloc": 15,
+   "sql": [],
+   "transactions": [
+    "FR01"
+   ],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "IMPORT1": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "call",
+     "line": 22,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "LOGGR",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "IN-REC",
+     "picture": "X(80)",
+     "section": "FILE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "OUT-REC",
+     "picture": "X(80)",
+     "section": "FILE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "EXPIN",
+     "fd_record": "IN-REC",
+     "modes": [
+      "INPUT"
+     ],
+     "name": "IN-FILE",
+     "organization": "",
+     "record_key": "",
+     "via": "native"
+    },
+    {
+     "access": "",
+     "assign": "IMPOUT",
+     "fd_record": "OUT-REC",
+     "modes": [
+      "OUTPUT"
+     ],
+     "name": "OUT-FILE",
+     "organization": "",
+     "record_key": "",
+     "via": "native"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : split the export file",
+   "is_batch_main": true,
+   "loc": 24,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 17,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "IMPORT1.cbl",
+   "program_id": "IMPORT1",
+   "returning": "",
+   "sloc": 23,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "INQ01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "cics-link",
+     "line": 12,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DB02",
+     "using": [],
+     "via": ""
+    },
+    {
+     "kind": "cics-link",
+     "line": 13,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "LOGGR",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [
+    {
+     "args": {
+      "TRANSID": "'IQ01'"
+     },
+     "command": "RETURN",
+     "line": 14,
+     "resolved": {
+      "TRANSID": [
+       "IQ01"
+      ]
+     }
+    },
+    {
+     "args": {},
+     "command": "RETURN",
+     "line": 15,
+     "resolved": {}
+    }
+   ],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-REC",
+     "picture": "X(80)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-KEY",
+     "picture": "X(8)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "DFHCOMMAREA",
+     "picture": "X(100)",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : customer inquiry",
+   "is_batch_main": false,
+   "loc": 16,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 11,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "INQ01.cbl",
+   "program_id": "INQ01",
+   "returning": "",
+   "sloc": 15,
+   "sql": [],
+   "transactions": [
+    "IQ01"
+   ],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "LOGGR": {
+   "author": "",
+   "calls": [],
+   "cics": [
+    {
+     "args": {
+      "FROM": "WS-MSG",
+      "QUEUE": "'APPLOG'",
+      "TS": ""
+     },
+     "command": "WRITEQ TS",
+     "line": 11,
+     "resolved": {
+      "QUEUE": [
+       "APPLOG"
+      ]
+     }
+    },
+    {
+     "args": {},
+     "command": "RETURN",
+     "line": 12,
+     "resolved": {}
+    }
+   ],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-MSG",
+     "picture": "X(80)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "DFHCOMMAREA",
+     "picture": "X(100)",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : write a log message to a TS queue",
+   "is_batch_main": false,
+   "loc": 12,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 10,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "LOGGR.cbl",
+   "program_id": "LOGGR",
+   "returning": "",
+   "sloc": 11,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "POST01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "call",
+     "line": 23,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "LOGGR",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "IN-REC",
+     "picture": "X(80)",
+     "section": "FILE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "OUT-REC",
+     "picture": "X(80)",
+     "section": "FILE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "TRANIN",
+     "fd_record": "IN-REC",
+     "modes": [
+      "INPUT"
+     ],
+     "name": "IN-FILE",
+     "organization": "",
+     "record_key": "",
+     "via": "native"
+    },
+    {
+     "access": "",
+     "assign": "MASTER",
+     "fd_record": "OUT-REC",
+     "modes": [
+      "OUTPUT"
+     ],
+     "name": "OUT-FILE",
+     "organization": "INDEXED",
+     "record_key": "",
+     "via": "native"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : post transactions to the master",
+   "is_batch_main": true,
+   "loc": 25,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 18,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "POST01.cbl",
+   "program_id": "POST01",
+   "returning": "",
+   "sloc": 24,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "VS01": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "cics-link",
+     "line": 14,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "LOGGR",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [
+    {
+     "args": {
+      "FILE": "'CUSTFILE'",
+      "FROM": "WS-REC",
+      "RIDFLD": "WS-KEY"
+     },
+     "command": "WRITE",
+     "line": 12,
+     "resolved": {
+      "FILE": [
+       "CUSTFILE"
+      ]
+     }
+    },
+    {
+     "args": {},
+     "command": "RETURN",
+     "line": 15,
+     "resolved": {}
+    }
+   ],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-REC",
+     "picture": "X(80)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-KEY",
+     "picture": "X(8)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "DFHCOMMAREA",
+     "picture": "X(100)",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "",
+     "fd_record": "",
+     "modes": [
+      "WRITE"
+     ],
+     "name": "CUSTFILE",
+     "organization": "",
+     "record_key": "",
+     "via": "cics"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "FUNCTION : write the customer KSDS record",
+   "is_batch_main": false,
+   "loc": 16,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 11,
+     "name": "MAIN-PARA",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "VS01.cbl",
+   "program_id": "VS01",
+   "returning": "",
+   "sloc": 15,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  }
+ },
+ "ranking": [
+  [
+   "LOGGR",
+   0.424542
+  ],
+  [
+   "VS01",
+   0.095496
+  ],
+  [
+   "DB01",
+   0.091139
+  ],
+  [
+   "BIZ01",
+   0.080886
+  ],
+  [
+   "DB02",
+   0.080886
+  ],
+  [
+   "FRONT01",
+   0.056762
+  ],
+  [
+   "IMPORT1",
+   0.056762
+  ],
+  [
+   "INQ01",
+   0.056762
+  ],
+  [
+   "POST01",
+   0.056762
+  ]
+ ],
+ "root": "<ROOT>",
+ "summary": {
+  "bms_mapsets": 0,
+  "call_edges": 12,
+  "cobol_loc": 155,
+  "copybooks": 0,
+  "jcl_jobs": 2,
+  "missing_copybooks": [],
+  "name": "repo",
+  "programs": 9,
+  "root": "<ROOT>",
+  "unresolved_calls": [],
+  "unresolved_dynamic": [],
+  "warnings": []
+ },
+ "transactions": {
+  "FR01": "FRONT01",
+  "IQ01": "INQ01"
+ }
+}

@@ -1,0 +1,238 @@
+{
+ "docgen": {
+  "aggregate": {
+   "files": 3,
+   "ran": 3,
+   "statuses": {
+    "ok": 3
+   },
+   "errors": 0,
+   "mean_best_phi": 1.0,
+   "early_stop_rate": 1.0,
+   "reached_threshold": 3,
+   "rounds_histogram": {
+    "1": 3
+   },
+   "total_rounds": 3,
+   "signals": {
+    "generated-tests": 1,
+    "tests": 2
+   }
+  },
+  "rows": [
+   {
+    "pkg": "calc",
+    "file": "calc/calc.go",
+    "status": "ok",
+    "signal": "tests",
+    "rounds": 1,
+    "max_rounds": 3,
+    "phi_trajectory": [
+     1.0
+    ],
+    "best_phi": 1.0,
+    "best_round": 1,
+    "early_stop": true,
+    "threshold": 0.9,
+    "error": ""
+   },
+   {
+    "pkg": "calc",
+    "file": "calc/stats.go",
+    "status": "ok",
+    "signal": "tests",
+    "rounds": 1,
+    "max_rounds": 3,
+    "phi_trajectory": [
+     1.0
+    ],
+    "best_phi": 1.0,
+    "best_round": 1,
+    "early_stop": true,
+    "threshold": 0.9,
+    "error": ""
+   },
+   {
+    "pkg": "shapes",
+    "file": "shapes/shapes.go",
+    "status": "ok",
+    "signal": "generated-tests",
+    "rounds": 1,
+    "max_rounds": 3,
+    "phi_trajectory": [
+     1.0
+    ],
+    "best_phi": 1.0,
+    "best_round": 1,
+    "early_stop": true,
+    "threshold": 0.9,
+    "error": ""
+   }
+  ]
+ },
+ "testgen": {
+  "aggregate": {
+   "files": 3,
+   "ran": 3,
+   "statuses": {
+    "ok": 3
+   },
+   "errors": 0,
+   "mean_best_score": 0.5833,
+   "early_stop_rate": 0.3333,
+   "reached_threshold": 1,
+   "rounds_histogram": {
+    "1": 1,
+    "2": 2
+   },
+   "total_rounds": 5,
+   "mean_best_cov": 1.0,
+   "mean_best_mut": 0.5833,
+   "delivered_suites": 3,
+   "delivered_tests": 7
+  },
+  "rows": [
+   {
+    "pkg": "calc",
+    "file": "calc/calc.go",
+    "status": "ok",
+    "rounds": 2,
+    "max_rounds": 2,
+    "score_trajectory": [
+     0.5,
+     0.5
+    ],
+    "best_score": 0.5,
+    "best_round": 1,
+    "best_cov": 1.0,
+    "best_mut": 0.5,
+    "best_size": 3,
+    "early_stop": false,
+    "threshold": 0.85,
+    "error": ""
+   },
+   {
+    "pkg": "calc",
+    "file": "calc/stats.go",
+    "status": "ok",
+    "rounds": 1,
+    "max_rounds": 2,
+    "score_trajectory": [
+     1.0
+    ],
+    "best_score": 1.0,
+    "best_round": 1,
+    "best_cov": 1.0,
+    "best_mut": 1.0,
+    "best_size": 1,
+    "early_stop": true,
+    "threshold": 0.85,
+    "error": ""
+   },
+   {
+    "pkg": "shapes",
+    "file": "shapes/shapes.go",
+    "status": "ok",
+    "rounds": 2,
+    "max_rounds": 2,
+    "score_trajectory": [
+     0.25,
+     0.25
+    ],
+    "best_score": 0.25,
+    "best_round": 1,
+    "best_cov": 1.0,
+    "best_mut": 0.25,
+    "best_size": 3,
+    "early_stop": false,
+    "threshold": 0.85,
+    "error": ""
+   }
+  ]
+ },
+ "analysis": {
+  "module": "example.com/fixture",
+  "go_version": "go version <GO>",
+  "totals": {
+   "packages": 2,
+   "packages_with_tests": 1,
+   "files": 3,
+   "lines": 114,
+   "test_files": 2,
+   "statuses": {
+    "ok": 3
+   },
+   "docgen_targets": 3,
+   "testgen_targets": 3
+  }
+ },
+ "run": {
+  "model": "gpt-5.4",
+  "stages": {
+   "analyze": {
+    "totals": {
+     "packages": 2,
+     "packages_with_tests": 1,
+     "files": 3,
+     "lines": 114,
+     "test_files": 2,
+     "statuses": {
+      "ok": 3
+     },
+     "docgen_targets": 3,
+     "testgen_targets": 3
+    },
+    "selection": {
+     "subtree": null,
+     "packages": null,
+     "files": null,
+     "max_files": null
+    }
+   },
+   "baseline": {
+    "packages": 2,
+    "build_failed": 0,
+    "timed_out": 0,
+    "incomplete": 0,
+    "passing": 5,
+    "failing": 1
+   },
+   "testgen": {
+    "files": 3,
+    "ran": 3,
+    "statuses": {
+     "ok": 3
+    },
+    "mean_best_score": 0.5833,
+    "tokens": {
+     "input": 0,
+     "output": 0
+    },
+    "llm": {
+     "calls": 0,
+     "cache_hits": 0
+    }
+   },
+   "docgen": {
+    "files": 3,
+    "ran": 3,
+    "statuses": {
+     "ok": 3
+    },
+    "mean_best_phi": 1.0,
+    "tokens": {
+     "input": 0,
+     "output": 0
+    },
+    "llm": {
+     "calls": 0,
+     "cache_hits": 0
+    }
+   }
+  }
+ },
+ "tokens": {
+  "input": 0,
+  "output": 0
+ }
+}

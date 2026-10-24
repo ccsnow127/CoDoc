@@ -1,0 +1,15 @@
+# Codocs with every toolchain it drives: conda env create -f environment.yml
+# (or ./install.sh, which also adds GCC on Linux and the offline Mermaid bundle).
+# C/C++: GCC on Linux (added by install.sh), Xcode Command Line Tools on macOS.
+name: codocs
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - pip
+  - go                # Go (on Linux install.sh switches to go-cgo, the cgo-enabled build)
+  - openjdk=21        # Java (JDK)
+  - maven             # Java: Maven modules and the JUnit / JaCoCo jars
+  - gnucobol=3.2      # COBOL (cobc)
+  - pip:
+      - -e .          # codocs itself, with pytest, coverage and tree-sitter

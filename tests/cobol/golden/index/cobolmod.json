@@ -1,0 +1,1269 @@
+{
+ "copybooks": {
+  "ACCTREC": {
+   "kind": "data",
+   "loc": 8,
+   "name": "ACCTREC",
+   "path": "cpy/ACCTREC.cpy",
+   "top_items": [
+    "ACCT-REC"
+   ],
+   "used_by": [
+    "ACCTINQ",
+    "ACCTRPT"
+   ]
+  },
+  "ACCTSET": {
+   "kind": "bms-symbolic",
+   "loc": 27,
+   "name": "ACCTSET",
+   "path": "cpy/ACCTSET.cpy",
+   "top_items": [
+    "ACCTMAPI",
+    "ACCTMAPO"
+   ],
+   "used_by": [
+    "ACCTINQ"
+   ]
+  },
+  "DATEPARM": {
+   "kind": "data",
+   "loc": 11,
+   "name": "DATEPARM",
+   "path": "cpy/DATEPARM.cpy",
+   "top_items": [
+    "LK-DATE-PARMS"
+   ],
+   "used_by": [
+    "ACCTINQ",
+    "ACCTRPT",
+    "DATEUTIL",
+    "TDATEUTL"
+   ]
+  }
+ },
+ "datastores": {
+  "PROD.ACCT.DATA": {
+   "aliases": [
+    "ACCTIN"
+   ],
+   "jobs": [
+    "ACCTJOB"
+   ],
+   "kind": "dataset",
+   "name": "PROD.ACCT.DATA",
+   "organization": "LINE SEQUENTIAL",
+   "readers": [
+    "ACCTRPT"
+   ],
+   "writers": []
+  },
+  "PROD.ACCT.KSDS": {
+   "aliases": [
+    "ACCTDAT"
+   ],
+   "jobs": [],
+   "kind": "cics-file",
+   "name": "PROD.ACCT.KSDS",
+   "organization": "INDEXED",
+   "readers": [
+    "ACCTINQ"
+   ],
+   "writers": []
+  },
+  "PROD.ACCT.RPT": {
+   "aliases": [
+    "RPTOUT"
+   ],
+   "jobs": [
+    "ACCTJOB"
+   ],
+   "kind": "dataset",
+   "name": "PROD.ACCT.RPT",
+   "organization": "LINE SEQUENTIAL",
+   "readers": [],
+   "writers": [
+    "ACCTRPT"
+   ]
+  }
+ },
+ "edge_counts": {
+  "call": 2,
+  "cics-link": 1,
+  "copy": 7,
+  "function": 1,
+  "reads": 2,
+  "runs": 1,
+  "sends-map": 1,
+  "starts": 1,
+  "writes": 1
+ },
+ "edges": [
+  {
+   "count": 1,
+   "kind": "runs",
+   "kinds": [
+    "runs"
+   ],
+   "source": "job:ACCTJOB",
+   "target": "prog:ACCTRPT"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:ACCTINQ",
+   "target": "copy:ACCTREC"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:ACCTINQ",
+   "target": "copy:ACCTSET"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:ACCTINQ",
+   "target": "copy:DATEPARM"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:ACCTINQ",
+   "target": "data:PROD.ACCT.KSDS"
+  },
+  {
+   "count": 1,
+   "kind": "sends-map",
+   "kinds": [
+    "sends-map"
+   ],
+   "source": "prog:ACCTINQ",
+   "target": "map:ACCTSET"
+  },
+  {
+   "count": 1,
+   "kind": "cics-link",
+   "kinds": [
+    "cics-link"
+   ],
+   "source": "prog:ACCTINQ",
+   "target": "prog:DATEUTIL"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:ACCTRPT",
+   "target": "copy:ACCTREC"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:ACCTRPT",
+   "target": "copy:DATEPARM"
+  },
+  {
+   "count": 1,
+   "kind": "reads",
+   "kinds": [
+    "reads"
+   ],
+   "source": "prog:ACCTRPT",
+   "target": "data:PROD.ACCT.DATA"
+  },
+  {
+   "count": 1,
+   "kind": "writes",
+   "kinds": [
+    "writes"
+   ],
+   "source": "prog:ACCTRPT",
+   "target": "data:PROD.ACCT.RPT"
+  },
+  {
+   "count": 1,
+   "kind": "call",
+   "kinds": [
+    "call"
+   ],
+   "source": "prog:ACCTRPT",
+   "target": "prog:DATEUTIL"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:DATEUTIL",
+   "target": "copy:DATEPARM"
+  },
+  {
+   "count": 1,
+   "kind": "function",
+   "kinds": [
+    "function"
+   ],
+   "source": "prog:DATEUTIL",
+   "target": "prog:DAYS-IN-MONTH"
+  },
+  {
+   "count": 1,
+   "kind": "copy",
+   "kinds": [
+    "copy"
+   ],
+   "source": "prog:TDATEUTL",
+   "target": "copy:DATEPARM"
+  },
+  {
+   "count": 4,
+   "kind": "call",
+   "kinds": [
+    "call"
+   ],
+   "source": "prog:TDATEUTL",
+   "target": "prog:DATEUTIL"
+  },
+  {
+   "count": 1,
+   "kind": "starts",
+   "kinds": [
+    "starts"
+   ],
+   "source": "txn:AINQ",
+   "target": "prog:ACCTINQ"
+  }
+ ],
+ "entrypoints": {
+  "cics": [
+   "ACCTINQ"
+  ],
+  "jcl": [
+   "ACCTRPT"
+  ],
+  "standalone": [
+   "TDATEUTL"
+  ]
+ },
+ "files": [
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "bms",
+   "loc": 10,
+   "path": "bms/ACCTSET.bms"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 67,
+   "path": "cbl/ACCTINQ.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 82,
+   "path": "cbl/ACCTRPT.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 60,
+   "path": "cbl/DATEUTIL.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 32,
+   "path": "cbl/DAYSINM.cbl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "copybook",
+   "loc": 7,
+   "path": "cpy/ACCTREC.cpy"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "copybook",
+   "loc": 26,
+   "path": "cpy/ACCTSET.cpy"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "copybook",
+   "loc": 10,
+   "path": "cpy/DATEPARM.cpy"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "other",
+   "loc": 6,
+   "path": "csd/ACCT.csd"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "jcl",
+   "loc": 7,
+   "path": "jcl/ACCTJOB.jcl"
+  },
+  {
+   "encoding": "utf-8",
+   "format": "fixed",
+   "kind": "program",
+   "loc": 48,
+   "path": "test/TDATEUTL.cbl"
+  }
+ ],
+ "groups": {
+  "ACCTINQ": "(root)",
+  "ACCTRPT": "(root)",
+  "DATEUTIL": "(root)",
+  "DAYS-IN-MONTH": "(root)",
+  "TDATEUTL": "test"
+ },
+ "jobs": {
+  "ACCTJOB": {
+   "description": "NIGHTLY ACCOUNT REPORT: VALIDATES OPEN DATES, PRINTS TOTALS",
+   "kind": "job",
+   "name": "ACCTJOB",
+   "path": "jcl/ACCTJOB.jcl",
+   "steps": [
+    {
+     "app_program": "ACCTRPT",
+     "dd": {
+      "ACCTIN": "PROD.ACCT.DATA",
+      "RPTOUT": "PROD.ACCT.RPT",
+      "SYSOUT": "SYSOUT"
+     },
+     "name": "STEP010",
+     "parm": "",
+     "proc": "",
+     "program": "ACCTRPT"
+    }
+   ],
+   "symbols": {}
+  }
+ },
+ "mapsets": {
+  "ACCTSET": {
+   "fields": 4,
+   "maps": [
+    "ACCTMAP"
+   ],
+   "name": "ACCTSET",
+   "path": "bms/ACCTSET.bms"
+  }
+ },
+ "name": "cobolmod",
+ "programs": {
+  "ACCTINQ": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "cics-link",
+     "line": 52,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DATEUTIL",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [
+    {
+     "args": {
+      "COMMAREA": "WS-COMMAREA",
+      "LENGTH": "49",
+      "TRANSID": "'AINQ'"
+     },
+     "command": "RETURN",
+     "line": 30,
+     "resolved": {
+      "TRANSID": [
+       "AINQ"
+      ]
+     }
+    },
+    {
+     "args": {
+      "INTO": "ACCTMAPI",
+      "MAP": "'ACCTMAP'",
+      "MAPSET": "'ACCTSET'",
+      "RESP": "WS-RESP"
+     },
+     "command": "RECEIVE MAP",
+     "line": 34,
+     "resolved": {
+      "MAP": [
+       "ACCTMAP"
+      ],
+      "MAPSET": [
+       "ACCTSET"
+      ]
+     }
+    },
+    {
+     "args": {
+      "FILE": "'ACCTDAT'",
+      "INTO": "ACCT-REC",
+      "RESP": "WS-RESP",
+      "RIDFLD": "WS-ACCT-KEY"
+     },
+     "command": "READ",
+     "line": 46,
+     "resolved": {
+      "FILE": [
+       "ACCTDAT"
+      ]
+     }
+    },
+    {
+     "args": {
+      "ERASE": "",
+      "FROM": "ACCTMAPO",
+      "MAP": "'ACCTMAP'",
+      "MAPSET": "'ACCTSET'"
+     },
+     "command": "SEND MAP",
+     "line": 65,
+     "resolved": {
+      "MAP": [
+       "ACCTMAP"
+      ],
+      "MAPSET": [
+       "ACCTSET"
+      ]
+     }
+    }
+   ],
+   "copybooks": [
+    "ACCTREC",
+    "DATEPARM",
+    "DFHAID",
+    "ACCTSET"
+   ],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-RESP",
+     "picture": "S9(8)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-ACCT-KEY",
+     "picture": "9(9)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "05 CA-ACCT-ID PIC 9(9)",
+      "05 CA-MSG PIC X(40)"
+     ],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-COMMAREA",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "05 ACCT-ID PIC 9(9)",
+      "05 ACCT-NAME PIC X(20)",
+      "05 ACCT-OPEN-DATE PIC X(8)",
+      "05 ACCT-BALANCE PIC S9(7)V99",
+      "05 FILLER PIC X(34)"
+     ],
+     "copybook": "ACCTREC",
+     "level": 1,
+     "name": "ACCT-REC",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "05 LK-DATE",
+      "10 LK-YEAR PIC 9(4)",
+      "10 LK-MONTH PIC 9(2)",
+      "10 LK-DAY PIC 9(2)",
+      "05 LK-RC PIC X(2)",
+      "88 LK-RC-OK VALUE '00'",
+      "88 LK-RC-BAD-MONTH VALUE '10'",
+      "88 LK-RC-BAD-DAY VALUE '20'"
+     ],
+     "copybook": "DATEPARM",
+     "level": 1,
+     "name": "LK-DATE-PARMS",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "02 FILLER PIC X(12)",
+      "02 ACCTIDL PIC S9(4) COMP",
+      "02 ACCTIDF PIC X",
+      "02 FILLER REDEFINES ACCTIDF",
+      "03 ACCTIDA PIC X",
+      "02 ACCTIDI PIC X(9)",
+      "02 NAMEL PIC S9(4) COMP",
+      "02 NAMEF PIC X",
+      "02 FILLER REDEFINES NAMEF",
+      "03 NAMEA PIC X",
+      "02 NAMEI PIC X(20)",
+      "02 MSGL PIC S9(4) COMP",
+      "02 MSGF PIC X",
+      "02 FILLER REDEFINES MSGF",
+      "03 MSGA PIC X",
+      "02 MSGI PIC X(40)"
+     ],
+     "copybook": "ACCTSET",
+     "level": 1,
+     "name": "ACCTMAPI",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "02 FILLER PIC X(12)",
+      "02 FILLER PIC X(3)",
+      "02 ACCTIDO PIC X(9)",
+      "02 FILLER PIC X(3)",
+      "02 NAMEO PIC X(20)",
+      "02 FILLER PIC X(3)",
+      "02 MSGO PIC X(40)"
+     ],
+     "copybook": "ACCTSET",
+     "level": 1,
+     "name": "ACCTMAPO",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "DFHCOMMAREA",
+     "picture": "X(49)",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "",
+     "fd_record": "",
+     "modes": [
+      "READ"
+     ],
+     "name": "ACCTDAT",
+     "organization": "",
+     "record_key": "",
+     "via": "cics"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": true,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "ACCTINQ: account inquiry (CICS transaction AINQ). Sends map\nACCTMAP, reads the account (file ACCTDAT) for the entered id,\nLINKs DATEUTIL to check its open date and shows the result.",
+   "is_batch_main": false,
+   "loc": 67,
+   "maps": [
+    "ACCTSET"
+   ],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 22,
+     "name": "0000-MAIN",
+     "performs": [
+      "3000-SEND",
+      "1000-RECEIVE"
+     ]
+    },
+    {
+     "kind": "paragraph",
+     "line": 33,
+     "name": "1000-RECEIVE",
+     "performs": [
+      "3000-SEND",
+      "2000-READ-ACCT"
+     ]
+    },
+    {
+     "kind": "paragraph",
+     "line": 45,
+     "name": "2000-READ-ACCT",
+     "performs": [
+      "3000-SEND"
+     ]
+    },
+    {
+     "kind": "paragraph",
+     "line": 64,
+     "name": "3000-SEND",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "cbl/ACCTINQ.cbl",
+   "program_id": "ACCTINQ",
+   "returning": "",
+   "sloc": 62,
+   "sql": [],
+   "transactions": [
+    "AINQ"
+   ],
+   "unit_kind": "program",
+   "uses_screen_io": true,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "ACCTRPT": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "call",
+     "line": 64,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DATEUTIL",
+     "using": [
+      "LK-DATE-PARMS"
+     ],
+     "via": ""
+    }
+   ],
+   "cics": [],
+   "copybooks": [
+    "ACCTREC",
+    "DATEPARM"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 ACCT-ID PIC 9(9)",
+      "05 ACCT-NAME PIC X(20)",
+      "05 ACCT-OPEN-DATE PIC X(8)",
+      "05 ACCT-BALANCE PIC S9(7)V99",
+      "05 FILLER PIC X(34)"
+     ],
+     "copybook": "ACCTREC",
+     "level": 1,
+     "name": "ACCT-REC",
+     "picture": "",
+     "section": "FILE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "RPT-LINE",
+     "picture": "X(80)",
+     "section": "FILE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-ACCT-STATUS",
+     "picture": "XX",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-RPT-STATUS",
+     "picture": "XX",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "88 WS-AT-END VALUE 'Y'"
+     ],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-EOF",
+     "picture": "X",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-VALID",
+     "picture": "9(5)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-INVALID",
+     "picture": "9(5)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "05 LK-DATE",
+      "10 LK-YEAR PIC 9(4)",
+      "10 LK-MONTH PIC 9(2)",
+      "10 LK-DAY PIC 9(2)",
+      "05 LK-RC PIC X(2)",
+      "88 LK-RC-OK VALUE '00'",
+      "88 LK-RC-BAD-MONTH VALUE '10'",
+      "88 LK-RC-BAD-DAY VALUE '20'"
+     ],
+     "copybook": "DATEPARM",
+     "level": 1,
+     "name": "LK-DATE-PARMS",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "05 RD-ACCT-ID PIC 9(9)",
+      "05 FILLER PIC X VALUE SPACE",
+      "05 RD-DATE PIC X(8)",
+      "05 FILLER PIC X VALUE SPACE",
+      "05 RD-STATUS PIC X(7)"
+     ],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-RPT-DETAIL",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "05 FILLER PIC X(14) VALUE 'TOTAL VALID: '",
+      "05 RT-VALID PIC ZZZZ9",
+      "05 FILLER PIC X(11) VALUE ' INVALID: '",
+      "05 RT-INVALID PIC ZZZZ9"
+     ],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-RPT-TOTAL",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [
+    {
+     "access": "",
+     "assign": "ACCTIN",
+     "fd_record": "ACCT-REC",
+     "modes": [
+      "INPUT"
+     ],
+     "name": "ACCT-FILE",
+     "organization": "LINE SEQUENTIAL",
+     "record_key": "",
+     "via": "native"
+    },
+    {
+     "access": "",
+     "assign": "RPTOUT",
+     "fd_record": "RPT-LINE",
+     "modes": [
+      "OUTPUT"
+     ],
+     "name": "RPT-FILE",
+     "organization": "LINE SEQUENTIAL",
+     "record_key": "",
+     "via": "native"
+    }
+   ],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "ACCTRPT: account report. Reads the account file (DD ACCTIN),\nvalidates each open date with DATEUTIL, writes one report line\nper account (DD RPTOUT) and the totals.",
+   "is_batch_main": true,
+   "loc": 82,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 43,
+     "name": "0000-MAIN",
+     "performs": [
+      "1000-OPEN",
+      "2000-READ",
+      "3000-PROCESS",
+      "4000-TOTALS",
+      "9000-CLOSE"
+     ]
+    },
+    {
+     "kind": "paragraph",
+     "line": 50,
+     "name": "1000-OPEN",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 58,
+     "name": "2000-READ",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 62,
+     "name": "3000-PROCESS",
+     "performs": [
+      "2000-READ"
+     ]
+    },
+    {
+     "kind": "paragraph",
+     "line": 76,
+     "name": "4000-TOTALS",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 81,
+     "name": "9000-CLOSE",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "cbl/ACCTRPT.cbl",
+   "program_id": "ACCTRPT",
+   "returning": "",
+   "sloc": 77,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  },
+  "DATEUTIL": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "function",
+     "line": 39,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DAYS-IN-MONTH",
+     "using": [],
+     "via": ""
+    }
+   ],
+   "cics": [],
+   "copybooks": [
+    "DATEPARM"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "88 WS-LEAP-YEAR VALUE 'Y'"
+     ],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-LEAP-FLAG",
+     "picture": "X",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-QUOT",
+     "picture": "9(4)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-REM",
+     "picture": "9(4)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "WS-MAX-DAY",
+     "picture": "9(2)",
+     "section": "WORKING-STORAGE"
+    },
+    {
+     "children": [
+      "05 LK-DATE",
+      "10 LK-YEAR PIC 9(4)",
+      "10 LK-MONTH PIC 9(2)",
+      "10 LK-DAY PIC 9(2)",
+      "05 LK-RC PIC X(2)",
+      "88 LK-RC-OK VALUE '00'",
+      "88 LK-RC-BAD-MONTH VALUE '10'",
+      "88 LK-RC-BAD-DAY VALUE '20'"
+     ],
+     "copybook": "DATEPARM",
+     "level": 1,
+     "name": "LK-DATE-PARMS",
+     "picture": "",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "DATEUTIL: validates a YYYYMMDD date (month range, day range,\nleap years). LK-RC: '00' valid, '10' bad month, '20' bad day.",
+   "is_batch_main": false,
+   "loc": 60,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 21,
+     "name": "0000-MAIN",
+     "performs": [
+      "1000-CHECK-MONTH",
+      "3000-LEAP",
+      "2000-CHECK-DAY"
+     ]
+    },
+    {
+     "kind": "paragraph",
+     "line": 29,
+     "name": "1000-CHECK-MONTH",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 38,
+     "name": "2000-CHECK-DAY",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 44,
+     "name": "3000-LEAP",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 59,
+     "name": "9999-EXIT",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "cbl/DATEUTIL.cbl",
+   "program_id": "DATEUTIL",
+   "returning": "",
+   "sloc": 56,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": [
+    "LK-DATE-PARMS"
+   ]
+  },
+  "DAYS-IN-MONTH": {
+   "author": "",
+   "calls": [],
+   "cics": [],
+   "copybooks": [],
+   "data_items": [
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "LK-MON",
+     "picture": "9(2)",
+     "section": "LINKAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "LK-LEAP",
+     "picture": "X",
+     "section": "LINKAGE"
+    },
+    {
+     "children": [],
+     "copybook": "",
+     "level": 1,
+     "name": "LK-DAYS",
+     "picture": "9(2)",
+     "section": "LINKAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "DAYS-IN-MONTH: user-defined function, the number of days of a\nmonth (01-12) given a leap-year flag ('Y' = leap year).",
+   "is_batch_main": false,
+   "loc": 32,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 13,
+     "name": "0000-MAIN",
+     "performs": [
+      "1000-FEB"
+     ]
+    },
+    {
+     "kind": "paragraph",
+     "line": 26,
+     "name": "1000-FEB",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "cbl/DAYSINM.cbl",
+   "program_id": "DAYS-IN-MONTH",
+   "returning": "LK-DAYS",
+   "sloc": 28,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "function",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": [
+    "LK-MON",
+    "LK-LEAP"
+   ]
+  },
+  "TDATEUTL": {
+   "author": "",
+   "calls": [
+    {
+     "kind": "call",
+     "line": 19,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DATEUTIL",
+     "using": [
+      "LK-DATE-PARMS"
+     ],
+     "via": ""
+    },
+    {
+     "kind": "call",
+     "line": 27,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DATEUTIL",
+     "using": [
+      "LK-DATE-PARMS"
+     ],
+     "via": ""
+    },
+    {
+     "kind": "call",
+     "line": 35,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DATEUTIL",
+     "using": [
+      "LK-DATE-PARMS"
+     ],
+     "via": ""
+    },
+    {
+     "kind": "call",
+     "line": 43,
+     "owner": "",
+     "resolved": true,
+     "static": false,
+     "target": "DATEUTIL",
+     "using": [
+      "LK-DATE-PARMS"
+     ],
+     "via": ""
+    }
+   ],
+   "cics": [],
+   "copybooks": [
+    "DATEPARM"
+   ],
+   "data_items": [
+    {
+     "children": [
+      "05 LK-DATE",
+      "10 LK-YEAR PIC 9(4)",
+      "10 LK-MONTH PIC 9(2)",
+      "10 LK-DAY PIC 9(2)",
+      "05 LK-RC PIC X(2)",
+      "88 LK-RC-OK VALUE '00'",
+      "88 LK-RC-BAD-MONTH VALUE '10'",
+      "88 LK-RC-BAD-DAY VALUE '20'"
+     ],
+     "copybook": "DATEPARM",
+     "level": 1,
+     "name": "LK-DATE-PARMS",
+     "picture": "",
+     "section": "WORKING-STORAGE"
+    }
+   ],
+   "entry_points": [],
+   "files": [],
+   "flow_hazards": [],
+   "format": "fixed",
+   "has_cics": false,
+   "has_dli": false,
+   "has_sql": false,
+   "header_comment": "TDATEUTL: driver-style tests of DATEUTIL. T99 fails on purpose\n(it expects a return code DATEUTIL never sets).",
+   "is_batch_main": true,
+   "loc": 48,
+   "maps": [],
+   "nested_programs": [],
+   "paragraphs": [
+    {
+     "kind": "paragraph",
+     "line": 11,
+     "name": "0000-MAIN",
+     "performs": [
+      "TC-T01",
+      "TC-T02",
+      "TC-T03",
+      "TC-T99"
+     ]
+    },
+    {
+     "kind": "paragraph",
+     "line": 17,
+     "name": "TC-T01",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 25,
+     "name": "TC-T02",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 33,
+     "name": "TC-T03",
+     "performs": []
+    },
+    {
+     "kind": "paragraph",
+     "line": 41,
+     "name": "TC-T99",
+     "performs": []
+    }
+   ],
+   "parse_warnings": [],
+   "path": "test/TDATEUTL.cbl",
+   "program_id": "TDATEUTL",
+   "returning": "",
+   "sloc": 44,
+   "sql": [],
+   "transactions": [],
+   "unit_kind": "program",
+   "uses_screen_io": false,
+   "uses_terminal_io": false,
+   "using_params": []
+  }
+ },
+ "ranking": [
+  [
+   "DAYS-IN-MONTH",
+   0.380175
+  ],
+  [
+   "DATEUTIL",
+   0.335936
+  ],
+  [
+   "ACCTINQ",
+   0.09463
+  ],
+  [
+   "ACCTRPT",
+   0.09463
+  ],
+  [
+   "TDATEUTL",
+   0.09463
+  ]
+ ],
+ "root": "<ROOT>",
+ "summary": {
+  "bms_mapsets": 1,
+  "call_edges": 4,
+  "cobol_loc": 332,
+  "copybooks": 3,
+  "jcl_jobs": 1,
+  "missing_copybooks": [],
+  "name": "cobolmod",
+  "programs": 5,
+  "root": "<ROOT>",
+  "unresolved_calls": [],
+  "unresolved_dynamic": [],
+  "warnings": []
+ },
+ "transactions": {
+  "AINQ": "ACCTINQ"
+ }
+}

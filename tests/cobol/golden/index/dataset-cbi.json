@@ -1,0 +1,135 @@
+{
+ "edge_counts": {
+  "call": 91,
+  "copy": 66,
+  "function": 4,
+  "reads": 1,
+  "writes": 1
+ },
+ "edges": "089f95684411f22f1a532ca9b2b646a2ccfa62192fb5355bec8f65acbfa7b818",
+ "entrypoints": {
+  "cics": [],
+  "jcl": [],
+  "standalone": [
+   "COBOL-BASIC-INTERPRETER"
+  ]
+ },
+ "groups": {
+  "ALLOCATE-VAR": "variables",
+  "ARRAY-INDEXED-NAME": "variables",
+  "ASCII-CODE-TO-CHAR": "functions",
+  "ASSIGN-VAR": "variables",
+  "CALL-CMD": "control_flow",
+  "CLEAR-SCREEN": "output",
+  "COBOL-BASIC-INTERPRETER": "(root)",
+  "COMMAND-LINE-PARSER": "(root)",
+  "CONDITIONAL-PROCESSOR": "control_flow",
+  "CONDITIONAL-STATEMENT-HANDLER": "control_flow",
+  "FOR-LOOP-HANDLER": "control_flow",
+  "GOSUB-GOTO-CMD": "control_flow",
+  "GOSUB-RETURN-HANDLER": "control_flow",
+  "IF-HANDLER": "control_flow",
+  "INKEY-FUNC": "input",
+  "INPUT-CMD": "input",
+  "IS-KEYWORD": "variables",
+  "LEFT-FUNC": "functions",
+  "LOAD-PROGRAM": "loading_parsing",
+  "LOGGER": "(root)",
+  "LOOP-HANDLER": "control_flow",
+  "LTRIM": "functions",
+  "PAINT-BACKGROUND": "output",
+  "PARSE-IFS": "loading_parsing",
+  "PARSE-LINE-LABELS": "loading_parsing",
+  "PARSE-LOOPS": "loading_parsing",
+  "PARSE-SELECTS": "loading_parsing",
+  "PARSE-SUBS": "loading_parsing",
+  "PRINT-TEXT": "output",
+  "RIGHT-FUNC": "functions",
+  "RTRIM": "functions",
+  "SELECT-HANDLER": "control_flow",
+  "SET-CURSOR-COLOR": "output",
+  "SET-CURSOR-POSITION": "output",
+  "SLEEP-PROGRAM": "control_flow",
+  "SUB-HANDLER": "control_flow",
+  "VARIABLE-REPOSITORY": "variables"
+ },
+ "records": {
+  "copybooks": {
+   "BASIC_KEYWORDS": "ce2d95ed4e92107c828fef22f6d14807fd2faeb560c7c76b0f330a45bc54c848",
+   "LS_VARIABLE": "329e4f06796f2c5ab935edb7e624d52f4da422a1bac8555a78a507ac06b19ab8",
+   "L_IF_BOUNDARY_TABLE": "70657d3b4a176ac7e477bb451ada86cbdc8c86453a4a32375af978b09023dcb1",
+   "L_LINE_LABEL_BOUNDARY_TABLE": "ba148aee03fbe95423fd2cdf0fe76cab92caf168d1307616ac546e136d88ab29",
+   "L_LOOP_BOUNDARY_TABLE": "18fa8454be425f4bb8ecc299ff7b3b7a55cc635f474dcab5c0a4769de9118f80",
+   "L_SELECT_BOUNDARY_TABLE": "c1387c2bb62c39e4b4975bcd954685e3fe9f6bed3e305408a302f0c8b2b44a05",
+   "L_SUB_BOUNDARY_TABLE": "55ffbd40b12b0d7bd53b1b37f03ac4901e0bd6517de6c0cb7ad355c0bbce094c"
+  },
+  "datastores": {
+   "ws-file-name": "7ad71c7aa78859eb1e0397be053683150e29fb34a8396b649ad072cc2aa5c463",
+   "ws-input-source-file-name": "22db37a8717a671833607f0b6db7ae27e4a37977c877520fd5350ea8dd45c285"
+  },
+  "jobs": {},
+  "mapsets": {},
+  "programs": {
+   "ALLOCATE-VAR": "e36bfc8c5a486ed1f829ab21dd9d57314052a887fc7634f2be0b13ea8f5f42d7",
+   "ARRAY-INDEXED-NAME": "198f97134609070e01ea7e9e66361e43945eb65cfdf19e03c9b712054ca1666e",
+   "ASCII-CODE-TO-CHAR": "81d40b773eebf659b6ed99b264aec5107297066929cc261ab78f6e29f4bbcf90",
+   "ASSIGN-VAR": "f37731f691f544efb584f3c075bf406898d43f5f9c0b9b44c64e3c1184838938",
+   "CALL-CMD": "f4953689c60e568415a20493f5d5407d7025e942019693f09d7229b30caf3852",
+   "CLEAR-SCREEN": "7b4aa2e8c2b1176ead9e4dd24e991b5330bf2d34b3dd0b8ef54a6b6fc321fbd1",
+   "COBOL-BASIC-INTERPRETER": "9086ee9b21fcf20141ac338cdf87464a286e7e6f57b8af96fdae0dd8b8e50a23",
+   "COMMAND-LINE-PARSER": "7232cabf56823481939f27eb7d1c3737051d1b2491cd75b63baa21edd5119ac2",
+   "CONDITIONAL-PROCESSOR": "e90105d26777135644dda25dd11c332248cf42df12eebb5f2e5dcb22cc66c9e2",
+   "CONDITIONAL-STATEMENT-HANDLER": "63d87a753a8b937c42b8a97a045d87c450e01125ac4f52667e29ba7ca6b26086",
+   "FOR-LOOP-HANDLER": "eb67eb176d7bf6ee14ed7716fdc499020e561c035fce71dc9c4ff7902a48fe4c",
+   "GOSUB-GOTO-CMD": "24be8b7f85c5f5f3731dc9e612dfd2d24e3420231d9bc2b1e3d890c207c76444",
+   "GOSUB-RETURN-HANDLER": "b6671d0abf2295a169575635f8748cd2eaf950693ea447fc90cf90a10ec6fb12",
+   "IF-HANDLER": "8c93e2147745aa80df6bd4bb6d048da80f2c8615d37bc99d384d3f8878747461",
+   "INKEY-FUNC": "50dea34a41e0a64aa1fdf2039ba1baa26052a13f51858a53a78023d3d7740c65",
+   "INPUT-CMD": "e16c31e0f9c891fab78cb5a6eec8e5028ff94a0be0417900ae8c8425479d4b2d",
+   "IS-KEYWORD": "6ba48eccfe55a05fa7fbb2b79b79b72a260f5e8e53a68ada869eb6bde3b4d723",
+   "LEFT-FUNC": "217d070248adda4b0944c57c2075956cc9299a29694089fa8e318c20df1f9f7c",
+   "LOAD-PROGRAM": "fbda19e32ecedaeb7a7713a0728e3dfddc49209f3376e4ec74abfbabc3ae549a",
+   "LOGGER": "a51bbed5d6db1773abfd3dc8e9671e2b89932cdcea3359399a9167b30c499363",
+   "LOOP-HANDLER": "50b42a100732c94e42d9f8ee4b174642eaa21a2d569078602a652b31ec93a069",
+   "LTRIM": "bc68d98bceb2a6b7ea7c5d1685e1fc9bcc7bf088ba48116908cdcf9ddec9e693",
+   "PAINT-BACKGROUND": "7bead53c6afd5504fe1931c0d4536cffa8e4931d7cdede25120ef5f3856332f9",
+   "PARSE-IFS": "13318fc5f4eaaf8a89a9a4b1bf5f3e5a08149f07a0f345ffcf46af7f358611c2",
+   "PARSE-LINE-LABELS": "ec2330327c1d51e052b5e667d8e0e06d0c53fac2dcc41f60ee4746f791ecf2ff",
+   "PARSE-LOOPS": "0a3dea9fda1fcb7f8466a3cf2cde12e6694532e29adef6ab021959aebfc47495",
+   "PARSE-SELECTS": "0de1a58fade864b63cb94f090c0a1f81d9899ea984d332cbea4ed29feaf02d72",
+   "PARSE-SUBS": "1faa778f64547faaae1346622b56d185a62ee5254d160fa632efb4fb22649300",
+   "PRINT-TEXT": "5d656b751a430c8c0c7412f09610a04f0bad618e823378f7d9cf6d1296fe9eef",
+   "RIGHT-FUNC": "9d35fdff0b70fc9ef78e949cafb7428f16066391129a9ea72d9ffd6cbd16f43f",
+   "RTRIM": "b802353ddaa6daa8e4a986c184d15fcd00fc9278aa54a1663b4867757a0a802b",
+   "SELECT-HANDLER": "5da3570fdee6244127326e6bfa5c068e35adcf9090dbdc293657b71a2b3ede41",
+   "SET-CURSOR-COLOR": "486d149c2a4bfabab617839aaa3c2e315b828c8e567030db8e14772828a674cd",
+   "SET-CURSOR-POSITION": "32470a7c88f72bcc61cf7d2c8e963fbc6a6c3ed55804b348e52b75a5a93ff9a9",
+   "SLEEP-PROGRAM": "8c84bad0bb6eeaee665ee7824af1c1560d9b2bb7372bdbc42bc3107fe8af5205",
+   "SUB-HANDLER": "24e76b2803ae47e4cd10355714d5ab4974d84116eecf52220b3b400d2006dc72",
+   "VARIABLE-REPOSITORY": "4aed135d309ef6e284e0dff5b4637a3657e0f951f75c61fbb52eec7a450d8cf3"
+  }
+ },
+ "scope": {
+  "exclude": [],
+  "subtree": "source"
+ },
+ "summary": {
+  "bms_mapsets": 0,
+  "call_edges": 95,
+  "cobol_loc": 8147,
+  "copybooks": 7,
+  "jcl_jobs": 0,
+  "missing_copybooks": [
+   "SCREENIO"
+  ],
+  "name": "cbi",
+  "programs": 37,
+  "root": "<ROOT>",
+  "unresolved_calls": [
+   "CURS_SET"
+  ],
+  "unresolved_dynamic": [],
+  "warnings": []
+ },
+ "transactions": {}
+}
