@@ -2,9 +2,9 @@ cff-version: 1.2.0
 message: >-
   If you use CoDoc, please cite the papers behind its two loops: SpecForge
   (preferred citation, the documentation loop) and TeSearch (listed under
-  references, the unit-test loop).
+  references, the unit-test loop), and this repository for the tool itself.
 type: software
-title: "CoDoc: executably verified documentation, unit tests and repository wikis"
+title: "CoDoc: Executably Verified Documentation, Unit Tests and Repository Wikis"
 abstract: >-
   CoDoc (codocs) generates per-file documentation, unit tests, a repository
   wiki and a business-logic analysis for Go, Python, Java, C, C++ and COBOL
@@ -81,15 +81,6 @@ references:
       - type: other
         value: "arXiv:2610.15964"
         description: arXiv identifier
-  - type: blog
-    title: "CoDoc: Documentation and Unit Tests, Verified by Execution"
-    authors:
-      - given-names: Yutong
-        family-names: Cheng
-    year: 2026
-    month: 10
-    url: "https://ccsnow127.github.io/blog/2026/codoc/"
-    medium: "Blog post"
   - type: software
     title: RepoWiki
     authors:

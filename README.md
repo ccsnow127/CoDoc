@@ -191,7 +191,7 @@ CoDoc reuses RepoAgent's `ClassDef` / `MethodDef` doc heading convention and rea
 
 ## Citation
 
-If you use CoDoc, please cite the papers behind its two loops: SpecForge for the documentation loop and TeSearch for the test loop. The blog post describes the tool itself.
+If you use CoDoc, please cite the papers behind its two loops (SpecForge for the documentation loop, TeSearch for the test loop) and this repository for the tool itself.
 
 ```bibtex
 @inproceedings{cheng2026specforge,
@@ -218,13 +218,13 @@ If you use CoDoc, please cite the papers behind its two loops: SpecForge for the
 ```
 
 ```bibtex
-@misc{cheng2026codoc,
-  author       = {Cheng, Yutong},
-  title        = {{CoDoc}: Documentation and Unit Tests, Verified by Execution},
-  year         = {2026},
-  month        = oct,
-  howpublished = {\url{https://ccsnow127.github.io/blog/2026/codoc/}},
-  note         = {Blog post}
+@software{cheng2026codoc,
+  author  = {Cheng, Yutong},
+  title   = {{CoDoc}: Executably Verified Documentation, Unit Tests and Repository Wikis},
+  year    = {2026},
+  version = {0.1.0},
+  license = {MIT},
+  url     = {https://github.com/ccsnow127/CoDoc}
 }
 ```
 
